@@ -1,0 +1,37 @@
+.nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    transition: .8s;
+    width: 70px;
+    height: 180px;
+    background: #b1b2b3;
+    transform: translate3d(-20px, 40vh, 20px);
+    border-left: solid 3px #f8f8f8;
+    border-bottom: solid 3px #f8f8f8;
+    overflow: hidden;
+  }
+  .nav button {
+    flex: 1;
+    display: block;
+    background: transparent;
+    border: 0;
+    border-bottom: solid thin #f8f8f8;
+  }
+  .nav button:focus {
+    outline-width: thin;
+  }
+  .nav button[data-active] {
+    background: #60A5FA;
+  }
+  .nav button[data-active] svg {
+    fill: #eee;
+  }
+  .nav button:hover {
+    transition: .5s;
+    background: #60A5FA;
+  }
+  .nav button:hover svg {
+    transition: .5s;
+    fill: #eee;
+  }

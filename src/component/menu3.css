@@ -1,0 +1,80 @@
+
+
+
+.columnasMenus:nth-child(3) .menuLista{
+    margin-top: 50%;
+    z-index: 50;
+}
+
+.columnasMenus:nth-child(3)  .containerImg{
+    width:100%;
+    height: 50%;
+  top: -25%;
+  right: 10px;
+  z-index: 0;
+}
+
+.columnasMenus:nth-child(3)  .containerImg img{
+    width: 80%;
+    height: 100%;
+}
+.columnasMenus:nth-child(3)  .containerImg::after{
+    content: "";
+    width: 80%;
+    height: 100%;
+    top: 10px;
+    right: 10%;
+    position: absolute;
+    background: transparent;
+    border-radius: 50%;
+    border: solid 20px rgba(255, 166, 0);
+    border-right: 0px;
+}
+.columnasMenus:nth-child(3)  .containerImg::before{
+    content: "";
+    width: 90%;
+    height: 100%;
+    border-radius: 50%;
+    top: 6%;
+    right: 8%;
+    z-index: -10;
+    position: absolute;
+    background: transparent;
+    border: solid 2px orange;
+    border-left: 0px;
+}
+
+
+.columnasMenus:nth-child(3)  .containerImgAbajo{
+    width:115%;
+    height: 50%;
+  bottom: -30%;
+  right: 10px;
+  z-index: 0;
+}
+
+.columnasMenus:nth-child(3)  .containerImgAbajo::after{
+    content: "";
+    width: 100%;
+    height: 110%;
+    border-radius: 50%;
+    top: 0;
+    right: 10PX;
+    position: absolute;
+    background: transparent;
+    border: solid 20px orange;
+    border-right: 0px;
+}
+.columnasMenus:nth-child(3)  .containerImgAbajo::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    bottom: 20px;
+    right:  25px;
+    z-index:100;
+    position: absolute;
+    background: transparent;
+    border: solid 2px orange;
+    border-right: 0px;
+}

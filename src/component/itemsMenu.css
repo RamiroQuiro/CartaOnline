@@ -1,0 +1,32 @@
+.itemDescription{
+     margin-left: 0;
+ font-size: .75em;
+ font-weight: none;
+ width: 72%;
+}
+
+.descriptionSpan{
+    
+}
+.cantidadItems{
+    height:2em;
+    width: 2.2em;
+    margin: auto;
+    background:transparent;
+    padding-left: 10px;
+    outline: 2px;
+    outline-color: #fd9e1c;
+    outline-style: dotted;
+    appearance:none;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.itemPrecio{
+    width: 25%;
+    transform: skewY(-8deg);
+}
+

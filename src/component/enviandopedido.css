@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Walter+Turncoat");
+
+.mainContainer {
+  position: relative;
+  width: 550px;
+  height: 450px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+#left {
+  position: relative;
+  background: linear-gradient(135deg, rgba(187, 112, 0, 0.685) 0%, rgba(26, 26, 26, 0.55) 100%), url("https://images.pexels.com/photos/1653702/pexels-photo-1653702.jpeg");
+  background-size: cover;
+  background-position: center;
+  min-height: 70vh;
+   width: 70%;
+  top: -12.5%;
+  left: -30%;
+  padding: 10px 25px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-flow: column nowrap;
+}
+#left ul{
+    backdrop-filter: blur(2.5px);
+    background: #79797950;
+    color:#ffffff;
+    font-family: "Walter Turncoat", cursive;
+    /* -webkit-text-stroke: .5px #52525290; */
+    text-shadow: -1.5px 1px 1px #141414;
+}
+
+#left #head {
+  opacity: 0.95;
+}
+
+#right {
+  position: absolute;
+  width: calc(60% - 40px);
+  top: 2em;
+  left: 40%;
+  display: flex;
+  flex-flow: column nowrap;
+  padding-left: 30px;
+}
+
+#right form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 3px;
+  width: 100%;
+}
+
+#right form input,#right form textarea {
+  appearance: none;
+  outline: none;
+  background: #f9f9f995;
+  border: none;
+  border-bottom: 1.5px solid #ccc;
+  padding: 5px;
+  margin-top: 2.5px;
+  position: relative;
+}
+
+#right form .form-field {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin-bottom: 12.5px;
+}
+
+#right form #date-val {
+  display: flex;
+  justify-content: space-between;
+}
+
+#right form #date-val select {
+  width: 45%;
+}
+
+#right form button[type=submit] {
+  background: linear-gradient(135deg, #60A5FA 0%, #b7d4f7 100%);
+  padding: 5px;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 400;
+  font-size: 12pt;
+  transition: .7s;
+  width: auto;
+  margin-top: 25px;
+}
+
+#right form button[type=submit]:hover {
+  background: transparent;
+  box-shadow: 0 0 0 3px #4183d7;
+  color: #4183d7;
+}

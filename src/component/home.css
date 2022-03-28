@@ -1,0 +1,109 @@
+* {
+  margin-left: 0;
+  ---degradado-Naranja: linear-gradient(19deg, #fd9e1c 0%, #ff8721 92%);
+  ---backgrounCarta: linear-gradient(19deg, #1c1c1c 0%, #1c2128 92%);
+}
+
+body{
+ 
+  background: linear-gradient(#D3D3D3 0%, #D3D3D3 75%, #797979  75%   )
+}
+.containerHome {
+  min-height: 100vh;
+  padding-top: 1.7em;
+  width: 100vw;
+}
+.containerCarta {
+  width:90vw;
+  background: var(---backgrounCarta);
+    height: 100%;
+    overflow: hidden;
+  box-shadow: -8px 0 30px 5px #1c212890;
+}
+.containerCarta::after{
+    content: " ";
+    position: absolute;
+    z-index: -10;
+  height: 0;
+  width: 0;
+    top: 7%;
+    left: 2%;
+    border-bottom:solid 540px  #1c1c1c95;
+    border-left:solid 50px transparent;
+    border-right:solid 50px transparent;
+    border-top:solid 2px transparent;
+    filter: blur(8px);
+}
+.containerCarta::before{
+    content: " ";
+    position: absolute;
+    z-index: -10;
+  height: 0;
+  width: 0;
+    top: 75%;
+    left: 2%;
+    border-top:solid 130px  #1c1c1c95;
+    border-left:solid 50px transparent;
+    border-right:solid 50px transparent;
+    filter: blur(5px);
+}
+
+.etiquetasMenu {
+font-size: 1.75em;
+height: 1.5em;
+margin: 0;
+padding: 0;
+}
+
+.columnasMenus {
+  width: 100%;
+  top: 0;
+  position: relative;
+
+}
+
+/*primer menu*/
+
+.columnasMenus:nth-child(1) .menuLista {
+  height: 50%;
+  position: relative;
+  top: 45%;
+  width: 100%;
+}
+
+
+
+.columnasMenus:nth-child(1) .menuLista .etiquetasMenu {
+  margin-left: -5px;
+  width: 80%;
+  background: var(---degradado-Naranja);
+  transform: skewY(-1deg);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  padding-left: 2em;
+}
+
+.columnasMenus:nth-child(1) .items-menuLista {
+  line-height: 1em;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+.buttonEnviar
+{  background: linear-gradient(19deg, #fd9e1c 0%, #c96b1a 92%);
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  transition: .7s;
+  width: auto;
+  padding: 10px;
+  margin-top: 25px;
+}
+.buttonEnviar:hover
+{
+  background: transparent;
+  box-shadow: 0 0 0 3px #fd9e1c;
+  color: #c96b1a;
+}

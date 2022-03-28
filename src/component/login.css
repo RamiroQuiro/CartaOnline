@@ -1,0 +1,68 @@
+.containerLogin{
+    background: rgb(35,76,125);
+    background: linear-gradient(19deg, rgb(76, 153, 248) 12%, rgba(137,187,249,1) 76%);
+    background-repeat: no-repeat;
+
+    background-size: cover;
+}
+ .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: 20%;
+    top: 50px;
+    opacity: .3;
+}
+.shape:nth-child(2){
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: 20%;
+    bottom: 50px;
+    opacity:.5;
+}
+
+.userSignIn{
+       overflow: hidden;   
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    z-index: 50;
+    background: #ffcacabe;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 5px 6px 2px #3d3d3d70
+}
+
+.imgBox{
+height: 105%;
+
+}
+.formBox{
+    background: transparent;
+}
+.imgBoxSignUp{
+    left: -100%;
+    border-radius: 25%;
+}
+.formBoxUp{
+     left:100%     ; 
+     background: #DBFA4690;
+     backdrop-filter: blur(10px);
+}
+.imgBoxUp{
+    left:-100%;
+}
+.active{
+    opacity: 1;
+    left:0;
+}

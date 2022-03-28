@@ -1,0 +1,38 @@
+
+.columnasMenus:nth-child(1)  .containerImagenIzquierda{
+    width:100%;
+    height: 60%;
+  top: -20%;
+  left: -20%;
+  z-index: 0;
+}
+
+.columnasMenus:nth-child(1)  .containerImagenIzquierda img{
+    height: 100%;
+}
+
+.columnasMenus:nth-child(1)  .containerImagenIzquierda::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 4%;
+    left: 2%;
+    position: absolute;
+    background: transparent;
+    border-radius: 50%;
+    border: solid 20px rgba(255, 166, 0);
+    border-left: 0px;
+}
+.columnasMenus:nth-child(1)  .containerImagenIzquierda::before{
+    content: "";
+    width: 105%;
+    height: 100%;
+    border-radius: 50%;
+    top: 6%;
+    left: 2%;
+    z-index: -10;
+    position: absolute;
+    background: transparent;
+    border: solid 2px orange;
+    border-left: 0px;
+}
