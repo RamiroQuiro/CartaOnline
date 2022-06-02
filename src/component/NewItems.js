@@ -92,12 +92,8 @@ export default function NewItems() {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="#"
-                  className="text-sm text-blue-700 hover:underline dark:text-blue-500"
-                >
-                  Lost Password?
-                </a>
+             
+            
               </div>
               <button
                 type="submit"
@@ -107,12 +103,7 @@ export default function NewItems() {
               </button>
               <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{" "}
-                <a
-                  href="#"
-                  className="text-blue-700 hover:underline dark:text-blue-500"
-                >
-                  Create account
-                </a>
+            
               </div>
             </form>
           </div>

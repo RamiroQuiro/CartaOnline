@@ -4,34 +4,27 @@
     vertical-align: middle;
     width: 25px;
     height: 25px;
-    fill: #525252;
+    fill: #f1f1f1;
   }
   
   .board {
     width: 100vw;
     min-height: 100vh;
-    padding: 10px;
-    background: rgb(255,255,255);
-    background: linear-gradient(95deg, rgb(255, 255, 255) 22%, rgb(182, 213, 250) 22%);
+  }
+
+ 
+  .containerAccount {
+    width:85%;
+    margin:  auto;
   }
   
 
-  
-  header,
-  .containerAccount {
-    width: 75%;
-    margin: 40px auto;
-  }
-  
-  header,
   .head {
     display: flex;
     justify-content: space-between;
   }
   
-  .head h4 {
-    color: #5b70c3;
-  }
+ 
   
   .containerAccount {
     display: grid;
@@ -40,41 +33,22 @@
     grid-template-rows: 1fr 1fr;
     gap: 30px;
   }
+
   
-  h2 {
-    color: #525252;
-    font-size: 16px;
-  }
-  
-  .logo h1 {
-    font-size: 14px;
-    color: #525252;
+  /* .logo h1 {
+    font-size: 1.5em;
+    color:#732002
   }
   .logo span {
-    color: #6484d5;
-  }
+    font-weight: bold;
+    color: #D98014;
+  } */
   
-  .account {
-    display: flex;
-    align-items: center;
-    color: #525252;
-  }
-  .account > * {
-    margin-left: 10px;
-  }
-  .account h4 {
-    font-size: 14px;
-  }
-  .account img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-  }
-  
+ 
   .properfilCuentafits li {
     display: flex;
     justify-content: space-between;
-    padding: 15px 25px;
+    /* padding: 15px 25px; */
     color: #525252;
   }
   .perfilCuenta h4,
@@ -94,8 +68,8 @@
 
 /* Lefto */
   .inventarioComidas{
-      background:#d6d6d695;
-       backdrop-filter: blur(12px); 
+      background:#f5f5f590;
+       backdrop-filter: blur(3px); 
 }
 .inventarioComidas ul {
     list-style: none;

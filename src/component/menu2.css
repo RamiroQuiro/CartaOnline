@@ -1,9 +1,5 @@
 @import "./home.css";
-*{
-    margin-left: 0;
-    ---degradado-Naranja:linear-gradient(19deg,#FF881D 0%,#FF9F0E 92%);
-    ---backgrounCarta:linear-gradient(19deg, #1C1C1C 0%, #1C2128 92%);
-}
+
 
 .columnasMenus .titulo{
   margin-top: 2em;
@@ -26,7 +22,6 @@
     top: 0;
     margin-top: 8px;
     margin-right: -19px;
-    background: var(---backgrounCarta);
     -webkit-transform: rotate(45deg) skew(15deg, 15deg);
     -moz-transform: rotate(45deg) skew(15deg, 15deg);
     -ms-transform: rotate(45deg) skew(15deg, 15deg);

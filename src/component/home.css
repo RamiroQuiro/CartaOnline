@@ -1,7 +1,8 @@
 * {
-  margin-left: 0;
+  margin: 0;
+  padding: 0;
   ---degradado-Naranja: linear-gradient(19deg, #fd9e1c 0%, #ff8721 92%);
-  ---backgrounCarta: linear-gradient(19deg, #1c1c1c 0%, #1c2128 92%);
+  ---backgrounCarta: linear-gradient(19deg, #2e2e2e 0%, #271717 92%);
 }
 
 body{
@@ -11,12 +12,12 @@ body{
 .containerHome {
   min-height: 100vh;
   padding-top: 1.7em;
-  width: 100vw;
+  width: 100%;
 }
 .containerCarta {
-  width:90vw;
+  width:90%;
   background: var(---backgrounCarta);
-    height: 100%;
+    min-height: 720px;
     overflow: hidden;
   box-shadow: -8px 0 30px 5px #1c212890;
 }

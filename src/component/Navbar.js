@@ -1,24 +1,94 @@
-import React from 'react'
-import './navbar.css'
+import { onLog } from "firebase/app";
+import { signOut } from "firebase/auth";
+import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { Link, NavLink, useNavigate ,useOutletContext} from "react-router-dom";
+import { Auth } from "./contexto/AuthContext";
+import { db, gAuth } from "./Firebase";
+import { FaShapes, FaCogs,FaBookOpen,FaColumns,FaFileImage } from "react-icons/fa";
+import "./navbar.css";
 
-export default function Navbar() {
+export default function Navbar({perfilUser}) {
+  const { user } = Auth();
+
+  const navigate = useNavigate();
+
+  const handlelogOut = () => {
+    signOut(gAuth)
+      .then(() => {
+        toast("Sesion Cerrada \n Nos vemos pronto", {
+          style: {
+            textAlign: "center",
+            fontbold: true,
+            marginTop: "10px",
+          },
+        });
+      })
+      .catch((error) => {
+        toast(error);
+      });
+    navigate("/login");
+  };
   return (
-    <nav className="nav rounded  left-5">
-    <button arial-label="dashboard" data-active className='pl-2'>
-      <svg id="icon-dashboard" viewBox="0 0 24 24">
-        <path d="M12.984 3h8.016v6h-8.016v-6zM12.984 21v-9.984h8.016v9.984h-8.016zM3 21v-6h8.016v6h-8.016zM3 12.984v-9.984h8.016v9.984h-8.016z"></path>
-      </svg>
-    </button>
-    <button arial-label="analytics">
-      <svg id="icon-pie_chart" viewBox="0 0 24 24">
-        <path d="M13.031 13.031h8.953q-0.328 3.563-2.859 6.094t-6.094 2.859v-8.953zM13.031 2.016q3.563 0.328 6.094 2.859t2.859 6.094h-8.953v-8.953zM11.016 2.016v19.969q-3.797-0.375-6.398-3.234t-2.602-6.75 2.602-6.75 6.398-3.234z"></path>
-      </svg>
-    </button>
-    <button arial-label="wallet">
-      <svg id="icon-account_balance_wallet" viewBox="0 0 24 24">
-        <path d="M15.984 13.5q0.609 0 1.055-0.422t0.445-1.078-0.445-1.078-1.055-0.422-1.055 0.422-0.445 1.078 0.445 1.078 1.055 0.422zM12 15.984v-7.969h9.984v7.969h-9.984zM21 18v0.984q0 0.797-0.609 1.406t-1.406 0.609h-13.969q-0.844 0-1.43-0.586t-0.586-1.43v-13.969q0-0.844 0.586-1.43t1.43-0.586h13.969q0.797 0 1.406 0.609t0.609 1.406v0.984h-9q-0.844 0-1.43 0.586t-0.586 1.43v7.969q0 0.844 0.586 1.43t1.43 0.586h9z"></path>
-      </svg>
-    </button>
-  </nav>
-  )
+    <div className="">
+      <Toaster />
+      <header className=" mx-auto pt-2 px-5">
+        <div className="logo group relative duration-300  flex  px-4 hover:-translate-y-0.5  hover:shadow-xl py-1 items-center gap-5 text-2xl font-bold text-paleta-300">
+          <Link 
+          to={`/${perfilUser?.businessName}`}
+          target="_blank"
+          className="">
+            {perfilUser?.businessName}
+          </Link>
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-7 absolute  whitespace-nowrap text-gray-100  left-full bottom-full ml-2 -mb-2 bg-paleta-300 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2  border-r-2 border-paleta-600  ">Ir al folleto</span>
+        </div>
+        <div className="headerDerecha flex gap-5">
+          <h4>{perfilUser?.userName}</h4>
+          😊
+          <i
+            className="gg-log-out  logout cursor-pointer "
+            onClick={handlelogOut}
+          ></i>
+        </div>
+      </header>
+      <nav className="nav rounded bg-paleta-100   left-5">
+      
+        <NavLink
+          className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
+          to={"account"}
+          data-tooltip-target="tooltip-bottom"
+        >
+          <FaShapes className="icon " />
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  whitespace-nowrap   text-gray-800  left-full bottom-full -ml-2 -mb-2 bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Mi Cuenta</span>
+        </NavLink>
+
+      
+        <NavLink 
+         className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
+        to={"perfildelaCuenta"}>
+          <FaCogs />
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute whitespace-nowrap  text-gray-800  left-full bottom-full -ml-2 -mb-2 bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Datos de Perfil</span>
+        </NavLink>
+        <NavLink  
+        className={ ({ isActive }) =>isActive ? "buttonActive group"  : "button group relative duration-300"}
+         to={"pageItems"}>
+          <FaBookOpen />
+        <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-2  bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs whitespace-nowrap  px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Carga de Items</span>
+        </NavLink>
+        <NavLink 
+        className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
+        to={"pageIgames"}>
+          <FaFileImage />
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Stock Imagenes</span>
+        </NavLink>
+        <NavLink 
+        className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
+        to={"disenioFolleto"}>
+          <FaColumns />
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Diseño de Folleto</span>
+        </NavLink>
+
+      </nav>
+    </div>
+  );
 }

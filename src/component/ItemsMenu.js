@@ -65,7 +65,6 @@ const {traerPedidos}=useContexto()
         name="ItemsMenu"
         id={productID}
         className="cantidadItems  focus:bg-orange-400 font-bold rounded border-orange-100"
-        defaultValue="0"
         placeholder="0"
         value={cantidadItems.cantidad}
       />

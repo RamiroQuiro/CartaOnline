@@ -1,32 +1,49 @@
 import "./App.css";
-import Navbar from "./component/Navbar";
-import Home from "./component/Home";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import FolletosItems from "./component/FolletosItems";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ContextProvider from "./component/contexto/ContextProvider";
 import Layout from "./component/Layout";
 import Login from "./component/Login";
-import AuthContext from "./component/contexto/AuthContext";
+import AuthContext, { Auth } from "./component/contexto/AuthContext";
 import Account from "./component/Account";
 import EnviandoPedido from "./component/EnviandoPedido";
-import NewItems from "./component/NewItems";
+import PerfildelaCuenta from "./component/PerfildelaCuenta";
+import PageItems from "./component/PageItems";
+import PriveteRoute from "./component/PriveteRoute";
+import PageImagenes from "./component/PageImagenes";
+import { useContext } from "react";
+import DiseñoFolleto from "./component/DiseñoFolleto";
 
 function App() {
+  const userPerfil = useContext(AuthContext);
+
   return (
     <BrowserRouter>
+      <AuthContext>
         <ContextProvider>
-            <AuthContext>
           <Routes>
-            <Route path='/' element={<Home/>}/>
-              <Route path="/enviando" element={<EnviandoPedido/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/" element={<Layout/>}>
-                <Route path="/account" element={<Account/>}/>
-                    <Route path="/newItems" element={<NewItems/>}/>
-            </Route>
+            <Route path="/:businessName" element={<FolletosItems />}/ >
+            <Route path="/:businessName/enviando" element={<EnviandoPedido />} />
 
+            {/* <Route path="/" element={<FolletosItems />}>
+            </Route> */}
+            <Route path="/login" element={<Login />} />
+            <Route
+              element={
+                <PriveteRoute>
+                  <Layout />
+                </PriveteRoute>
+              }
+            >
+              <Route path="account" element={<Account />} />
+              <Route path="perfildelaCuenta" element={<PerfildelaCuenta />} />
+              <Route path="pageItems" element={<PageItems />} />
+              <Route path="pageIgames" element={<PageImagenes />} />
+              <Route path="disenioFolleto" element={<DiseñoFolleto />} />
+            </Route>
           </Routes>
-            </AuthContext>
         </ContextProvider>
+      </AuthContext>
     </BrowserRouter>
   );
 }

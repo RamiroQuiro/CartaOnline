@@ -1,5 +1,9 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { arrayRemove, arrayUnion,  doc, getDoc, updateDoc } from "firebase/firestore";
+import React, { createContext, useContext,  useEffect,  useReducer, useState } from "react";
+import { db } from "../Firebase";
+import toast, { Toaster } from 'react-hot-toast'
 import ReducerPedidos from "./ReducerPedidos";
+import { Auth } from "./AuthContext";
 
 export const contextState = createContext();
 
@@ -8,23 +12,19 @@ export const contextState = createContext();
    return context;
  };
 
-//  const useContexto=()=> useContext(contextState)
 
 const estadoInicial={
-  pedidosGral:[
-//     {
-//       ItemsMenu: "",
-//   cantidad: 0,
-//   precio:'0',
-//   productID:0,
-// },
-]
+  pedidosGral:[]
 }
 
 export default function ContextProvider  ({ children }) {
+  const { user,userPerfil }=Auth()
+const docRef = doc(db, `usuarios/${user?.uid}`);
+const docRefItems = doc(db, `listado/empresas`);
 
 const [state, dispatch] = useReducer(ReducerPedidos, estadoInicial)
-//  const [pedidoGral,setPedidoGral]=useState([])
+
+
 
 const traerPedidos=(stateMenu)=>{
     // setPedidoGral(...pedidoGral,stateMenu)
@@ -36,12 +36,10 @@ const traerPedidos=(stateMenu)=>{
 }
 
 const suma = () => {
-
 dispatch({
   type:'RESTAR',
   payload:' count',
 })
-
   };
   const resta = () => {
  
@@ -49,11 +47,41 @@ dispatch({
     
 const stateGral=()=>state
 
+// funciones Firestore
+
+// crear Items nuevos en la collection Items
+const crearItems=async(item)=>{
+    const referencedBusinessName=userPerfil.businessName+"."+"items"
+    await updateDoc(docRefItems,{[referencedBusinessName]:arrayUnion(item)})
+  
+  toast('Items Agregado!', {
+    icon: '👏',
+  });
+
+}
+// eliminar items
+const eliminarItems=async(item)=>{
+  const referencedBusinessName=userPerfil.businessName+"."+"items"
+    await updateDoc(docRefItems,{[referencedBusinessName]:arrayRemove(item)})
+  toast('Items Eliminado!', {
+    icon: '👏',
+  });
+}
+
+// traer una sola vez el listado de items
+const listarItems= async (hola)=>{
+const docRef=doc(db,'listado','items');
+const docSnap  = await getDoc(docRefItems)
+console.log(hola,docSnap.data().listado)
+
+}
+
+
 
 
 
   return (
-    <contextState.Provider value={{...state,stateGral,traerPedidos}}>
+    <contextState.Provider value={{...state,crearItems,eliminarItems,listarItems,stateGral,traerPedidos}}>
         {children}
     </contextState.Provider>
   );

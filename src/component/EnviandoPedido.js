@@ -1,20 +1,32 @@
+import { doc, getDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useReducer, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContexto } from "./contexto/ContextProvider";
 import "./enviandopedido.css";
-import ItemsMenu from "./ItemsMenu";
+import { db } from "./Firebase";
 
 export default function EnviandoPedido() {
   const [lista, setLista] = useState([]);
   const { stateGral, state } = useContexto();
   const [pedido, setPedido] = useState({});
+  const [perfilCuenta, setPerfilCuenta] = useState({
+    businessName: "",
+    nTel1: "",
+    direccion: "",
+  });
   const navigate = useNavigate();
+
   const numeroWhatsApp=5493855353174
 
+  
   const volver = () => {
     navigate(-1);
   };
 
+
+const params=useParams()
+const businessName=params.businessName
+const docRef = doc(db, `listado/empresas`);
 
   useEffect(() => {
     const montarPedido = () => {
@@ -24,11 +36,23 @@ export default function EnviandoPedido() {
     montarPedido();
   }, []);
 
+  useEffect(() => {
+    const traerData =async() => {
+ const data= await getDoc(docRef).then((data) => data.data()[businessName]);
+setPerfilCuenta({
+  businessName: data.businessName,
+  nTel1: data.nTel1,
+  direccion: data.direccion,
+})
+    }
+    traerData()
+  },[])
+
+
   const sumaTotal = () => {
     return lista.reduce((a, b) => a + (Number(b.precio) || 0) * b.cantidad, 0);
   };
   const suma = sumaTotal();
-  console.log(lista.cantidad);
 
   const handleChange = (e) => {
    setPedido({...pedido,[e.target.name]:e.target.value});
@@ -38,7 +62,7 @@ export default function EnviandoPedido() {
     e.preventDefault();
     setTimeout(() => {
          window.open(
-        `https://wa.me/${numeroWhatsApp}?text=Hola,%20este%20es%20mi%20pedido:${
+        `https://wa.me/549${perfilCuenta.nTel1}?text=Hola,%20este%20es%20mi%20pedido:${
           lista.map((item =>(`%0A%0A ✓ *${item.cantidad}* *${item.ItemsMenu}* ` ) ))
         }%0A%0AMi%20nombre%20es%20*${pedido.nombre}*%0A%0A%20Mi%20dirección es%20*${pedido.direccion}*,%3A%0A%0Aobservación:%20*${pedido.mensaje}* %0A%0A(◠﹏◠)%0A%0AEl%20total%20es:%20*${suma}*`,
         `_blank`
@@ -69,15 +93,15 @@ export default function EnviandoPedido() {
             <label htmlFor="expiry-month" className="inline-block">
               Total de su pedido es:
             </label>
-            <input
+            <p
               type="text"
               className="inline-block"
               name="total"
               id=""
-              value={`$ ${suma}`}
-            />
+            
+            >{`$ ${suma}`}</p>
 
-            <div id="form-sec-code" class="form-field">
+            <div id="form-sec-code" className="form-field">
               <label htmlFor="sec-code" className="text-sm pt-3">
                 Nombre
               </label>
@@ -89,7 +113,7 @@ export default function EnviandoPedido() {
                 required
               />
             </div>
-            <div id="form-sec-code" class="form-field">
+            <div id="form-sec-code" className="form-field">
               <label htmlFor="sec-code" className="text-sm  ">
                 Dirección
               </label>
@@ -101,7 +125,7 @@ export default function EnviandoPedido() {
                 required
               />
             </div>
-            <div id="form-sec-code" class="form-field">
+            <div id="form-sec-code" className="form-field">
               <label htmlFor="sec-code" className="text-sm ">
                 Obsercación
               </label>
@@ -111,7 +135,7 @@ export default function EnviandoPedido() {
                 name="mensaje" 
                 className="text-sm px-2 py-5"
                 placeholder="un poco crocante, mas salsa, poca salsa, etc"
-                required
+                
               />
             </div>
 
