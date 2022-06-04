@@ -76,7 +76,7 @@ const handleLogin = async(e)=>{
           <div className="userBox  absolute top-0 left-0 w-full h-full flex justify-center items-center ">
             <div className="imgBox relative w-1/2 h-full duration-500">
               <img
-                src="http://lorempixel.com/500/500/food"
+                src="https://source.unsplash.com/random/800x800/?img=1"
                 // src="https://images.pexels.com/photos/1260968/pexels-photo-1260968.jpeg"
                 alt=""
                 className=" absolute object-cover w-full h-full duration-300"
@@ -161,7 +161,7 @@ const handleLogin = async(e)=>{
             </div>
             <div className={active?"active imgBoxUp imgBox duration-500  relative w-1/2 h-full ": " imgBoxUp  duration-500 relative w-1/2 h-full "}>
               <img
-                src="https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg"
+                src="https://source.unsplash.com/random/800x800/?img=2"
                 alt=""
                 className="bg-white absolute object-cover h-full duration-300"
               />

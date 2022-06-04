@@ -68,7 +68,7 @@
 
 /* Lefto */
   .inventarioComidas{
-      background:#f5f5f590;
+      background:rgba(245, 245, 245, 0.565);
        backdrop-filter: blur(3px); 
 }
 .inventarioComidas ul {

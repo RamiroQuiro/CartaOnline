@@ -42,7 +42,12 @@ const register=async (mail,password,userName,businessName)=>{
         facebook:'',
         instagram:'',
         direccion:'',
-      items:[]
+      items:[],
+      images:[{
+        nombre: "",
+        url: "",
+        posicion: "", 
+      },]
       }
   })
     toast.success('Usuario creado correctamente',{

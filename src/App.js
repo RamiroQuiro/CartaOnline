@@ -13,6 +13,7 @@ import PriveteRoute from "./component/PriveteRoute";
 import PageImagenes from "./component/PageImagenes";
 import { useContext } from "react";
 import DiseñoFolleto from "./component/DiseñoFolleto";
+import Home from "./Home";
 
 function App() {
   const userPerfil = useContext(AuthContext);
@@ -22,11 +23,11 @@ function App() {
       <AuthContext>
         <ContextProvider>
           <Routes>
+
+            <Route path="/" element={<Home />}/ >
             <Route path="/:businessName" element={<FolletosItems />}/ >
             <Route path="/:businessName/enviando" element={<EnviandoPedido />} />
-
-            {/* <Route path="/" element={<FolletosItems />}>
-            </Route> */}
+         
             <Route path="/login" element={<Login />} />
             <Route
               element={

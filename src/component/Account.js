@@ -28,7 +28,6 @@ const traer=async () => {
   setPerfilUsers(perfilUser)
   
 }
-console.log(perfilUser)
 traer()
 },[])
 
