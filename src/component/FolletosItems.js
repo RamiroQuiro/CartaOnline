@@ -17,6 +17,7 @@ export default function Home() {
   const {user}=Auth()
   const [listado, setListado] = useState([]);
   const [perfilCuenta, setPerfilCuenta] = useState({});
+  const [styles, setStyles] = useState({});
 
   const docRefe = doc(db, `listado/empresas`);
 
@@ -39,6 +40,7 @@ const businessName=params.businessName
     const unsub = onSnapshot(docRefe, (datos) => {
       const datosTraidos = datos.data();
       setPerfilCuenta(datosTraidos[businessName]);
+      setStyles(datosTraidos[businessName].styles);
     });
     return () => unsub();
   }, []);
@@ -47,12 +49,16 @@ const businessName=params.businessName
 
   return (
     <div className="containerHome mx-auto  ">
-      <div className=" containerCarta  mx-auto rounded-lg grid gap-4 grid-cols-3 justify-items-center justify-self-stretch  ">
+      <div 
+      style={{
+         background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
+       }}
+      className=" containerCarta  mx-auto rounded-lg grid gap-4 grid-cols-3 justify-items-center justify-self-stretch  ">
      
      
      {  !listado?
         <div className="text-center">
-          <h1 className="text-center">Carganso</h1>
+          <h1 className="text-center animate-pulse font-extrabold">Cargando...</h1>
         </div>
         :
       <div className="columnasMenus w-1/3   flex flex-col">
@@ -73,7 +79,9 @@ const businessName=params.businessName
               .filter((items) => items.lista == 1)
               .map((menu) => (
                 <ItemsMenu
-                  key={menu.productID}
+                textColor1={styles?.textColor1}
+                textColor2={styles?.textColor2}
+                key={menu.productID}
                   optionMenu={menu.nombre}
                   description={menu.descripcion}
                   precio={menu.precio}
@@ -86,14 +94,18 @@ const businessName=params.businessName
      }
         <div className="columnasMenus  w-1/3  flex flex-col ">
           <div className="titulo text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
-            <h1 className="text-paleta-200  font-bold text-4xl italic">
+            <h1 
+                 style={{color:`${styles?.textColor1}`}}
+            className="text-paleta-200  font-bold text-4xl italic">
               {
               perfilCuenta?.businessName
               }
 
             </h1>
             <hr className="h-4 w-10/12 mx-auto my-2" />
-            <p className="text-white text-sm my-0">
+            <p 
+            style={{color:`${styles?.textColor2}`}}
+            className="text-white text-sm my-0 font-medium">
               {
               perfilCuenta?.descripcion || "Descripcion de la empresa"
               }
@@ -114,6 +126,8 @@ const businessName=params.businessName
               .filter((items) => items.lista == 2)
               .map((menu) => (
                 <ItemsMenu
+                textColor1={styles?.textColor1}
+                textColor2={styles?.textColor2}
                   key={menu.productID}
                   optionMenu={menu.nombre}
                   description={menu.descripcion}
@@ -148,6 +162,8 @@ const businessName=params.businessName
               .filter((items) => items.lista == 3)
               .map((menu) => (
                 <ItemsMenu
+                textColor1={styles?.textColor1}
+                textColor2={styles?.textColor2}
                   key={menu.productID}
                   optionMenu={menu.nombre}
                   description={menu.descripcion}

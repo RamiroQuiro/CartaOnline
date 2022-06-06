@@ -43,6 +43,14 @@ const register=async (mail,password,userName,businessName)=>{
         instagram:'',
         direccion:'',
       items:[],
+      styles:{
+        color1: "#2e2e2e",
+        color2: '#271717',
+        SelectionRange: 19,
+        porcentaje: 0,
+        porcentaje2: 92,
+        textColor: '#232323',
+      },
       images:[{
         nombre: "",
         url: "",

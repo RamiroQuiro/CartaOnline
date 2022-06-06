@@ -2,7 +2,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
-
+      spacing:{
+        "diez": "10%",
+      },
       colors: {
         paleta: {
           100: '#323E40',

@@ -37,7 +37,7 @@ const docRefEmpresa=perfilUserLogin?.businessName
   }, []);
 
   return (
-    <div className="containerLayout">
+    <div className="containerLayout w-screen">
       <Navbar perfilUser={perfilUserLogin} className="z-50" />
       <main>
         <Outlet context={[listadoItems, perfilUserLogin]} />
