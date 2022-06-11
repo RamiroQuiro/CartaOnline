@@ -1,10 +1,7 @@
  
   header {
-    width:85%;
-    padding: 80px auto;
-    display: flex;
+    width:88%;
     justify-content: space-between;
-    margin-bottom: 30px;
   }
 
   .headerDerecha {

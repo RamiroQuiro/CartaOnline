@@ -27,11 +27,11 @@ export default function PageImagenes() {
   return (
     <div className="board min-h-screen">
       <div className=" w-5/6  mx-auto flex h-full">
-        <section className=" flex justify-around items-center inventarioComidas w-full h-full  shadow-md border-2 border text-medium px-5 py-5 mx-auto rounded-lg gap-4">
+        <section className=" flex justify-around items-center inventarioComidas w-full h-full  shadow-md border-2  text-medium px-5 py-5 mx-auto rounded-lg gap-4">
           <div className="flex  mx-auto gap-4 lg:py-8 justify-around items-center lg:px-15">
             <FormularioImagenes perfilUser={perfilUser} />
             <div className="flex w-1/2 mx-auto gap-4 lg:py-4 items-center justify-around">
-              <div className="inventarioComidas  duration-300 shadow-md border-2 border text-medium px-5 py-5 rounded-lg">
+              <div className="inventarioComidas  duration-300 shadow-md border-2  text-medium px-5 py-5 rounded-lg">
                 <h2 className="font-bold mb-2 text-center text-gray-700 text-2xl">
                   Stock de Imagenes
                 </h2>

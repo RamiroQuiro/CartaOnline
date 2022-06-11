@@ -41,10 +41,10 @@ export default function PerfildelaCuenta() {
         direccion: perfilUser?.direccion,
         descripcion: perfilUser?.descripcion,
       },
-    });
+    }).then(() => {
     toast("Perfil Actualizado!", {
       icon: "💪💪",
-    });
+    })})
     setHabilitarEdicion(!habilitarEdicion);
   };
   useEffect(() => {
@@ -65,9 +65,9 @@ export default function PerfildelaCuenta() {
   return (
     <div className="board min-h-screen">
     <div className=" w-5/6 mx-auto  h-full">
-      <section className="perfilCuenta  inventarioComidas w-full h-full  shadow-md border-2 border text-medium px-5 py-5 rounded-lg">
+      <section className="perfilCuenta  inventarioComidas w-full h-full  shadow-md border-2  text-medium px-5 py-5 rounded-lg">
           <div className="flex  mx-auto gap-4 lg:py-8 justify-around lg:px-15">
-          <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2 border text-medium px-5 py-5 rounded-lg">
+          <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2  text-medium px-5 py-5 rounded-lg">
               <h2 className="font-bold text-center mb-2 text-gray-700 text-2xl">
                 Datos de Perfil
               </h2>
@@ -209,7 +209,7 @@ export default function PerfildelaCuenta() {
                 </button>
               </form>
             </div>
-            <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2 border text-medium px-5 py-5 rounded-lg">
+            <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2  text-medium px-5 py-5 rounded-lg">
               <PerfilRedesSociales
                 habilitarEdicion={habilitarEdicion}
                 perfilUser={perfilUser}

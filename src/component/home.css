@@ -11,13 +11,13 @@ body{
 }
 .containerHome {
   min-height: 100vh;
-  padding-top: 1.7em;
+  
   width: 100%;
 }
 .containerCarta {
-  width:90%;
+  width:95%;
   background: var(---backgrounCarta);
-    min-height: 720px;
+    min-height: 98vh;
     overflow: hidden;
   box-shadow: -8px 0 30px 5px #1c212890;
 }
@@ -28,7 +28,7 @@ body{
   height: 0;
   width: 0;
     top: 7%;
-    left: 2%;
+    left: 0%;
     border-bottom:solid 540px  #1c1c1c95;
     border-left:solid 50px transparent;
     border-right:solid 50px transparent;
@@ -42,7 +42,7 @@ body{
   height: 0;
   width: 0;
     top: 75%;
-    left: 2%;
+    left: 0%;
     border-top:solid 130px  #1c1c1c95;
     border-left:solid 50px transparent;
     border-right:solid 50px transparent;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import imagen1 from "../img/burguer.jpg";
-import imagen2 from "../img/pizzas.jpg";
-import imagen3 from "../img/sandwich.jpg";
+// import imagen1 from "../img/burguer.jpg";
+// import imagen2 from "../img/pizzas.jpg";
+// import imagen3 from "../img/sandwich.jpg";
 import "./home.css";
 import "./menu1.css";
 import "./menu2.css";
@@ -18,6 +18,12 @@ export default function Home() {
   const [listado, setListado] = useState([]);
   const [perfilCuenta, setPerfilCuenta] = useState({});
   const [styles, setStyles] = useState({});
+  const [imagen, setImagenes] = useState({
+    imagen1: "imagen1",
+    imagen2: "url",
+    imagen3: "url",
+  });
+
 
   const docRefe = doc(db, `listado/empresas`);
 
@@ -41,14 +47,23 @@ const businessName=params.businessName
       const datosTraidos = datos.data();
       setPerfilCuenta(datosTraidos[businessName]);
       setStyles(datosTraidos[businessName].styles);
+      setImagenes({
+        imagen1: datosTraidos[businessName]?.images?.find((imagen) => imagen.posicion == 1)?.url,
+        imagen2: datosTraidos[businessName]?.images?.find((imagen) => imagen.posicion == 2)?.url,
+        imagen3: datosTraidos[businessName]?.images?.find((imagen) => imagen.posicion == 3)?.url,
+      });
     });
+    
     return () => unsub();
+
   }, []);
 
 
+   
+
 
   return (
-    <div className="containerHome mx-auto  ">
+    <div className="containerHome pt-2 mx-auto  ">
       <div 
       style={{
          background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
@@ -64,7 +79,9 @@ const businessName=params.businessName
       <div className="columnasMenus w-1/3   flex flex-col">
           <div className=" absolute containerImagenIzquierda rounded-full">
             <img
-              src={imagen1}
+              src={imagen?.imagen1}
+              height="auto"
+              width="100%"
               alt=""
               className="mb-4 objet-cover  rounded-full "
             />
@@ -148,7 +165,9 @@ const businessName=params.businessName
         <div className="columnasMenus  w-1/3 flex flex-col">
           <div className=" absolute containerImg  rounded-full ">
             <img
-              src={imagen2}
+              src={imagen?.imagen2}
+              height="100%"
+              width="100%"
               alt=""
               className="mx-auto objet-cover  rounded-full "
             />
@@ -174,7 +193,7 @@ const businessName=params.businessName
           </div>
           <div className=" absolute containerImgAbajo rounded-full">
             <img
-              src={imagen3}
+              src={imagen?.imagen3}
               alt=""
               className="mb-4 objet-cover  rounded-full "
             />

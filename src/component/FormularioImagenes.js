@@ -28,6 +28,7 @@ export default function FormularioImagenes({perfilUser}) {
         e.preventDefault();
         setLoading(true);
         const fileName = e.target.nombre.value;
+        const filePosicion=e.target.posicion.value;
         const fileRef = ref(
           storage,
           `imagenes/${perfilUser.businessName}/${file.name}`
@@ -39,7 +40,7 @@ export default function FormularioImagenes({perfilUser}) {
               [businessName]: arrayUnion({
                 nombre: fileName,
                 url: url,
-                posicion: "",
+                posicion: filePosicion
               }),
             })
               .then(() => {
@@ -65,7 +66,7 @@ export default function FormularioImagenes({perfilUser}) {
     
 
   return (
-    <div className="perfilCuenta  inventarioComidas w-1/3 duration-300 shadow-md border-2 border text-medium px-5 py-5 rounded-lg">
+    <div className="perfilCuenta  inventarioComidas w-1/3 duration-300 shadow-md border-2  text-medium px-5 py-5 rounded-lg">
     <form
       onSubmit={handleSubmitFile}
       className=" flex flex-col  justify-around gap-3 items-left"
@@ -110,11 +111,13 @@ export default function FormularioImagenes({perfilUser}) {
       </label>
       <label htmlFor="nombre" className="block mb-2 mx-auto text-sm font-medium text-gray-900  dark:text-gray-800">
        Lugar de la imagen:
-       <select className="bg-gray-50 inline-block border border-gray-300 text-gray-900 text-sm rounded  ml-3 w-1/2 p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white ">
+       <select 
+        name="posicion"
+       className="bg-gray-50 inline-block border border-gray-300 text-gray-900 text-sm rounded  ml-3 w-1/2 p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white ">
           <option value="">Seleccione una opción</option>
-          <option value="">Inicio</option>
-          <option value="">Productos</option>
-          <option value="">Contacto</option>
+          <option value="1">posición 1</option>
+          <option value="2">posición 2</option>
+          <option value="3">posición 3</option>
        </select>
       
       </label>

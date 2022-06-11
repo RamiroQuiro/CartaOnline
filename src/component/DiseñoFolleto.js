@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { HexColorPicker } from "react-colorful";
 import { db } from "./Firebase";
 import {
   arrayRemove,
@@ -12,6 +11,15 @@ import {
 } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 import ItemsMenu from "./ItemsMenu";
+const sytileInicial = {
+  color1: "#2e2e2e",
+  color2: "#271717",
+  SelectionRange: 19,
+  porcentaje: 0,
+  porcentaje2: 92,
+  textColor1: "#fd9e1c",
+  textColor2: "#ffffff",
+}
 
 export default function DiseñoFolleto() {
   const [perfilCuenta, listadoItems] = useOutletContext();
@@ -22,15 +30,7 @@ export default function DiseñoFolleto() {
   const [previewURL2, setPreviewURL2] = useState(null);
   const [previewURL3, setPreviewURL3] = useState(null);
   const [items, setItems] = useState(null);
-  const [styles, setStyles] = useState({
-    color1: "#2e2e2e",
-    color2: "#271717",
-    SelectionRange: 19,
-    porcentaje: 0,
-    porcentaje2: 92,
-    textColor1: "#232323",
-    textColor2: "#ffffff",
-  });
+  const [styles, setStyles] = useState(sytileInicial);
   const docRef = doc(db, `listado/empresas/`);
   const businessName = listadoItems?.businessName;
   const [imagen, setImagenes] = useState({
@@ -44,9 +44,9 @@ export default function DiseñoFolleto() {
     const cargarImagenes = async () => {
       const imagenes = await perfilCuenta.images;
       setImagenes({
-        imagen1: imagenes?.find((imagen) => imagen.posicion === 1)?.url,
-        imagen2: imagenes?.find((imagen) => imagen.posicion === 2)?.url,
-        imagen3: imagenes?.find((imagen) => imagen.posicion === 3)?.url,
+        imagen1: imagenes?.find((imagen) => imagen.posicion == 1)?.url,
+        imagen2: imagenes?.find((imagen) => imagen.posicion == 2)?.url,
+        imagen3: imagenes?.find((imagen) => imagen.posicion == 3)?.url,
       });
     };
     cargarImagenes();
@@ -128,15 +128,26 @@ export default function DiseñoFolleto() {
     });
   };
 
+
+  const handleResetStyles = async (e) => {
+    e.preventDefault();
+    const referencedBusinessName = businessName + "." + "styles";
+    await updateDoc(docRef, {
+      [referencedBusinessName]: sytileInicial})
+      .then(() => {
+        toast.success("Estilos actualizados");
+      })
+  }
+
   return (
     <div className="board min-h-full">
       <Toaster />
       <div className=" w-11/12 pl-6 px-4 mx-auto">
         <section className="perfilCuenta flex  bg-gray-100 dark:bg-gray-500 dark:bg-opacity-40 bg-opacity-60 backdrop-filter backdrop-blur-sm w-full  shadow-md border-2  dark:border-gray-600 text-medium  py-5 px-3 gap-2 rounded-lg">
           <div className="flex flex-col z-50 bg-gray-50 rounded border px-1 dark:bg-paleta-100 dark:text-white text-sm w-diez">
-            <form className="flex flex-col gap-5 justify-around items-center ">
+            <form className="flex flex-col gap-5 justify-around items-center mb-2 ">
               <div className="flex flex-col gap-2  border-t-2 border-b-2 py-2 px-1 justify-center items-center">
-                <label className="text-center text-paleta-100 font-bold border-b-2 w-full">
+                <label className="text-center text-paleta-100 dark:text-gray-50 break-words text-sm pb-2 font-bold border-b-2 w-full">
                   Paleta de colores
                 </label>
                 <div className="flex flex-col">
@@ -237,7 +248,7 @@ export default function DiseñoFolleto() {
                 </div>
               </div>
               <div className="flex flex-col gap-3 text-xs border-b-2 justify-center items-center">
-                <label  className="text-center text-paleta-100 font-bold border-b-2 pb-1 text-sm w-full" >
+                <label  className="text-center text-paleta-100 dark:text-gray-50 break-words text-sm font-bold border-b-2 pb-2 w-full" >
                   Paleta de colores Textos
                 </label>
                 <div className="flex flex-col justify-center gap-2 items-center ">
@@ -250,7 +261,7 @@ export default function DiseñoFolleto() {
                       className="rounded-lg h-10 w-10 p-0.5 "
                     />
                     <label
-                     className="text-center text-paleta-100 font-bold w-full">
+                     className="text-center  text-paleta-100 dark:text-gray-50 break-all text-xs font-bold w-full">
                       Color de los Titulos
                     </label>
                   </div>
@@ -264,7 +275,7 @@ export default function DiseñoFolleto() {
                     />
                     <label
                       for="default-range"
-                      className="text-center text-paleta-100 font-bold  w-full">
+                      className="text-center text-paleta-100 dark:text-gray-50 break-all text-xs font-bold pb-2  w-full">
                       Color de Textos
                     </label>
                   </div>
@@ -278,10 +289,22 @@ export default function DiseñoFolleto() {
               >
                 aplicar estilos
               </button>
+              <button
+                 className={`uppercase font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
+                 
+                onClick={handleResetStyles}
+              >
+                Resetear Estilos
+              </button>
             </form>
           </div>
 
           {/* empieza folleto */}
+
+          <div className="flex flex-col w-full">
+            <div className="w-full z-50 bg-gray-50 rounded text-xs px-1 dark:bg-paleta-100 dark:text-white">
+              botonera de imagenes
+            </div>
           <div
             style={{
               background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
@@ -289,58 +312,17 @@ export default function DiseñoFolleto() {
             className=" containerCarta  mx-auto rounded-lg grid gap-4 grid-cols-3 justify-items-center justify-self-stretch  "
           >
             <div className="columnasMenus  w-1/3   flex flex-col">
-              {!imagen?.imagen1 ? (
-                <div className="rounded-full objet-cover  ">
-                  {previewURL ? (
-                    <div className=" absolute containerImagenIzquierda rounded-full">
-                      <img
-                        src={previewURL}
-                        alt=""
-                        width="100%"
-                        height="auto"
-                        className="mb-4 relative rounded-full "
-                      />
-                    </div>
-                  ) : (
-                    <form className=" relative top-0 w-full h-1/2  rounded-full">
-                      <label
-                        htmlFor="subirArchivo"
-                        className="bg-paleta-100 absolute z-50"
-                      >
-                        <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                          <div className="py-3 animate-bounce duration-300">
-                            {/* <FcUpload className="text-4xl" /> */}
-                          </div>
-                          <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold">
-                              Click para seleccionar archivo
-                            </span>
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            SVG, PNG, JPG (MAX. 800x400px)
-                          </p>
-                        </div>
-                        <input
-                          accept="image/*"
-                          id="subirArchivo"
-                          type="file"
-                          name="subirArchivo"
-                          className="hidden"
-                          onChange={handleUpSelect}
-                        />
-                      </label>
-                    </form>
-                  )}
-                </div>
-              ) : (
+          
                 <div className=" absolute containerImagenIzquierda rounded-full">
+                
                   <img
                     src={imagen?.imagen1}
                     alt=""
-                    className="mb-4 objet-cover  rounded-full "
+                    className="mb-4 objet-cover w-full h-auto  rounded-full "
                   />
+                
                 </div>
-              )}
+              
 
               {/* Lista 1 */}
 
@@ -444,50 +426,7 @@ export default function DiseñoFolleto() {
               </div>
             </div>
             <div className="columnasMenus  w-1/3 flex flex-col">
-              {!imagen?.imagen2 ? (
-                <div className="rounded-full objet-cover  ">
-                  {previewURL2 ? (
-                    <div className=" absolute containerImg  rounded-full ">
-                      <img
-                        src={previewURL2}
-                        alt=""
-                        width="100%"
-                        height="auto"
-                        className="mx-auto objet-cover  rounded-full "
-                      />
-                    </div>
-                  ) : (
-                    <form className=" relative top-0 right-0 w-full h-1/2  rounded-full">
-                      <label
-                        htmlFor="subirArchivo2"
-                        className="bg-paleta-100 absolute z-50"
-                      >
-                        <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                          <div className="py-3 animate-bounce duration-300">
-                            {/* <FcUpload className="text-4xl" /> */}
-                          </div>
-                          <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold">
-                              Click para seleccionar archivo
-                            </span>
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            SVG, PNG, JPG (MAX. 800x400px)
-                          </p>
-                        </div>
-                        <input
-                          accept="image/*"
-                          id="subirArchivo2"
-                          type="file"
-                          name="subirArchivo"
-                          className="hidden"
-                          onChange={handleUpSelect2}
-                        />
-                      </label>
-                    </form>
-                  )}
-                </div>
-              ) : (
+           
                 <div className=" absolute containerImg  rounded-full ">
                   <img
                     src={imagen?.imagen2}
@@ -497,7 +436,6 @@ export default function DiseñoFolleto() {
                     className="mx-auto objet-cover  rounded-full "
                   />
                 </div>
-              )}
 
               {/* Lista 3 */}
 
@@ -536,58 +474,20 @@ export default function DiseñoFolleto() {
                     ))}
               </div>
               <div className=" absolute containerImgAbajo rounded-full">
-                {!imagen?.imagen3 ? (
-                  <div className="rounded-full objet-cover absolute w-full right-0  ">
-                    {previewURL3 ? (
-                      <img
-                        src={previewURL3}
-                        alt=""
-                        width="100%"
-                        height="auto"
-                        className="mb-4 objet-cover  rounded-full "
-                      />
-                    ) : (
-                      <form className=" absolute bottom-0 right-0 w-full h-1/2  rounded-full">
-                        <label
-                          htmlFor="subirArchivo3"
-                          className="bg-paleta-100 absolute z-50"
-                        >
-                          <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                            <div className="py-3 animate-bounce duration-300">
-                              {/* <FcUpload className="text-4xl" /> */}
-                            </div>
-                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                              <span className="font-semibold">
-                                Click para seleccionar archivo
-                              </span>
-                            </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                              SVG, PNG, JPG (MAX. 800x400px)
-                            </p>
-                          </div>
-                          <input
-                            accept="image/*"
-                            id="subirArchivo3"
-                            type="file"
-                            name="subirArchivo"
-                            className="hidden"
-                            onChange={handleUpSelect3}
-                          />
-                        </label>
-                      </form>
-                    )}
-                  </div>
-                ) : (
-                  <img
+              <div
+              className="overflow-hidden mx-auto rounded-full mt-2"
+              >
+              <img
                     src={imagen?.imagen3}
                     height="100%"
                     width="100%"
                     alt=""
-                    className="mb-4 objet-cover  rounded-full "
+                    className="mx-auto -translate-y-12 overflow-hidden rounded-full "
                   />
-                )}
+              </div>
               </div>
             </div>
+          </div>
           </div>
         </section>
       </div>

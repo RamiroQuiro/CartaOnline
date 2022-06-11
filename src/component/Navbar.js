@@ -32,15 +32,15 @@ export default function Navbar({perfilUser}) {
   return (
     <div className="">
       <Toaster />
-      <header className=" mx-auto pt-2 px-5">
-        <div className="logo group relative duration-300  flex  px-4 hover:-translate-y-0.5  hover:shadow-xl py-1 items-center gap-5 text-2xl font-bold text-paleta-300">
+      <header className="flex mx-auto py-2 px-5">
+        <div className="logo group relative duration-300  flex   hover:-translate-y-0.5  hover:shadow-xl py-1 items-center gap-5 text-2xl font-bold text-paleta-300">
           <Link 
           to={`/${perfilUser?.businessName}`}
           target="_blank"
           className="">
             {perfilUser?.businessName}
           </Link>
-          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-7 absolute  whitespace-nowrap text-gray-100  left-full bottom-full ml-2 -mb-2 bg-paleta-300 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2  border-r-2 border-paleta-600  ">Ir al folleto</span>
+          <span className="text-sm opacity-0 py-2  group-hover:opacity-100 translate-y-12 group-hover:translate-y-7 absolute  whitespace-nowrap text-gray-100  left-full bottom-full ml-2 -mb-2 bg-paleta-300 bg-opacity-90 duration-200 font-bold  px-3   border-r-2 border-paleta-600  ">Ir al folleto</span>
         </div>
         <div className="headerDerecha flex gap-5">
           <h4>{perfilUser?.userName}</h4>
