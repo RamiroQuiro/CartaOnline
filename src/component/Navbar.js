@@ -66,25 +66,25 @@ export default function Navbar({perfilUser}) {
          className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
         to={"perfildelaCuenta"}>
           <FaCogs />
-          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute whitespace-nowrap  text-gray-800  left-full bottom-full -ml-2 -mb-2 bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Datos de Perfil</span>
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute whitespace-nowrap  text-gray-800  left-full bottom-full -ml-2 -mb-2 bg-paleta-600 bg-opacity-90 duration-200 font-bold px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Datos de Perfil</span>
         </NavLink>
         <NavLink  
         className={ ({ isActive }) =>isActive ? "buttonActive group"  : "button group relative duration-300"}
          to={"pageItems"}>
           <FaBookOpen />
-        <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-2  bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs whitespace-nowrap  px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Carga de Items</span>
+        <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-2  bg-paleta-600 bg-opacity-90 duration-200 font-bold whitespace-nowrap  px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Carga de Items</span>
         </NavLink>
-        <NavLink 
+        {/* <NavLink 
         className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
         to={"pageIgames"}>
           <FaFileImage />
-          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Stock Imagenes</span>
-        </NavLink>
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-boldpx-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Stock Imagenes</span>
+        </NavLink> */}
         <NavLink 
         className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
         to={"disenioFolleto"}>
           <FaColumns />
-          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Diseño de Folleto</span>
+          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-bold  px-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Diseño de Folleto</span>
         </NavLink>
 
       </nav>
