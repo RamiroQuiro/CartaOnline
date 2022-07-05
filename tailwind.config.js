@@ -16,8 +16,11 @@ module.exports = {
           instagram: '#FE2951',
           youtube: '#cd201f',
           facebook: '#3b5998',
-          
         },
+      },
+      transitionProperty: {
+        'height': 'height, max-height ',
+        'spacing': 'margin, padding',
       }
     },
   },

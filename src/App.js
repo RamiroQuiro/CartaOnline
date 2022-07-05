@@ -1,4 +1,3 @@
-import "./App.css";
 import FolletosItems from "./component/FolletosItems";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ContextProvider from "./component/contexto/ContextProvider";
@@ -11,12 +10,10 @@ import PerfildelaCuenta from "./component/PerfildelaCuenta";
 import PageItems from "./component/PageItems";
 import PriveteRoute from "./component/PriveteRoute";
 import PageImagenes from "./component/PageImagenes";
-import { useContext } from "react";
 import DiseñoFolleto from "./component/DiseñoFolleto";
 import Home from "./Home";
 
 function App() {
-  const userPerfil = useContext(AuthContext);
 
   return (
     <BrowserRouter>

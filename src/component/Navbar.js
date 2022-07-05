@@ -51,15 +51,14 @@ export default function Navbar({perfilUser}) {
           ></i>
         </div>
       </header>
-      <nav className="nav rounded bg-paleta-100   left-5">
-      
+      <nav className="nav rounded bg-paleta-100  overflow-hidden hover:overflow-visible z-30 left-5">
         <NavLink
           className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
           to={"account"}
           data-tooltip-target="tooltip-bottom"
         >
           <FaShapes className="icon " />
-          <span className="text-sm opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  whitespace-nowrap   text-gray-800  left-full bottom-full -ml-2 -mb-2 bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Mi Cuenta</span>
+          <span className=" overflow-hidden opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  whitespace-nowrap  -z-20 text-gray-800  left-full bottom-full -ml-2 -mb-2 bg-paleta-600 bg-opacity-90 duration-200 font-bold text-xs px-3 py-2 rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Mi Cuenta</span>
         </NavLink>
 
       

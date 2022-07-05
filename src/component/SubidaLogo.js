@@ -13,7 +13,7 @@ export default function SubidaLogo({ perfilUserLogin }) {
   const [imagen, setImagen] = useState(null);
   const [habilitarFormulario, setHabilitarFormulario] = useState(false);
   const docRef = doc(db, `listado/empresas`);
-  const businessName = perfilUserLogin.businessName + "."+"images";
+  const businessName = perfilUserLogin?.businessName + "."+"images";
 
   const logo = perfilUserLogin.images;
   useEffect(() => {
@@ -61,8 +61,7 @@ export default function SubidaLogo({ perfilUserLogin }) {
               ? { ...image, nombre: fileName, url: url, posicion: "logo" }
               : { ...image }
           ),
-        })
-          .then(() => {
+        }).then(() => {
             toast.success("Imagen subida correctamente");
             setFile(null);
             setPreviewURL(null);

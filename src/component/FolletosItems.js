@@ -48,9 +48,9 @@ const businessName=params.businessName
       setPerfilCuenta(datosTraidos[businessName]);
       setStyles(datosTraidos[businessName].styles);
       setImagenes({
-        imagen1: datosTraidos[businessName]?.images?.find((imagen) => imagen.posicion == 1)?.url,
-        imagen2: datosTraidos[businessName]?.images?.find((imagen) => imagen.posicion == 2)?.url,
-        imagen3: datosTraidos[businessName]?.images?.find((imagen) => imagen.posicion == 3)?.url,
+        imagen1: datosTraidos[businessName]?.images?.find((imagen) => imagen.nombre == "imagen1")?.url,
+        imagen2: datosTraidos[businessName]?.images?.find((imagen) => imagen.nombre == "imagen2")?.url,
+        imagen3: datosTraidos[businessName]?.images?.find((imagen) => imagen.nombre == "imagen3")?.url,
       });
     });
     
@@ -68,7 +68,7 @@ const businessName=params.businessName
       style={{
          background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
        }}
-      className=" containerCarta  mx-auto rounded-lg grid gap-4 grid-cols-3 justify-items-center justify-self-stretch  ">
+      className=" containerCarta  mx-auto rounded-lg grid grid-cols-3 justify-items-auto justify-self-auto">
      
      
      {  !listado?
@@ -76,20 +76,20 @@ const businessName=params.businessName
           <h1 className="text-center animate-pulse font-extrabold">Cargando...</h1>
         </div>
         :
-      <div className="columnasMenus w-1/3   flex flex-col">
+        <div className="columnasMenus relative  flex flex-col">
           <div className=" absolute containerImagenIzquierda rounded-full">
             <img
               src={imagen?.imagen1}
               height="auto"
               width="100%"
               alt=""
-              className="mb-4 objet-cover  rounded-full "
+              className="mb-4  objet-cover object-center md:w-full h-40  rounded-full "
             />
           </div>
 
 {/* Lista 1 */}
 
-          <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
+          <div className="menuLista text-white  text-left Hamburguesas primerColumna   ">
             {
             listado&&
             listado
@@ -109,7 +109,7 @@ const businessName=params.businessName
         </div> 
      
      }
-        <div className="columnasMenus  w-1/3  flex flex-col ">
+         <div className="columnasMenus relative  flex flex-col">
           <div className="titulo text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
             <h1 
                  style={{color:`${styles?.textColor1}`}}
@@ -162,14 +162,14 @@ const businessName=params.businessName
             Realizar Pedido
           </Link>
         </div>
-        <div className="columnasMenus  w-1/3 flex flex-col">
+        <div className="columnasMenus relative  flex flex-col">
           <div className=" absolute containerImg  rounded-full ">
             <img
               src={imagen?.imagen2}
-              height="100%"
+              height="auto"
               width="100%"
               alt=""
-              className="mx-auto objet-cover  rounded-full "
+              className="mx-auto z-0 objet-none object-bottom rounded-full "
             />
           </div>
           {/* Lista 3 */}

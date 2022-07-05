@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import { db } from "./Firebase";
-import {
-  arrayRemove,
-  arrayUnion,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { Link, useOutletContext } from "react-router-dom";
+import { db, storage } from "./Firebase";
+import { FaEdit, FaTimes } from "react-icons/fa";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
-import ItemsMenu from "./ItemsMenu";
+import AcordionDiseños from "./AcordionDiseños";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 const sytileInicial = {
   color1: "#2e2e2e",
   color2: "#271717",
@@ -19,11 +14,11 @@ const sytileInicial = {
   porcentaje2: 92,
   textColor1: "#fd9e1c",
   textColor2: "#ffffff",
-}
+};
 
-export default function DiseñoFolleto() {
+export default function DiseñoFolleto({ perfilUserLogin }) {
   const [perfilCuenta, listadoItems] = useOutletContext();
-  const [file, setFile] = useState(null);
+  const [filet, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
   const [previewURL, setPreviewURL] = useState(null);
@@ -33,21 +28,19 @@ export default function DiseñoFolleto() {
   const [styles, setStyles] = useState(sytileInicial);
   const docRef = doc(db, `listado/empresas/`);
   const businessName = listadoItems?.businessName;
-  const [imagen, setImagenes] = useState({
-    imagen1: "imagen1",
-    imagen2: "url",
-    imagen3: "url",
-  });
+  const businessNameImages = perfilCuenta?.businessName + ".images";
+  const [imagen, setImagenes] = useState(null);
 
   // const imagenes=perfilCuenta.images
   useEffect(() => {
     const cargarImagenes = async () => {
       const imagenes = await perfilCuenta.images;
-      setImagenes({
-        imagen1: imagenes?.find((imagen) => imagen.posicion == 1)?.url,
-        imagen2: imagenes?.find((imagen) => imagen.posicion == 2)?.url,
-        imagen3: imagenes?.find((imagen) => imagen.posicion == 3)?.url,
-      });
+      setImagenes(imagenes)
+      // setImagenes({
+      //   imagen1: imagenes?.find((imagen) => imagen.nombre == "imagen1")?.url,
+      //   imagen2: imagenes?.find((imagen) => imagen.nombre == "imagen2")?.url,
+      //   imagen3: imagenes?.find((imagen) => imagen.nombre == "imagen3")?.url,
+      // });
     };
     cargarImagenes();
     const cargarStyles = async () => {
@@ -63,18 +56,19 @@ export default function DiseñoFolleto() {
     cargarItems();
 
     //
-  }, []);
+  }, [filet]);
 
+  console.log(listadoItems,perfilCuenta)
   useEffect(() => {
-    if (!file) {
+    if (!filet) {
       return;
     }
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreviewURL(reader.result);
     };
-    reader.readAsDataURL(file);
-  }, [file]);
+    reader.readAsDataURL(filet);
+  }, [filet]);
 
   useEffect(() => {
     if (!file2) {
@@ -111,10 +105,35 @@ export default function DiseñoFolleto() {
     setFile3(file);
   };
 
-  const handlePaletaColors = (e) => {
-    e.preventDefault();
-    setStyles({ ...styles, [e.target.name]: e.target.value });
+  const handleSubmitFile = async (e) => {
+    const file = e.target.files[0];
+    setFile(filet)
+    const fileName = e.target.name;
+    const fileRef = ref(storage, `imagenes/${businessName}/${fileName}`);
+    console.log(`imagenes/${businessName}/${file.name}`);
+    await uploadBytes(fileRef, file).then(async () => {
+      await getDownloadURL(fileRef).then(async (url) => {
+        await updateDoc(docRef, {
+            [businessNameImages]:imagen.map(img=>img.nombre==fileName?{...img,url:url}:img)
+        })
+          .then(() => {
+            toast.success("Imagen subida correctamente");
+          })
+          .catch((error) => {
+            alert("Error al subir imagen, intente de nuevo");
+            console.log(error);
+          });
+      });
+    });
   };
+
+  const handleDeleteImagen=(e)=> {
+    e.preventDefault()
+    const desertRef=ref(storage, imagen[e.target.id])
+    console.log(imagen[e.target.id])
+    deleteObject(desertRef)
+  }
+
   {
     /* enviar estilos personalizados */
   }
@@ -128,366 +147,303 @@ export default function DiseñoFolleto() {
     });
   };
 
-
   const handleResetStyles = async (e) => {
     e.preventDefault();
     const referencedBusinessName = businessName + "." + "styles";
     await updateDoc(docRef, {
-      [referencedBusinessName]: sytileInicial})
-      .then(() => {
-        toast.success("Estilos actualizados");
-      })
-  }
+      [referencedBusinessName]: sytileInicial,
+    }).then(() => {
+      toast.success("Estilos actualizados");
+    });
+  };
 
   return (
     <div className="board min-h-full">
       <Toaster />
-      <div className=" w-11/12 pl-6 px-4 mx-auto">
-        <section className="perfilCuenta flex  bg-gray-100 dark:bg-gray-500 dark:bg-opacity-40 bg-opacity-60 backdrop-filter backdrop-blur-sm w-full  shadow-md border-2  dark:border-gray-600 text-medium  py-5 px-3 gap-2 rounded-lg">
-          <div className="flex flex-col z-50 bg-gray-50 rounded border px-1 dark:bg-paleta-100 dark:text-white text-sm w-diez">
-            <form className="flex flex-col gap-5 justify-around items-center mb-2 ">
-              <div className="flex flex-col gap-2  border-t-2 border-b-2 py-2 px-1 justify-center items-center">
-                <label className="text-center text-paleta-100 dark:text-gray-50 break-words text-sm pb-2 font-bold border-b-2 w-full">
-                  Paleta de colores
-                </label>
-                <div className="flex flex-col">
-                  <div className=" flex flex-col  gap-2 justify-center items-center">
-                    <input
-                      name="color1"
-                      type="color"
-                      onChange={handlePaletaColors}
-                      value={styles?.color1}
-                      className="rounded-lg h-10 w-10 p-0.5 "
-                    />
-                    <label
-                      for="default-range"
-                      className=" mb-2 text-sm font-medium uppercase text-center text-gray-900 dark:text-gray-300"
-                    >
-                      <input
-                        name="porcentaje"
-                        type="range"
-                        min="0"
-                        max="100"
-                        className="w-full h-2 py-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-50"
-                        value={styles?.porcentaje}
-                        onChange={handlePaletaColors}
-                      />
-                      <div>
-                        <input
-                          name="porcentaje"
-                          type="number"
-                          className="w-1/4 text-right bg-transparent mx-0 px-0 text-sm font-medium uppercase text-gray-900 dark:text-gray-300
-              focus:outline-none focus:ring-2 focus:ring-paleta-600 rounded-lg focus:border-transparent
-              "
-                          value={styles?.porcentaje}
-                          onChange={handlePaletaColors}
-                        />
-                        <span className="text-xs">% de Color</span>
-                      </div>
-                    </label>
-                  </div>
-                  <div className=" flex flex-col  gap-2 justify-center items-center">
-                    <input
-                      name="color2"
-                      value={styles?.color2}
-                      type="color"
-                      onChange={handlePaletaColors}
-                      className="rounded-lg h-10 w-10 p-0.5 "
-                    />
-                    <label
-                      for="default-range"
-                      className=" mb-1 text-xs font-medium uppercase text-center text-gray-900 dark:text-gray-300"
-                    >
-                      <input
-                        name="porcentaje2"
-                        type="range"
-                        min="0"
-                        max="100"
-                        className="w-full h-2 py-1.5 bg-gray-400  bg-opacity-20 rounded-lg appearance-none cursor-pointer dark:bg-gray-50"
-                        value={styles?.porcentaje2}
-                        onChange={handlePaletaColors}
-                      />
-                      <div className="flex ">
-                        <input
-                          name="porcentaje2"
-                          type="number"
-                          className="w-1/4 bg-transparent text-right  text-xs font-medium uppercase text-gray-900 dark:text-gray-300  focus:outline-none focus:ring-2 focus:ring-paleta-600 rounded-lg focus:border-transparent
-              "
-                          value={styles?.porcentaje2}
-                          onChange={handlePaletaColors}
-                        />
-                        <span className="text-xs">% de Color</span>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3  border-b-2 py- px-1 justify-center items-center">
-                <label  className="text-center font-medium text-xs w-full">
-                  Angulo de Degradado
-                </label>
-                <div className="flex flex-col  gap-1 justify-center items-center  ">
-                  <input
-                    name="SelectionRange"
-                    type="range"
-                    min="5"
-                    max="360"
-                    className="w-full h-2 py-1.5 bg-gray-400  bg-opacity-20 rounded-lg appearance-none cursor-pointer dark:bg-gray-50"
-                    onChange={handlePaletaColors}
-                  />
-                  <div className="flex justify-center items-center">
-                    <input
-                      name="SelectionRange"
-                      type="number"
-                      className="w-1/6  text-right bg-transparent mx-0 px-0 text-sm font-medium uppercase  text-gray-900 dark:text-gray-300  focus:outline-none focus:ring-2 focus:ring-paleta-600 rounded-lg focus:border-transparent"
-                      value={styles?.SelectionRange}
-                      onChange={handlePaletaColors}
-                    />
-                    <span className="text-xl font-bold">°</span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3 text-xs border-b-2 justify-center items-center">
-                <label  className="text-center text-paleta-100 dark:text-gray-50 break-words text-sm font-bold border-b-2 pb-2 w-full" >
-                  Paleta de colores Textos
-                </label>
-                <div className="flex flex-col justify-center gap-2 items-center ">
-                  <div className=" flex flex-col gap-2 justify-center items-center">
-                    <input
-                      name="textColor1"
-                      type="color"
-                      onChange={handlePaletaColors}
-                      value={styles?.textColor1}
-                      className="rounded-lg h-10 w-10 p-0.5 "
-                    />
-                    <label
-                     className="text-center  text-paleta-100 dark:text-gray-50 break-all text-xs font-bold w-full">
-                      Color de los Titulos
-                    </label>
-                  </div>
-                  <div className=" flex flex-col gap-2 justify-center items-center">
-                    <input
-                      name="textColor2"
-                      value={styles?.textColor2}
-                      type="color"
-                      onChange={handlePaletaColors}
-                      className="rounded-lg h-10 w-10 p-0.5 "
-                    />
-                    <label
-                      for="default-range"
-                      className="text-center text-paleta-100 dark:text-gray-50 break-all text-xs font-bold pb-2  w-full">
-                      Color de Textos
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                 className={`uppercase font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
-                 
-                onClick={handleStyleFolleto}
-              >
-                aplicar estilos
-              </button>
-              <button
-                 className={`uppercase font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
-                 
-                onClick={handleResetStyles}
-              >
-                Resetear Estilos
-              </button>
-            </form>
+      <div className=" w-[95%] pl-10 px-2 mx-auto">
+        <section className="perfilCuenta flex flex-col  bg-gray-100 :bg-gray-500 :bg-opacity-40 bg-opacity-60 backdrop-filter backdrop-blur-sm w-full  shadow-md border-2  :border-gray-600 text-medium  py-5 px-2 gap-2 rounded-lg">
+          <div className="flex justify-around items-center w-full  rounded text-xs px-1  :bg-paleta-100 :text-white">
+            <div>diseño Folleto</div>
+            <div>Diseño Afiches</div>
+            <div>Diseños</div>
           </div>
+          <div className="flex">
+            {/* Outlet de los diseños */}
+            {/* botonera */}
+            <div className="flex flex-col z-50 bg-gray-50 rounded border  :bg-paleta-100 :text-white text-sm w-diez">
+              <AcordionDiseños
+                handleUpSelect={"handleUpSelect"}
+                businessName={businessName}
+                sytileInicial={sytileInicial}
+                styles={styles}
+                setStyles={setStyles}
+              />
 
-          {/* empieza folleto */}
-
-          <div className="flex flex-col w-full">
-            <div className="w-full z-50 bg-gray-50 rounded text-xs px-1 dark:bg-paleta-100 dark:text-white">
-              botonera de imagenes
-            </div>
-          <div
-            style={{
-              background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
-            }}
-            className=" containerCarta  mx-auto rounded-lg grid gap-4 grid-cols-3 justify-items-center justify-self-stretch  "
-          >
-            <div className="columnasMenus  w-1/3   flex flex-col">
-          
-                <div className=" absolute containerImagenIzquierda rounded-full">
-                
-                  <img
-                    src={imagen?.imagen1}
-                    alt=""
-                    className="mb-4 objet-cover w-full h-auto  rounded-full "
-                  />
-                
-                </div>
-              
-
-              {/* Lista 1 */}
-
-              <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-                {/* items lista 1 */}
-                <ul>
-                  {items &&
-                    items
-                      ?.filter((items) => items.lista == 1)
-                      .map((menu, index) => (
-                        <li
-                          key={index}
-                          className=" text-left m-0 flex justify-between align-center px-5"
-                        >
-                          <div className="py-2  itemDescription ">
-                            <p
-                              style={{ color: `${styles?.textColor1}` }}
-                              htmlFor="cantidadItems "
-                              className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                            >
-                              {menu.nombre}
-                            </p>
-                            <div
-                              style={{ color: `${styles?.textColor2}` }}
-                              className="descriptionSpan font-medium text-gray-100   "
-                            >
-                              {" "}
-                              {menu.descripcion}.
-                            </div>
-                          </div>
-                          <div
-                            style={{ color: `${styles?.textColor2}` }}
-                            className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                          >
-                            ${menu.precio}
-                          </div>
-                        </li>
-                      ))}
-                </ul>
-              </div>
-            </div>
-            <div className="columnasMenus  w-1/3  flex flex-col ">
-              <div className="titulo text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
-                <h1
-                  style={{ color: `${styles?.textColor1}` }}
-                  className="text-paleta-200  font-bold text-4xl italic"
+              <form className="flex flex-col gap-5 justify-around items-center mb-2 ">
+                <button
+                  className={` font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
+                  onClick={handleStyleFolleto}
                 >
-                  {listadoItems?.businessName}
-                </h1>
-                <hr className="h-4 w-10/12 mx-auto my-2" />
-                <p
-                  style={{ color: `${styles?.textColor2}` }}
-                  className="text-white text-sm my-0"
+                  aplicar estilos
+                </button>
+                <button
+                  className={` font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
+                  onClick={handleResetStyles}
                 >
-                  {listadoItems?.descripcion || "Descripcion de la empresa"}
-                </p>
-                <div className="puntosSeparacion flex gap-2 text-orange-500 text-3xl justify-center align-center mt-10">
-                  <span> • • </span>
-                  <span> • • </span>
-                  <span> • • </span>
-                </div>
-              </div>
-              {/* Lista 2 */}
-
-              <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-                {/* items lista 2 */}
-                <ul>
-                  {items &&
-                    items
-                      ?.filter((items) => items.lista == 2)
-                      .map((menu, index) => (
-                        <li
-                          key={index}
-                          className=" text-left m-0 flex justify-between align-center px-5"
-                        >
-                          <div className="py-2  itemDescription ">
-                            <p
-                              style={{ color: `${styles?.textColor1}` }}
-                              htmlFor="cantidadItems "
-                              className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                            >
-                              {menu.nombre}
-                            </p>
-                            <div
-                              style={{ color: `${styles?.textColor2}` }}
-                              className="descriptionSpan font-medium text-gray-100   "
-                            >
-                              {" "}
-                              {menu.descripcion}.
-                            </div>
-                          </div>
-                          <div
-                            style={{ color: `${styles?.textColor2}` }}
-                            className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                          >
-                            ${menu.precio}
-                          </div>
-                        </li>
-                      ))}
-                </ul>
-              </div>
+                  Resetear Estilos
+                </button>
+              </form>
             </div>
-            <div className="columnasMenus  w-1/3 flex flex-col">
-           
-                <div className=" absolute containerImg  rounded-full ">
-                  <img
-                    src={imagen?.imagen2}
-                    height="100%"
-                    width="100%"
-                    alt=""
-                    className="mx-auto objet-cover  rounded-full "
-                  />
-                </div>
 
-              {/* Lista 3 */}
+            {/* empieza folleto */}
 
-              <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-                {items &&
-                  items
-                    ?.filter((items) => items.lista == 3)
-                    .map((menu, index) => (
-                      <li
-                        key={index}
-                        className=" text-left m-0 flex justify-between align-center px-5"
-                      >
-                        <div className="py-2  itemDescription ">
-                          <p
-                            style={{ color: `${styles?.textColor1}` }}
-                            htmlFor="cantidadItems "
-                            className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                          >
-                            {menu.nombre}
-                          </p>
-                          <div
-                            style={{ color: `${styles?.textColor2}` }}
-                            className="descriptionSpan text-gray-100 font-medium  "
-                          >
-                            {" "}
-                            {menu.descripcion}.
-                          </div>
-                        </div>
-                        <div
-                          style={{ color: `${styles?.textColor2}` }}
-                          className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                        >
-                          ${menu.precio}
-                        </div>
-                      </li>
-                    ))}
-              </div>
-              <div className=" absolute containerImgAbajo rounded-full">
+            <div className="flex flex-col w-full">
               <div
-              className="overflow-hidden mx-auto rounded-full mt-2"
+                style={{
+                  background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
+                }}
+                className=" containerCarta  mx-auto rounded-lg grid  grid-cols-3 justify-items-auto justify-self-auto "
               >
-              <img
-                    src={imagen?.imagen3}
-                    height="100%"
-                    width="100%"
-                    alt=""
-                    className="mx-auto -translate-y-12 overflow-hidden rounded-full "
-                  />
-              </div>
+                <div className="columnasMenus relative  flex flex-col">
+                  <div className=" absolute peer  containerImagenIzquierda rounded-full">
+                    <img
+                    width={'300px'}
+                    height="300px"
+                      src={imagen?.find(img=>img.nombre=="imagen1")?.url}
+                      alt=""
+                      className="mb-4  objet-cover object-center w-full h-auto z-30  rounded-full "
+                    />
+                  </div>
+                  <div className="peer-hover:flex hover:flex mx-auto group hidden md:left-5 top-5 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
+                    <label
+                      htmlFor="imagen1"
+                      name="imagen1"
+                      className="scale-75 group-hover:block block cursor-pointer"
+                    >
+                      <FaEdit />
+                      <input
+                        // ref={filePickerRef}
+                        id="imagen1"
+                        type="file"
+                        name="imagen1"
+                        className="hidden"
+                        onChange={handleSubmitFile}
+                      />
+                    </label>
+                    <button 
+                   id="imagen1"
+                    onClick={handleDeleteImagen}
+                    className="scale-75 group-hover:block block cursor-pointer">
+                      <FaTimes id="imagen1" />
+                    </button>
+                  </div>
+                  {/* Lista 1 */}
+
+                  <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
+                    {/* items lista 1 */}
+                    <ul>
+                      {items &&
+                        items
+                          ?.filter((items) => items.lista == 1)
+                          .map((menu, index) => (
+                            <li
+                              key={index}
+                              className=" text-left m-0 flex justify-between align-center px-5"
+                            >
+                              <div className="py-2  itemDescription ">
+                                <p
+                                  style={{ color: `${styles?.textColor1}` }}
+                                  htmlFor="cantidadItems "
+                                  className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
+                                >
+                                  {menu.nombre}
+                                </p>
+                                <div
+                                  style={{ color: `${styles?.textColor2}` }}
+                                  className="descriptionSpan font-medium text-gray-100   "
+                                >
+                                  {" "}
+                                  {menu.descripcion}.
+                                </div>
+                              </div>
+                              <div
+                                style={{ color: `${styles?.textColor2}` }}
+                                className="inline itemPrecio text-2xl text-center font-bold m-auto"
+                              >
+                                ${menu.precio}
+                              </div>
+                            </li>
+                          ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className="columnasMenus relative  flex flex-col ">
+                  <div className="titulo text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
+                    <h1
+                      style={{ color: `${styles?.textColor1}` }}
+                      className="text-paleta-200  font-bold text-4xl italic"
+                    >
+                      {listadoItems?.businessName}
+                    </h1>
+                    <hr className="h-4 w-10/12 mx-auto my-2" />
+                    <p
+                      style={{ color: `${styles?.textColor2}` }}
+                      className="text-white text-sm my-0"
+                    >
+                      {listadoItems?.descripcion || "Descripcion de la empresa"}
+                    </p>
+                    <div className="puntosSeparacion flex gap-2 text-orange-500 text-3xl justify-center align-center mt-10">
+                      <span> • • </span>
+                      <span> • • </span>
+                      <span> • • </span>
+                    </div>
+                  </div>
+                  {/* Lista 2 */}
+
+                  <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
+                    {/* items lista 2 */}
+                    <ul>
+                      {items &&
+                        items
+                          ?.filter((items) => items.lista == 2)
+                          .map((menu, index) => (
+                            <li
+                              key={index}
+                              className=" text-left m-0 flex justify-between align-center px-5"
+                            >
+                              <div className="py-2  itemDescription ">
+                                <p
+                                  style={{ color: `${styles?.textColor1}` }}
+                                  htmlFor="cantidadItems "
+                                  className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
+                                >
+                                  {menu.nombre}
+                                </p>
+                                <div
+                                  style={{ color: `${styles?.textColor2}` }}
+                                  className="descriptionSpan font-medium text-gray-100   "
+                                >
+                                  {" "}
+                                  {menu.descripcion}.
+                                </div>
+                              </div>
+                              <div
+                                style={{ color: `${styles?.textColor2}` }}
+                                className="inline itemPrecio text-2xl text-center font-bold m-auto"
+                              >
+                                ${menu.precio}
+                              </div>
+                            </li>
+                          ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className="columnasMenus relative flex flex-col">
+                  <div className=" absolute group peer containerImg  rounded-full ">
+                    <img
+                      src={imagen?.find(img=>img.nombre=="imagen2")?.url}
+                      width={'300px'}
+                      height="300px"
+                      alt=""
+                      className="mx-auto objet-cover object-center peer rounded-full "
+                    />
+                                </div>
+                  <div className="peer-hover:flex hover:flex mx-auto group hidden md:left-12 top-5 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
+                    <label
+                      htmlFor="imagen2"
+                      name="imagen2"
+                      className="scale-75 group-hover:block block cursor-pointer"
+                    >
+                      <FaEdit />
+                      <input
+                        // ref={filePickerRef}
+                        id="imagen2"
+                        type="file"
+                        name="imagen2"
+                        className="hidden"
+                        onChange={handleSubmitFile}
+                      />
+                    </label>
+                    <button 
+                   id="imagen2"
+                    onClick={handleDeleteImagen}
+                    className="scale-75 group-hover:block block cursor-pointer">
+                      <FaTimes id="imagen2" />
+                    </button>
+                  </div>
+                  {/* Lista 3 */}
+
+                  <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
+                    {items &&
+                      items
+                        ?.filter((items) => items.lista == 3)
+                        .map((menu, index) => (
+                          <li
+                            key={index}
+                            className=" text-left m-0 flex justify-between align-center px-5"
+                          >
+                            <div className="py-2  itemDescription ">
+                              <p
+                                style={{ color: `${styles?.textColor1}` }}
+                                htmlFor="cantidadItems "
+                                className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
+                              >
+                                {menu.nombre}
+                              </p>
+                              <div
+                                style={{ color: `${styles?.textColor2}` }}
+                                className="descriptionSpan text-gray-100 font-medium  "
+                              >
+                                {" "}
+                                {menu.descripcion}.
+                              </div>
+                            </div>
+                            <div
+                              style={{ color: `${styles?.textColor2}` }}
+                              className="inline itemPrecio text-2xl text-center font-bold m-auto"
+                            >
+                              ${menu.precio}
+                            </div>
+                          </li>
+                        ))}
+                  </div>
+                  <div className=" absolute group containerImgAbajo  rounded-full">
+                    <div className="overflow-hidden mx-auto rounded-full mt-2">
+                      <img
+                        src={imagen?.find(img=>img.nombre=="imagen3")?.url}
+                        height="100%"
+                        width="100%"
+                        alt=""
+                        className="mx-auto objet-cover objet-center -translate-y-12 overflow-hidden rounded-full "
+                      />
+                    </div>
+                    <div className="group-hover:flex hover:flex mx-auto group hidden md:left-1/2 top-8 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
+                    <label
+                      htmlFor="imagen3"
+                      name="imagen3"
+                      className="scale-75 group-hover:block block cursor-pointer"
+                    >
+                      <FaEdit />
+                      <input
+                        // ref={filePickerRef}
+                        id="imagen3"
+                        type="file"
+                        name="imagen3"
+                        className="hidden"
+                        onChange={handleSubmitFile}
+                      />
+                    </label>
+                    <button 
+                   id="imagen3"
+                    onClick={handleDeleteImagen}
+                    className="scale-75 group-hover:block block cursor-pointer">
+                      <FaTimes id="imagen3" />
+                    </button>
+                  </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </section>
       </div>
