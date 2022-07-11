@@ -5,13 +5,13 @@
   ---backgrounCarta: linear-gradient(19deg, #2e2e2e 0%, #271717 92%);
 }
 
-body{
+/* body{
  
   background: linear-gradient(#D3D3D3 0%, #D3D3D3 75%, #797979  75%   )
-}
+} */
 .containerHome {
   min-height: 100vh;
-  
+  background: linear-gradient(#D3D3D3 0%, #D3D3D3 75%, #797979  75%   );
   width: 100%;
 }
 .containerCarta {

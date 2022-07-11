@@ -21,6 +21,9 @@ module.exports = {
       transitionProperty: {
         'height': 'height, max-height ',
         'spacing': 'margin, padding',
+      },
+      borderRadius: {
+        '5xl': '20%',
       }
     },
   },

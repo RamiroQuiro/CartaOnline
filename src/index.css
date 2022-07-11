@@ -7,3 +7,23 @@
     margin: 0;
     margin-left: 0;
 }
+
+
+.bg-color{
+    background:linear-gradient(45deg, #F9731699 20%,#F97316 95% ), url(https://img.freepik.com/vector-gratis/fondo-abstracto-azul-formas-geometricas_1035-17545.jpg?w=900&t=st=1657166260~exp=1657166860~hmac=2f8413d73ca26b6bf497fc33a5028ae1afa6d7be9e4e322940f94974ef686b91)
+    ;
+    animation:background 100s infinite linear ;
+}
+
+@keyframes background {
+    0%{
+        background-position:bottom left;
+    }
+    50%{
+        transform: scale(1);
+        background-position:top right;
+    }
+    100%{
+        background-position:bottom left;
+    }
+}
