@@ -19,15 +19,15 @@ import Footer from "./component/home/Footer/Footer";
 export default function Home() {
   return (
     <div className={theme.light}>
-      <header className="w-5/6 mx-auto h-screen flex flex-col items-center">
-        <div className="w-full mx-auto h-28  flex justify-between items-center">
-          <div className="w-1/5 text-3xl font-bold-thin mx-auto">
+      <header className="w-5/6 mx-auto h-screen flex flex-col  items-center">
+        <div className="w-full px-24 mx-auto h-20 z-50 flex justify-between items-center fixed bg-gradient-to-b from-orange-100/50   to-transparent backdrop-blur-sm ">
+          <div className="w-1/6 text-3xl font-bold-thin mx-auto">
            <img src={Logo} alt="logo" width={"100px"} height="100px"/>
           </div>
-          <nav className="flex font-bold text-sm w-full  justify-around items-center">
-            <NavLink to={"producto"}>Producto</NavLink>
-            <NavLink to={"producto"}>Planes</NavLink>
-            <NavLink to={"producto"}>Contacto</NavLink>
+          <nav className="flex font-medium text-lg w-full px-10 text-gray-800  justify-around items-center">
+            <NavLink to={"producto"} className="hover:scale-110 duration-150">Producto</NavLink>
+            <NavLink to={"producto"}className="hover:scale-110 duration-150">Planes</NavLink>
+            <NavLink to={"producto"} className="hover:scale-110 duration-150">Contacto</NavLink>
           </nav>
           <Link
             to={"login"}
@@ -37,7 +37,7 @@ export default function Home() {
             <div className="text-gray-50 font-bold">Ingresar</div>
           </Link>
         </div>
-        <div className="flex items-start pt-10 justify-between w-full h-screen ">
+        <div className="flex items-start pt-32 justify-between w-full h-screen ">
           <div className="w-1/2 flex gap-5 pr-7 flex-col items-start text-left ">
             <h2 className="text-xl font-medium">
               Menu | Carta | Folleto Digital
@@ -52,9 +52,9 @@ export default function Home() {
               Precios en tiempo Real
             </p>
           </div>
-          <div className="w-1/2 bg-color flex flex-col bg-gradient-to-tr from-amber-300/70 to-amber-500/80 h-4/5 rounded-l-5xl"></div>
+          <div className="w-1/2 bg-color flex flex-col bg-gradient-to-tr from-amber-300/70 to-amber-500/80 h-5/6 rounded-l-5xl"></div>
         </div>
-        <div className="flex w-full gap-10 justify-around items-center -translate-y-10 ">
+        <div className="flex w-full gap-10 justify-around items-center -translate-y-8 ">
           <div className="bg-white flex w-1/3 h-32 items-center justify-center gap-4 mx-auto rounded-full shadow-xl py-2 hover:-translate-y-1 duration-100 hover:shadow-2xl">
             <img
               alt="diseñoFacil"

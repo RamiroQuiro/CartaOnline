@@ -1,13 +1,11 @@
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { VscCheck } from "react-icons/vsc";
-import { Auth } from "./contexto/AuthContext";
-import { db } from "./Firebase";
 import "./perfilCuenta.css";
 import { CgProfile } from "react-icons/cg";
-import { FaFacebook,FaInstagramSquare } from "react-icons/fa";
 import { FcPhoneAndroid, FcFeedback, FcHome  } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { Auth } from "../contexto/AuthContext";
 
 export default function PerfilCuenta({ perfilUser ,listadoItems}) {
   const { user, editarPerfil } = Auth();

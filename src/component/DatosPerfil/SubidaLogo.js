@@ -3,7 +3,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FcUpload } from "react-icons/fc";
-import { db, storage } from "./Firebase";
+import { db, storage } from "../Firebase";
 
 export default function SubidaLogo({ perfilUserLogin }) {
   const [previewURL, setPreviewURL] = useState(null);

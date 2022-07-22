@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./account.css";
-import { Auth } from "./contexto/AuthContext";
 import InventarioProductos from "./InventarioProductos";
-import PerfilCuenta from "./PerfilCuenta";
-import ImagenesStock from "./ImagenesStock";
+
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "./Firebase";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { useContexto } from "./contexto/ContextProvider";
+import { useContexto } from "../contexto/ContextProvider";
+import PerfilCuenta from "./PerfilCuenta";
+import { db } from "../Firebase";
+import { Auth } from "../contexto/AuthContext";
 
 export default function Account() {
 
@@ -40,9 +40,7 @@ traer()
         <InventarioProductos listadoItems={listadoItems} handleDeleteItems={handleDeleteItems} /> 
         <PerfilCuenta perfilUser={perfilUser}
         listadoItems={listadoItems}
-        />
-        <ImagenesStock perfilUser={perfilUser}/>
-        </div>
+        />        </div>
       </div>
     </div>
   );

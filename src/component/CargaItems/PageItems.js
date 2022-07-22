@@ -2,15 +2,14 @@ import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebas
 import React, { useContext, useState } from "react";
 import toast, { LoaderIcon, Toaster } from "react-hot-toast";
 import { useOutletContext } from "react-router-dom";
-import pensando from "../img/pensando.png";
-import { Auth } from "./contexto/AuthContext";
-import { db } from "./Firebase";
+import pensando from "../../img/pensando.png";
+import { Auth } from "../contexto/AuthContext";
 import "./pageItems.css";
-import ModalNewItems from "./ModalNewItems";
-import { useContexto } from "./contexto/ContextProvider";
+import { db } from "../Firebase";
+import { useContexto } from "../contexto/ContextProvider";
+import ModalNewItems from "../modal/ModalNewItems";
 
 export default function PageItems() {
-  const { user } = Auth();
   const {eliminarItems}=useContexto()
   const [listadoItems, perfilUser] = useOutletContext();
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);

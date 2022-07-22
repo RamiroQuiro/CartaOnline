@@ -198,7 +198,7 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
           </div>
         </div>
       </label>
-      <label
+      {/* <label
         htmlFor="acordionImagenes"
         className="text-gray-700  w-full hover:bg-paleta-600/70 group group-checked:bg-paleta-600 font-medium flex flex-col gap-2  border-t-2 border-b-2 py-1 justify-center items-center cursor-pointer max-h-full duration-150 ">
         <input
@@ -263,7 +263,7 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
               </label>
           </form>
         </div>
-      </label>
+      </label> */}
      
     </div>
   );

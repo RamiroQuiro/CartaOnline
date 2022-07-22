@@ -4,19 +4,19 @@ import planStandar from "../../../img/planStandar.png";
 
 export default function SectionPrecio() {
   return (
-    <section className="flex w-5/6 py-8 justify-around items-center mx-auto ">
-          <div className="flex flex-col rounded-t-2xl border w-full">
-            <div className="bg-gradient-to-r from-orange-500 via-orange-500 to-orange-700 flex flex-col text-3xl font-medium rounded-t-2xl p-5 text-center text-orange-50 w-full">
+    <section className="flex w-5/6 py-20 justify-around items-center mx-auto ">
+          <div className="flex flex-col  rounded-t-2xl h- border w-full">
+            <div className="bg-gradient-to-r  from-orange-500 via-orange-500 to-orange-700 flex flex-col text-3xl font-medium rounded-t-2xl py-7 px-5  text-center text-orange-50 w-full">
               <h2>CartaOnline, a precio de tus necesidades</h2>
               <h2>probá 30 días gratis simplemente registrandote</h2>
             </div>
-            <section className="">
-              <div className="block rounded-lg shadow-lg bg-white">
+            <section className="py-10 bg-white shadow-lg">
+              <div className="block  ">
                 <div className="flex flex-wrap items-center">
                   <div className="grow-0 shrink-0 basis-auto block w-full lg:flex lg:w-6/12 xl:w-4/12">
                     <img
                       src={planStandar}
-                      alt="Trendy Pants and Shoes"
+                      alt="PRICE"
                       className="w-full rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg"
                     />
                   </div>

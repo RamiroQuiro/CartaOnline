@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Contacto() {
+const [mandarWhastApp,setMandarWhastApp]= useState()
+
+const handleChange = (e)=>{
+  setMandarWhastApp({...mandarWhastApp,[e.target.name]: e.target.value})
+}
+
+  const enviar = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+         window.open(
+        `https://wa.me/5493856771992?text=Hola,%20mi%20nombre%20${mandarWhastApp.nombre}%20mi%20mail%20${mandarWhastApp.email}%20te%20mando%el%20siguiente%20mensaje%20${mandarWhastApp.mensaje},%20desde%20CartaOnline.com%20*`,
+        `_blank`
+      );
+    }, 200);
+  }
+
+
   return (
     <section className="w-5/6 mx-auto flex flex-col my-20">
     <div className="flex justify-center">
@@ -11,10 +28,15 @@ export default function Contacto() {
 
     <div className="flex flex-wrap">
       <div className="grow-0 shrink-0 basis-auto mb-12 lg:mb-0 w-full lg:w-5/12 px-3 lg:px-6">
-        <form>
+        <form
+        onSubmit={enviar}
+        >
         <h2 className="text-xl font-medium mb-5">Escribenos al whatsApp desde aquí</h2>
           <div className="form-group mb-6">
-            <input type="text" className="form-control block
+            <input type="text" 
+            name='nombre'
+            onChange={handleChange}
+            className="form-control block
             w-full
             px-3
             py-1.5
@@ -31,7 +53,10 @@ export default function Contacto() {
               placeholder="Nombre"/>
           </div>
           <div className="form-group mb-6">
-            <input type="email" className="form-control block
+            <input 
+            onChange={handleChange}
+            name='email'
+            type="email" className="form-control block
             w-full
             px-3
             py-1.5
@@ -48,7 +73,10 @@ export default function Contacto() {
               placeholder="Dirección de Email"/>
           </div>
           <div className="form-group mb-6">
-            <textarea className="
+            <textarea 
+            name='mensaje'
+            onChange={handleChange}
+            className="
             form-control
             block
             w-full
@@ -71,7 +99,7 @@ export default function Contacto() {
           w-full
           px-6
           py-2.5
-          bg-green-500/60
+          bg-green-500
           text-white
           font-medium
           text-xs
@@ -79,17 +107,17 @@ export default function Contacto() {
           uppercase
           rounded
           shadow-md
-          hover:bg-green-500 hover:shadow-lg
+          hover:bg-green-500/80 hover:shadow-lg
           focus:bg-green-500 focus:shadow-lg focus:outline-none focus:ring-0
-          active:bg-blue-800 active:shadow-lg
+          active:bg-green-800 active:shadow-lg
           transition
           duration-150
           ease-in-out">Envíar whatsApp</button>
         </form>
       </div>
-      <div className="grow-0 shrink-0 basis-auto w-full lg:w-7/12">
-        <div className="flex flex-wrap">
-          <div className="mb-12 grow-0 shrink-0 basis-auto w-full lg:w-6/12 px-3 lg:px-6">
+      <div className="grow-0  shrink-0  w-full  lg:w-7/12">
+        <div className="flex gap-8 flex-col h-full justify-center w-full items-center  ">
+          <div className=" grow-0 shrink-0 basis-auto w-full lg:w-8/12 px-3 lg:px-6">
             <div className="flex items-start">
               <div className="shrink-0">
                 <div className="p-4 bg-orange-500/80 rounded-md shadow-md w-14 h-14 flex items-center justify-center">
@@ -107,7 +135,7 @@ export default function Contacto() {
               </div>
             </div>
           </div>
-          <div className="mb-12 grow-0 shrink-0 basis-auto w-full lg:w-6/12 px-3 lg:px-6">
+          <div className=" grow-0 shrink-0 basis-auto w-full lg:w-8/12 px-3 lg:px-6">
             <div className="flex items-start">
               <div className="shrink-0">
                 <div className="p-4 bg-orange-500/80 rounded-md shadow-md w-14 h-14 flex items-center justify-center">
@@ -124,11 +152,12 @@ export default function Contacto() {
               <div className="grow ml-6">
                 <p className="font-bold mb-1">Mandanos un mail</p>
                 <p className="text-gray-800">rama.exe.13@gmail.com</p>
+                <p className="text-gray-800">ramiryexe@hotmail.com</p>
               </div>
             </div>
           </div>
-          <div className="mb-12 grow-0 shrink-0 basis-auto w-full lg:w-6/12 px-3 lg:px-6">
-            <div className="flex align-start">
+          <div className=" grow-0 shrink-0 basis-auto w-full lg:w-8/12 px-3 lg:px-6">
+            <div className="flex align-start w-full">
               <div className="shrink-0">
                 <div className="p-4 bg-orange-500/80 rounded-md shadow-md w-14 h-14 flex items-center justify-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="newspaper"
@@ -139,31 +168,13 @@ export default function Contacto() {
                   </svg>
                 </div>
               </div>
-              <div className="grow ml-6">
-                <p className="font-bold mb-1">Nuestro linkedin</p>
+              <div className=" ml-6">
+                <p className="font-bold mb-1">Nuestas Redes Solciales</p>
                 <p className="text-gray-800">https://linkedin.com/ramiro--quiroga</p>
               </div>
             </div>
           </div>
-          <div className="mb-12 grow-0 shrink-0 basis-auto w-full lg:w-6/12 px-3 lg:px-6">
-            <div className="flex align-start">
-              <div className="shrink-0">
-                <div className="p-4 bg-orange-500/80 rounded-md shadow-md w-14 h-14 flex items-center justify-center">
-                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope"
-            className="w-7" role="img" xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512">
-            <path fill="white"
-              d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
-            </path>
-          </svg>
-                </div>
-              </div>
-              <div className="grow ml-6">
-              <p className="font-bold mb-1">Mandanos un mail</p>
-                <p className="text-gray-800">ramiryexe@hotmail.com</p>
-              </div>
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>

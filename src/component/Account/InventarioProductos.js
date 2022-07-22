@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ModalNewItems from "../modal/ModalNewItems";
 import "./inventarioProductos.css";
-import ModalNewItems from "./ModalNewItems";
-
 export default function InventarioProductos({
   listadoItems,
   handleDeleteItems,
@@ -9,7 +8,7 @@ export default function InventarioProductos({
   const [estadoModal, setEstadoModal] = useState(false);
 
   return (
-    <section className="inventarioComidas w-full hover:-translate-y-2 cursor-pointer duration-300 shadow-md   border border-2  row-span-3 text-medium px-5 p-4 rounded-lg">
+    <section className="inventarioComidas w-full hover:-translate-y-2 cursor-pointer duration-300 shadow-md    border-2  row-span-3 text-medium px-5 p-4 rounded-lg">
       <div className="head mb-6   ">
         <h2 className="font-bold text-gray-700 text-2xl">
           Lista de Productos Activos

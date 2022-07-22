@@ -9,9 +9,9 @@ import "./menu2.css";
 import "./menu3.css";
 import { Link, useParams } from "react-router-dom";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "./Firebase";
+import { db } from "../Firebase";
 import ItemsMenu from "./ItemsMenu";
-import { Auth } from "./contexto/AuthContext";
+import { Auth } from "../contexto/AuthContext";
 
 export default function Home() {
   const {user}=Auth()

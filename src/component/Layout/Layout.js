@@ -1,10 +1,10 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar/Navbar";
 import "./layout.css";
 import { useEffect, useState } from "react";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "./Firebase";
-import { Auth } from "./contexto/AuthContext";
+import { db } from "../Firebase";
+import { Auth } from "../contexto/AuthContext";
 
 export default function Layout() {
   const { user, perfilUser } = Auth();
@@ -31,11 +31,11 @@ const docRefEmpresa=perfilUserLogin?.businessName
   useEffect(() => {
     const unsub = onSnapshot(docRef, (datos) => {
       const datosTraidos = datos.data();
+      console.log(datosTraidos)
       setPerfilUserLogin(datosTraidos.perfilUser);
     });
     return () => unsub();
   }, []);
-
   return (
     <div className="containerLayout w-screen">
       <Navbar perfilUser={perfilUserLogin} className="z-50" />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useContexto } from "./contexto/ContextProvider";
+import { useContexto } from "../contexto/ContextProvider";
 import uuid from "react-uuid";
 import "./modalNewItems.css";
 import toast, { Toaster } from "react-hot-toast";
@@ -17,7 +17,7 @@ export default function ModalNewItems({ estadoModal, setEstadoModal }) {
   const [check,setCheck] = useState(true);
 
  
-  const handleChange = ({ target: { name, value,checked } }) => {
+  const handleChange = ({ target: { name, value, } }) => {
     setProducto({ ...producto, [name]: value, productID: uuid()});
   };
 

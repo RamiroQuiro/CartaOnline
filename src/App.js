@@ -1,18 +1,18 @@
-import FolletosItems from "./component/FolletosItems";
+import FolletosItems from "./component/FolletoPublico/FolletosItems";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ContextProvider from "./component/contexto/ContextProvider";
-import Layout from "./component/Layout";
-import Login from "./component/Login";
+import Layout from "./component/Layout/Layout";
+import Login from "./component/Login/Login";
 import AuthContext, { Auth } from "./component/contexto/AuthContext";
-import Account from "./component/Account";
+import Account from "./component/Account/Account";
 import EnviandoPedido from "./component/EnviandoPedido";
-import PerfildelaCuenta from "./component/PerfildelaCuenta";
-import PageItems from "./component/PageItems";
+import PerfildelaCuenta from "./component/DatosPerfil/PerfildelaCuenta";
+import PageItems from "./component/CargaItems/PageItems";
 import PriveteRoute from "./component/PriveteRoute";
 import PageImagenes from "./component/PageImagenes";
-import DiseñoFolleto from "./component/DiseñoFolleto";
+import DiseñoFolleto from "./component/DiseñoFolleto/DiseñoFolleto";
 import Home from "./Home";
-
+import Folleto2 from "./component/DiseñoFolleto/EstilosFolletos/Folleto2";
 function App() {
 
   return (
@@ -39,6 +39,7 @@ function App() {
               <Route path="pageIgames" element={<PageImagenes />} />
               <Route path="disenioFolleto" element={<DiseñoFolleto />} />
             </Route>
+              <Route path="folleto2" element={<Folleto2 />} />
           </Routes>
         </ContextProvider>
       </AuthContext>

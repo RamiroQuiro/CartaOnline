@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import { db, storage } from "./Firebase";
+import { db, storage } from "../Firebase";
 import { FaEdit, FaTimes } from "react-icons/fa";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 import AcordionDiseños from "./AcordionDiseños";
-import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import ModalLoading from "../modal/ModalLoading";
 const sytileInicial = {
   color1: "#2e2e2e",
   color2: "#271717",
@@ -18,6 +24,7 @@ const sytileInicial = {
 
 export default function DiseñoFolleto({ perfilUserLogin }) {
   const [perfilCuenta, listadoItems] = useOutletContext();
+  const [loading,setLoading]= useState(false)
   const [filet, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
@@ -35,7 +42,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
   useEffect(() => {
     const cargarImagenes = async () => {
       const imagenes = await perfilCuenta.images;
-      setImagenes(imagenes)
+      setImagenes(imagenes);
       // setImagenes({
       //   imagen1: imagenes?.find((imagen) => imagen.nombre == "imagen1")?.url,
       //   imagen2: imagenes?.find((imagen) => imagen.nombre == "imagen2")?.url,
@@ -58,7 +65,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     //
   }, [filet]);
 
-  console.log(listadoItems,perfilCuenta)
+  console.log(listadoItems, perfilCuenta);
   useEffect(() => {
     if (!filet) {
       return;
@@ -70,56 +77,48 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     reader.readAsDataURL(filet);
   }, [filet]);
 
-  useEffect(() => {
-    if (!file2) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewURL2(reader.result);
-    };
-    reader.readAsDataURL(file2);
-  }, [file2]);
+  // useEffect(() => {
+  //   if (!file2) {
+  //     return;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setPreviewURL2(reader.result);
+  //   };
+  //   reader.readAsDataURL(file2);
+  // }, [file2]);
 
-  useEffect(() => {
-    if (!file3) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewURL3(reader.result);
-    };
-    reader.readAsDataURL(file3);
-  }, [file3]);
-
-  const handleUpSelect = (e) => {
-    const file = e.target.files[0];
-    setFile(file);
-  };
-  const handleUpSelect2 = (e) => {
-    const file = e.target.files[0];
-    setFile2(file);
-  };
-  const handleUpSelect3 = (e) => {
-    const file = e.target.files[0];
-    setFile3(file);
-  };
+  // useEffect(() => {
+  //   if (!file3) {
+  //     return;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setPreviewURL3(reader.result);
+  //   };
+  //   reader.readAsDataURL(file3);
+  // }, [file3]);
 
   const handleSubmitFile = async (e) => {
     const file = e.target.files[0];
-    setFile(filet)
+    setFile(filet);
+    setLoading(true)
     const fileName = e.target.name;
     const fileRef = ref(storage, `imagenes/${businessName}/${fileName}`);
     console.log(`imagenes/${businessName}/${file.name}`);
     await uploadBytes(fileRef, file).then(async () => {
       await getDownloadURL(fileRef).then(async (url) => {
         await updateDoc(docRef, {
-            [businessNameImages]:imagen.map(img=>img.nombre==fileName?{...img,url:url}:img)
+          [businessNameImages]: imagen.map((img) =>
+            img.nombre == fileName ? { ...img, url: url } : img
+          ),
         })
           .then(() => {
+            setLoading(false)
             toast.success("Imagen subida correctamente");
           })
           .catch((error) => {
+            setLoading(false)
             alert("Error al subir imagen, intente de nuevo");
             console.log(error);
           });
@@ -127,12 +126,12 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     });
   };
 
-  const handleDeleteImagen=(e)=> {
-    e.preventDefault()
-    const desertRef=ref(storage, imagen[e.target.id])
-    console.log(imagen[e.target.id])
-    deleteObject(desertRef)
-  }
+  const handleDeleteImagen = (e) => {
+    e.preventDefault();
+    const desertRef = ref(storage, imagen[e.target.id]);
+    console.log(imagen[e.target.id]);
+    deleteObject(desertRef);
+  };
 
   {
     /* enviar estilos personalizados */
@@ -159,6 +158,9 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
 
   return (
     <div className="board min-h-full">
+      {loading==true&&
+      <ModalLoading/>
+    }
       <Toaster />
       <div className=" w-[95%] pl-10 px-2 mx-auto">
         <section className="perfilCuenta flex flex-col  bg-gray-100 :bg-gray-500 :bg-opacity-40 bg-opacity-60 backdrop-filter backdrop-blur-sm w-full  shadow-md border-2  :border-gray-600 text-medium  py-5 px-2 gap-2 rounded-lg">
@@ -169,7 +171,6 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
           </div>
           <div className="flex">
             {/* Outlet de los diseños */}
-            {/* botonera */}
             <div className="flex flex-col z-50 bg-gray-50 rounded border  :bg-paleta-100 :text-white text-sm w-diez">
               <AcordionDiseños
                 handleUpSelect={"handleUpSelect"}
@@ -177,8 +178,9 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                 sytileInicial={sytileInicial}
                 styles={styles}
                 setStyles={setStyles}
-              />
+                />
 
+                {/* botonera */}
               <form className="flex flex-col gap-5 justify-around items-center mb-2 ">
                 <button
                   className={` font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
@@ -207,9 +209,9 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                 <div className="columnasMenus relative  flex flex-col">
                   <div className=" absolute peer  containerImagenIzquierda rounded-full">
                     <img
-                    width={'300px'}
-                    height="300px"
-                      src={imagen?.find(img=>img.nombre=="imagen1")?.url}
+                      width={"300px"}
+                      height="300px"
+                      src={imagen?.find((img) => img.nombre == "imagen1")?.url}
                       alt=""
                       className="mb-4  objet-cover object-center w-full h-auto z-30  rounded-full "
                     />
@@ -230,10 +232,11 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                         onChange={handleSubmitFile}
                       />
                     </label>
-                    <button 
-                   id="imagen1"
-                    onClick={handleDeleteImagen}
-                    className="scale-75 group-hover:block block cursor-pointer">
+                    <button
+                      id="imagen1"
+                      onClick={handleDeleteImagen}
+                      className="scale-75 group-hover:block block cursor-pointer"
+                    >
                       <FaTimes id="imagen1" />
                     </button>
                   </div>
@@ -341,13 +344,13 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                 <div className="columnasMenus relative flex flex-col">
                   <div className=" absolute group peer containerImg  rounded-full ">
                     <img
-                      src={imagen?.find(img=>img.nombre=="imagen2")?.url}
-                      width={'300px'}
+                      src={imagen?.find((img) => img.nombre == "imagen2")?.url}
+                      width={"300px"}
                       height="300px"
                       alt=""
                       className="mx-auto objet-cover object-center peer rounded-full "
                     />
-                                </div>
+                  </div>
                   <div className="peer-hover:flex hover:flex mx-auto group hidden md:left-12 top-5 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
                     <label
                       htmlFor="imagen2"
@@ -364,10 +367,11 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                         onChange={handleSubmitFile}
                       />
                     </label>
-                    <button 
-                   id="imagen2"
-                    onClick={handleDeleteImagen}
-                    className="scale-75 group-hover:block block cursor-pointer">
+                    <button
+                      id="imagen2"
+                      onClick={handleDeleteImagen}
+                      className="scale-75 group-hover:block block cursor-pointer"
+                    >
                       <FaTimes id="imagen2" />
                     </button>
                   </div>
@@ -410,7 +414,9 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                   <div className=" absolute group containerImgAbajo  rounded-full">
                     <div className="overflow-hidden mx-auto rounded-full mt-2">
                       <img
-                        src={imagen?.find(img=>img.nombre=="imagen3")?.url}
+                        src={
+                          imagen?.find((img) => img.nombre == "imagen3")?.url
+                        }
                         height="100%"
                         width="100%"
                         alt=""
@@ -418,28 +424,29 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                       />
                     </div>
                     <div className="group-hover:flex hover:flex mx-auto group hidden md:left-1/2 top-8 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
-                    <label
-                      htmlFor="imagen3"
-                      name="imagen3"
-                      className="scale-75 group-hover:block block cursor-pointer"
-                    >
-                      <FaEdit />
-                      <input
-                        // ref={filePickerRef}
-                        id="imagen3"
-                        type="file"
+                      <label
+                        htmlFor="imagen3"
                         name="imagen3"
-                        className="hidden"
-                        onChange={handleSubmitFile}
-                      />
-                    </label>
-                    <button 
-                   id="imagen3"
-                    onClick={handleDeleteImagen}
-                    className="scale-75 group-hover:block block cursor-pointer">
-                      <FaTimes id="imagen3" />
-                    </button>
-                  </div>
+                        className="scale-75 group-hover:block block cursor-pointer"
+                      >
+                        <FaEdit />
+                        <input
+                          // ref={filePickerRef}
+                          id="imagen3"
+                          type="file"
+                          name="imagen3"
+                          className="hidden"
+                          onChange={handleSubmitFile}
+                        />
+                      </label>
+                      <button
+                        id="imagen3"
+                        onClick={handleDeleteImagen}
+                        className="scale-75 group-hover:block block cursor-pointer"
+                      >
+                        <FaTimes id="imagen3" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

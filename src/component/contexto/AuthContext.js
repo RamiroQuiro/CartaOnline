@@ -54,7 +54,19 @@ const register=async (mail,password,userName,businessName)=>{
       images:[{
         nombre: "",
         url: "",
-        posicion: "", 
+        posicion: "logo", 
+      },{
+        nombre: "",
+        url: "",
+        posicion: "imagen1", 
+      },{
+        nombre: "",
+        url: "",
+        posicion: "imagen2", 
+      },{
+        nombre: "",
+        url: "",
+        posicion: "imagen3", 
       },]
       }
   })

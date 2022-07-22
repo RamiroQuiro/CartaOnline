@@ -69,9 +69,6 @@ export default function Footer() {
           <a href="#!" className="text-gray-600">Producto</a>
         </p>
         <p className="">
-          <a href="#!" className="text-gray-600">Planes</a>
-        </p>
-        <p className="">
           <a href="#!" className="text-gray-600">Precio</a>
         </p>
         <p>

@@ -3,8 +3,8 @@ import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, NavLink, useNavigate ,useOutletContext} from "react-router-dom";
-import { Auth } from "./contexto/AuthContext";
-import { db, gAuth } from "./Firebase";
+import { Auth } from "../contexto/AuthContext";
+import { db, gAuth } from "../Firebase";
 import { FaShapes, FaCogs,FaBookOpen,FaColumns,FaFileImage } from "react-icons/fa";
 import "./navbar.css";
 
