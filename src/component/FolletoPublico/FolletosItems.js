@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-// import imagen1 from "../img/burguer.jpg";
-// import imagen2 from "../img/pizzas.jpg";
-// import imagen3 from "../img/sandwich.jpg";
-import "./home.css";
-import "./menu1.css";
-import "./menu2.css";
-import "./menu3.css";
 import { Link, useParams } from "react-router-dom";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../Firebase";
@@ -17,6 +9,7 @@ export default function Home() {
   const {user}=Auth()
   const [listado, setListado] = useState([]);
   const [perfilCuenta, setPerfilCuenta] = useState({});
+  const [categorias, setCategorias]=useState([])
   const [styles, setStyles] = useState({});
   const [imagen, setImagenes] = useState({
     imagen1: "imagen1",
@@ -32,7 +25,16 @@ const businessName=params.businessName
 
  
   useEffect(() => {
-    
+    const category = () => {
+      if (perfilCuenta) {
+        const array=perfilCuenta?.categorias
+        if (array) {
+          const obj = Object.keys(array);
+          setCategorias(obj);
+        }
+      }
+    };
+    category();
     const unsub = onSnapshot(docRefe, (listado) => {
       setListado(listado.data()[businessName].items.filter(items=>items.active===true));
     });
@@ -63,143 +65,102 @@ const businessName=params.businessName
 
 
   return (
-    <div className="containerHome pt-2 mx-auto  ">
-      <div 
-      style={{
-         background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
-       }}
-      className=" containerCarta  mx-auto rounded-lg grid grid-cols-3 justify-items-auto justify-self-auto">
-     
-     
-     {  !listado?
-        <div className="text-center">
-          <h1 className="text-center animate-pulse font-extrabold">Cargando...</h1>
-        </div>
-        :
-        <div className="columnasMenus relative  flex flex-col">
-          <div className=" absolute containerImagenIzquierda rounded-full">
-            <img
-              src={imagen?.imagen1}
-              height="auto"
-              width="100%"
-              alt=""
-              className="mb-4  objet-cover object-center md:w-full h-40  rounded-full "
-            />
-          </div>
-
-{/* Lista 1 */}
-
-          <div className="menuLista text-white  text-left Hamburguesas primerColumna   ">
-            {
-            listado&&
-            listado
-              .filter((items) => items.lista == 1)
-              .map((menu) => (
-                <ItemsMenu
-                textColor1={styles?.textColor1}
-                textColor2={styles?.textColor2}
-                key={menu.productID}
-                  optionMenu={menu.nombre}
-                  description={menu.descripcion}
-                  precio={menu.precio}
-                  productID={menu.productID}
-                />
-              ))}
-          </div>
-        </div> 
-     
-     }
-         <div className="columnasMenus relative  flex flex-col">
-          <div className="titulo text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
-            <h1 
-                 style={{color:`${styles?.textColor1}`}}
-            className="text-paleta-200  font-bold text-4xl italic">
-              {
-              perfilCuenta?.businessName
-              }
-
-            </h1>
-            <hr className="h-4 w-10/12 mx-auto my-2" />
-            <p 
-            style={{color:`${styles?.textColor2}`}}
-            className="text-white text-sm my-0 font-medium">
-              {
-              perfilCuenta?.descripcion || "Descripcion de la empresa"
-              }
-            </p>
-            <div className="puntosSeparacion flex gap-2 text-orange-500 text-3xl justify-center align-center mt-10">
-              <span> • • </span>
-              <span> • • </span>
-              <span> • • </span>
+    <div className="flex  py-5 w-full">
+      <div
+        style={{
+          background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
+        }}
+        className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center "
+      >
+        <header className="w-full flex  min-h-[25%]">
+          <div className="h-full w-1/3 flex items-center justify-center relative">
+            <div className=" absolute peer w-[80%] -rotate-6 rounded-xl">
+              <img
+                width={"300px"}
+                height="300px"
+                src={imagen.imagen1}
+                alt=""
+                className="mb-4  objet-cover object-center w-full h-auto z-30  rounded-xl "
+              />
             </div>
-
+            
           </div>
-         {/* Lista 2 */}
-
-         <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-            {
-            listado&&
-            listado
-              .filter((items) => items.lista == 2)
-              .map((menu) => (
-                <ItemsMenu
-                textColor1={styles?.textColor1}
-                textColor2={styles?.textColor2}
-                  key={menu.productID}
-                  optionMenu={menu.nombre}
-                  description={menu.descripcion}
-                  precio={menu.precio}
-                  productID={menu.productID}
-                />
-              ))}
+          {/* Titulo y Descripcion */}
+          <div className="h-full w-1/3 flex items-center justify-center relative">
+            <div className="text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
+              <h1
+                style={{ color: `${styles?.textColor1}` }}
+                className="text-paleta-200  font-bold text-4xl italic"
+              >
+                {perfilCuenta?.businessName}
+              </h1>
+              <hr className="h-4 w-10/12 mx-auto my-2" />
+              <p
+                style={{ color: `${styles?.textColor2}` }}
+                className="text-white text-sm my-0"
+              >
+                {perfilCuenta?.descripcion || "Descripcion de la empresa"}
+              </p>
+              <div className="puntosSeparacion flex gap-2 text-orange-500 text-3xl justify-center align-center mt-10">
+                <span> • • </span>
+                <span> • • </span>
+                <span> • • </span>
+              </div>
+            </div>
           </div>
+          <div className=" h-full w-1/3 flex items-center justify-center relative">
+            <div className=" absolute peer w-[80%] rotate-6 rounded-xl">
+              <img
+                width={"300px"}
+                height="300px"
+                src={imagen.imagen2}
+                alt=""
+                className="mb-4  objet-cover object-center w-full h-auto z-30  rounded-xl "
+              />
+            </div>
+            
+          </div>
+        </header>
+        {/* Titulo y Descripcion */}
 
-          <Link
-            to={`/${businessName}/enviando`}
-            perfilCuenta={perfilCuenta}
-            className="rounded-full buttonEnviar w-4/12 mx-auto 5 font-bold  text-sm bg-green-500 border border-4 border-white px-1 py-1"
-          >
+        <div className="w-full min-h-4/6 flex flex-wrap justify-center items-center space-x-3 space-y-2.5">
+          {
+              categorias?.map((categoria,i)=>(
+                <div key={i} className="p-3 rounded-lg bg-gray-50/10 backdrop-blur-sm flex flex-col min-h-[50%] min-w-[30%] items-center">
+                      <h3
+                      style={{ color: `${styles?.textColor1}` }}
+                      className="text-xl  -skew-y-3 mb-2  text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-tl-lg"
+                    >{categoria}</h3>
+                    {
+                        perfilCuenta?.categorias?.[categoria].map((item)=>(
+                          <ItemsMenu
+                          textColor1={styles?.textColor1}
+                          textColor2={styles?.textColor2}
+                            key={item.productID}
+                            optionMenu={item.nombre}
+                            description={item.descripcion}
+                            precio={item.precio}
+                            productID={item.productID}
+                          />
+                          ))
+                    }      
+                </div>
+              ))
+          }
+        </div>
+
+        <footer className="w-full px-16 flex bg-gray-100/50 mx-auto gap-4 py-2 justify-between items-center">
+          <span>{perfilCuenta.facebook || "facebook"}</span>
+          <Link to={`/${businessName}/enviando`} perfilCuenta={perfilCuenta} className="rounded-full buttonEnviar w-4/12 mx-auto 5 font-bold  text-sm bg-green-500 border border-4 border-white px-1 py-1">
             Realizar Pedido
           </Link>
-        </div>
-        <div className="columnasMenus relative  flex flex-col">
-          <div className=" absolute containerImg  rounded-full ">
-            <img
-              src={imagen?.imagen2}
-              height="auto"
-              width="100%"
-              alt=""
-              className="mx-auto z-0 objet-none object-bottom rounded-full "
-            />
-          </div>
-          {/* Lista 3 */}
-
-          <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-            {
-            listado&&
-            listado
-              .filter((items) => items.lista == 3)
-              .map((menu) => (
-                <ItemsMenu
-                textColor1={styles?.textColor1}
-                textColor2={styles?.textColor2}
-                  key={menu.productID}
-                  optionMenu={menu.nombre}
-                  description={menu.descripcion}
-                  precio={menu.precio}
-                  productID={menu.productID}
-                />
-              ))}
-          </div>
-          <div className=" absolute containerImgAbajo rounded-full">
-            <img
-              src={imagen?.imagen3}
-              alt=""
-              className="mb-4 objet-cover  rounded-full "
-            />
-          </div>
-        </div>
+          <span>{perfilCuenta.instagram || "Instagram"}</span>
+          <span>{perfilCuenta.direccion}</span>
+        </footer>
       </div>
     </div>
   );
 }
+
+
+

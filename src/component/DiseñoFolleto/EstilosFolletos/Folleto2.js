@@ -18,7 +18,7 @@ export default function Folleto2() {
   const docRefe = doc(db, `listado/empresas`);
 
   const params = useParams();
-  const businessName = 2112;
+  const businessName = "RotiseriaElRincón";
 
   useEffect(() => {
     const unsub = onSnapshot(docRefe, (listado) => {
@@ -68,7 +68,7 @@ export default function Folleto2() {
             <div className=" text-white  text-left Hamburguesas primerColumna   ">
               {listado &&
                 listado
-                  .filter((items) => items.lista == 1)
+                  .filter((items) => items.categoria == "bebidas")
                   .map((menu) => (
                     <ItemsMenu
                       textColor1={styles?.textColor1}

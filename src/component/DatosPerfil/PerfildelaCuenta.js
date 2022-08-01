@@ -10,7 +10,7 @@ import SubidaLogo from "./SubidaLogo";
 
 export default function PerfildelaCuenta() {
   const { user } = Auth();
-  const [perfilUserLogin]=useOutletContext();
+  const [perfilUserLogin,listadoItems]=useOutletContext();
   const [perfilUser, setPerfilUser] = useState({});
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);
   const [editarPerfil, setEditarPerfil] = useState();
@@ -27,18 +27,22 @@ export default function PerfildelaCuenta() {
 
   const handleChangeData = async (e) => {
     e.preventDefault();
-    const data = await getDoc(docRef).then((data) => data?.data().perfilUser);
-    const dataEdit = await getDoc(doc(db, "listado/empresas")).then(
-      (consulta) => consulta?.data()[data?.businessName]
-    );
-    await updateDoc(docRef, { perfilUser });
+    // const data = await getDoc(docRef).then((data) => data?.data().perfilUser);
+    // const dataEdit = await getDoc(doc(db, "listado/empresas")).then(
+    //   (consulta) => consulta?.data()[data?.businessName]
+    // );
+    await updateDoc(docRef, { perfilUser })
     await updateDoc(doc(db, "listado/empresas"), {
-      [data?.businessName]: {
-        ...dataEdit,
+      [listadoItems?.businessName]: {
+        ...listadoItems,
         businessName: perfilUser?.businessName,
         nTel1: perfilUser?.nTel1,
+        nTel2: perfilUser?.nTel2,
+        facebook: perfilUser?.facebook,
+        instagram: perfilUser?.instagram,
         direccion: perfilUser?.direccion,
         descripcion: perfilUser?.descripcion,
+
       },
     }).then(() => {
     toast("Perfil Actualizado!", {

@@ -1,4 +1,4 @@
-import { arrayRemove, arrayUnion,  doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion,  deleteField,  doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext,  useEffect,  useReducer, useState } from "react";
 import { db } from "../Firebase";
 import toast, { Toaster } from 'react-hot-toast'
@@ -23,9 +23,6 @@ const docRef = doc(db, `usuarios/${user?.uid}`);
 const docRefItems = doc(db, `listado/empresas`);
 
 const [state, dispatch] = useReducer(ReducerPedidos, estadoInicial)
-
-
-
 const traerPedidos=(stateMenu)=>{
     // setPedidoGral(...pedidoGral,stateMenu)
 // console.log([stateMenu])
@@ -34,7 +31,6 @@ const traerPedidos=(stateMenu)=>{
       payload:stateMenu
     })
 }
-
 const suma = () => {
 dispatch({
   type:'RESTAR',
@@ -50,8 +46,17 @@ const stateGral=()=>state
 // funciones Firestore
 
 // crear Items nuevos en la collection Items
-const crearItems=async(item)=>{
-    const referencedBusinessName=userPerfil.businessName+"."+"items"
+const crearCategoria=async(categoria)=>{
+    const referencedBusinessName=`${userPerfil.businessName}.categorias.${categoria}`
+    console.log(referencedBusinessName)
+    await updateDoc(docRefItems,{ [referencedBusinessName]:arrayUnion()})
+  
+  toast('Categoria Agregada!', {
+    icon: '👏',
+  });}
+
+const crearItems=async(item,categoria)=>{
+    const referencedBusinessName=userPerfil.businessName+".categorias"+"."+categoria
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayUnion(item)})
   
   toast('Items Agregado!', {
@@ -60,19 +65,24 @@ const crearItems=async(item)=>{
 
 }
 // eliminar items
-const eliminarItems=async(item)=>{
-  const referencedBusinessName=userPerfil.businessName+"."+"items"
+const eliminarItems=async(item,categoria)=>{
+  const referencedBusinessName=userPerfil.businessName+".categorias"+"."+categoria
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayRemove(item)})
   toast('Items Eliminado!', {
     icon: '👏',
   });
 }
 
+const eliminarCategory = async(newObject)=>{
+  const referencedBusinessName = `${userPerfil.businessName}.categorias`
+  await updateDoc(docRefItems,{[referencedBusinessName]:newObject})
+}
+
 // traer una sola vez el listado de items
 const listarItems= async (hola)=>{
 const docRef=doc(db,'listado','items');
 const docSnap  = await getDoc(docRefItems)
-console.log(hola,docSnap.data().listado)
+// console.log(hola,docSnap.data().listado)
 
 }
 
@@ -81,7 +91,7 @@ console.log(hola,docSnap.data().listado)
 
 
   return (
-    <contextState.Provider value={{...state,crearItems,eliminarItems,listarItems,stateGral,traerPedidos}}>
+    <contextState.Provider value={{...state,crearItems,eliminarItems,listarItems,stateGral,traerPedidos,crearCategoria,eliminarCategory}}>
         {children}
     </contextState.Provider>
   );

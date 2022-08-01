@@ -46,8 +46,8 @@ const {traerPedidos}=useContexto()
   return (
     <li key={productID} 
     style={{color:`${textColor2}`}}
-    className=" text-left m-0 flex justify-between align-center px-5">
-      <div className="py-2  itemDescription ">
+    className=" text-left w-full m-0 flex justify-between align-center px-5">
+      <div className="py-1 itemDescription ">
         <button
         style={{color:`${textColor1}`}}
           htmlFor="cantidadItems "
@@ -63,7 +63,7 @@ const {traerPedidos}=useContexto()
       </div>
       <div 
       style={{color:`${textColor2}`}}
-      className="inline itemPrecio text-2xl text-center font-bold m-auto">
+      className="inline itemPrecio text-xl text-center font-bold m-auto">
         ${precio}
       </div>
 

@@ -10,28 +10,27 @@ export default function Layout() {
   const { user, perfilUser } = Auth();
   const [perfilUserLogin, setPerfilUserLogin] = useState({});
   const [listadoItems, setListadoItems] = useState([]);
+ 
   const [recargar, setRecargar] = useState(false);
 
   const docRef = doc(db, `usuarios/${user?.uid}`);
   const docRefItems = doc(db, "/listado/empresas");
-const docRefEmpresa=perfilUserLogin?.businessName
+const docRefCategorias=perfilUserLogin?.businessName
   // termina trayendo data user
-
   useEffect(() => {
     
     const unsub = onSnapshot(docRefItems, (listado) => {
-      setListadoItems(listado.data()[perfilUserLogin?.businessName]);
-    });
-    return () => unsub();
-  }, [perfilUserLogin]);
-
+      setListadoItems(listado.data()[docRefCategorias]);
+    })
+      
+      return () => unsub();
+    }, [perfilUserLogin]);
     
 
 
   useEffect(() => {
     const unsub = onSnapshot(docRef, (datos) => {
       const datosTraidos = datos.data();
-      console.log(datosTraidos)
       setPerfilUserLogin(datosTraidos.perfilUser);
     });
     return () => unsub();

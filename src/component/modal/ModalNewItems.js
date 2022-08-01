@@ -4,14 +4,14 @@ import uuid from "react-uuid";
 import "./modalNewItems.css";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function ModalNewItems({ estadoModal, setEstadoModal }) {
+export default function ModalNewItems({ categorias, setEstadoModal }) {
   const { crearItems } = useContexto();
   const [producto, setProducto] = useState({
     nombre: "nombre",
     descripcion: "descripcion",
     precio: 152,
     productID: 152,
-    lista: "1",
+    categoria: "1",
     active: true,
   });
   const [check,setCheck] = useState(true);
@@ -28,7 +28,7 @@ const handlecheck=({target:{checked}})=>{
 
   const handleCreateItems = (e) => {
     e.preventDefault();
-    crearItems(producto);
+    crearItems(producto,producto.categoria);
     setEstadoModal(false);
     e.target.reset();
   };
@@ -70,6 +70,7 @@ const handlecheck=({target:{checked}})=>{
               Nombre
             </label>
             <input
+            required
               onChange={handleChange}
               type="text"
               name="nombre"
@@ -85,6 +86,7 @@ const handlecheck=({target:{checked}})=>{
               Descripción
             </label>
             <textarea
+
               onChange={handleChange}
               name="descripcion"
               id=""
@@ -100,6 +102,7 @@ const handlecheck=({target:{checked}})=>{
                 Precio
               </label>
               <input
+              required
                 onChange={handleChange}
                 type="number"
                 name="precio"
@@ -116,13 +119,16 @@ const handlecheck=({target:{checked}})=>{
               </label>
               <select
                 onChange={handleChange}
-                name="lista"
+                name="categoria"
                 id=""
-                className="border  focus:border-2 duration-300 border-blue-100 focus:bg-white bg-gray-50 rounded py-1 px-3 outline-none "
+                className="border text-sm focus:border-2 duration-300 border-blue-100 focus:bg-white bg-gray-50 rounded py-1 px-3 outline-none "
+                placeholder="Seleccione una Categoria"
               >
-                <option value={1}>Lista 1</option>
-                <option value={2}>Lista 2</option>
-                <option value={3}>Lista 3</option>
+                <option value="" placeholder="Seleccione una Categoria" select className="text-[xs] text-gray-400">Seleccione una Categoria</option>
+                {categorias?.map((categoria,i)=>(
+                  <option key={i} value={categoria}>{categoria}</option>
+
+                ))}
               </select>
             </div>
           </div>

@@ -12,6 +12,8 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import ModalLoading from "../modal/ModalLoading";
+import Modelo1 from "./Modelo1";
+import ModeloOriginal from "./ModeloOriginal";
 const sytileInicial = {
   color1: "#2e2e2e",
   color2: "#271717",
@@ -24,14 +26,13 @@ const sytileInicial = {
 
 export default function DiseñoFolleto({ perfilUserLogin }) {
   const [perfilCuenta, listadoItems] = useOutletContext();
-  const [loading,setLoading]= useState(false)
+  const [loading, setLoading] = useState(false);
   const [filet, setFile] = useState(null);
-  const [file2, setFile2] = useState(null);
-  const [file3, setFile3] = useState(null);
+  const [categorias, setCategorias] = useState([]);
   const [previewURL, setPreviewURL] = useState(null);
   const [previewURL2, setPreviewURL2] = useState(null);
   const [previewURL3, setPreviewURL3] = useState(null);
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState([]);
   const [styles, setStyles] = useState(sytileInicial);
   const docRef = doc(db, `listado/empresas/`);
   const businessName = listadoItems?.businessName;
@@ -43,6 +44,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     const cargarImagenes = async () => {
       const imagenes = await perfilCuenta.images;
       setImagenes(imagenes);
+      console.log(imagen);
       // setImagenes({
       //   imagen1: imagenes?.find((imagen) => imagen.nombre == "imagen1")?.url,
       //   imagen2: imagenes?.find((imagen) => imagen.nombre == "imagen2")?.url,
@@ -57,15 +59,25 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     cargarStyles();
 
     const cargarItems = async () => {
-      const items = await perfilCuenta.items;
-      setItems(items?.filter((item) => item.active === true));
+      const cargaItems = await perfilCuenta.categorias;
+      if (cargaItems) {
+        const newArray = Object.keys(cargaItems);
+        const newItems = Object.values(cargaItems);
+        if (newArray.length > 0) {
+          setCategorias(newArray);
+          if (newItems) {
+            setItems(
+              newItems.reduce((a, b) => {
+                return [...a, ...b];
+              }, [])
+            );
+          }
+        }
+      }
     };
     cargarItems();
-
-    //
   }, [filet]);
 
-  console.log(listadoItems, perfilCuenta);
   useEffect(() => {
     if (!filet) {
       return;
@@ -102,23 +114,25 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
   const handleSubmitFile = async (e) => {
     const file = e.target.files[0];
     setFile(filet);
-    setLoading(true)
+    setLoading(true);
     const fileName = e.target.name;
+    console.log(fileName);
     const fileRef = ref(storage, `imagenes/${businessName}/${fileName}`);
-    console.log(`imagenes/${businessName}/${file.name}`);
     await uploadBytes(fileRef, file).then(async () => {
       await getDownloadURL(fileRef).then(async (url) => {
         await updateDoc(docRef, {
           [businessNameImages]: imagen.map((img) =>
-            img.nombre == fileName ? { ...img, url: url } : img
+            img.posicion == fileName
+              ? { ...img, url: url, nombre: fileName }
+              : img
           ),
         })
           .then(() => {
-            setLoading(false)
+            setLoading(false);
             toast.success("Imagen subida correctamente");
           })
           .catch((error) => {
-            setLoading(false)
+            setLoading(false);
             alert("Error al subir imagen, intente de nuevo");
             console.log(error);
           });
@@ -155,12 +169,11 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
       toast.success("Estilos actualizados");
     });
   };
+  console.log(perfilCuenta)
 
   return (
     <div className="board min-h-full">
-      {loading==true&&
-      <ModalLoading/>
-    }
+      {loading == true && <ModalLoading />}
       <Toaster />
       <div className=" w-[95%] pl-10 px-2 mx-auto">
         <section className="perfilCuenta flex flex-col  bg-gray-100 :bg-gray-500 :bg-opacity-40 bg-opacity-60 backdrop-filter backdrop-blur-sm w-full  shadow-md border-2  :border-gray-600 text-medium  py-5 px-2 gap-2 rounded-lg">
@@ -178,9 +191,9 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
                 sytileInicial={sytileInicial}
                 styles={styles}
                 setStyles={setStyles}
-                />
+              />
 
-                {/* botonera */}
+              {/* botonera */}
               <form className="flex flex-col gap-5 justify-around items-center mb-2 ">
                 <button
                   className={` font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
@@ -198,259 +211,23 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
             </div>
 
             {/* empieza folleto */}
-
-            <div className="flex flex-col w-full">
-              <div
-                style={{
-                  background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
-                }}
-                className=" containerCarta  mx-auto rounded-lg grid  grid-cols-3 justify-items-auto justify-self-auto "
-              >
-                <div className="columnasMenus relative  flex flex-col">
-                  <div className=" absolute peer  containerImagenIzquierda rounded-full">
-                    <img
-                      width={"300px"}
-                      height="300px"
-                      src={imagen?.find((img) => img.nombre == "imagen1")?.url}
-                      alt=""
-                      className="mb-4  objet-cover object-center w-full h-auto z-30  rounded-full "
-                    />
-                  </div>
-                  <div className="peer-hover:flex hover:flex mx-auto group hidden md:left-5 top-5 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
-                    <label
-                      htmlFor="imagen1"
-                      name="imagen1"
-                      className="scale-75 group-hover:block block cursor-pointer"
-                    >
-                      <FaEdit />
-                      <input
-                        // ref={filePickerRef}
-                        id="imagen1"
-                        type="file"
-                        name="imagen1"
-                        className="hidden"
-                        onChange={handleSubmitFile}
-                      />
-                    </label>
-                    <button
-                      id="imagen1"
-                      onClick={handleDeleteImagen}
-                      className="scale-75 group-hover:block block cursor-pointer"
-                    >
-                      <FaTimes id="imagen1" />
-                    </button>
-                  </div>
-                  {/* Lista 1 */}
-
-                  <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-                    {/* items lista 1 */}
-                    <ul>
-                      {items &&
-                        items
-                          ?.filter((items) => items.lista == 1)
-                          .map((menu, index) => (
-                            <li
-                              key={index}
-                              className=" text-left m-0 flex justify-between align-center px-5"
-                            >
-                              <div className="py-2  itemDescription ">
-                                <p
-                                  style={{ color: `${styles?.textColor1}` }}
-                                  htmlFor="cantidadItems "
-                                  className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                                >
-                                  {menu.nombre}
-                                </p>
-                                <div
-                                  style={{ color: `${styles?.textColor2}` }}
-                                  className="descriptionSpan font-medium text-gray-100   "
-                                >
-                                  {" "}
-                                  {menu.descripcion}.
-                                </div>
-                              </div>
-                              <div
-                                style={{ color: `${styles?.textColor2}` }}
-                                className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                              >
-                                ${menu.precio}
-                              </div>
-                            </li>
-                          ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="columnasMenus relative  flex flex-col ">
-                  <div className="titulo text-center w-8/12 mx-auto h-1/3 mt-5 mb-5">
-                    <h1
-                      style={{ color: `${styles?.textColor1}` }}
-                      className="text-paleta-200  font-bold text-4xl italic"
-                    >
-                      {listadoItems?.businessName}
-                    </h1>
-                    <hr className="h-4 w-10/12 mx-auto my-2" />
-                    <p
-                      style={{ color: `${styles?.textColor2}` }}
-                      className="text-white text-sm my-0"
-                    >
-                      {listadoItems?.descripcion || "Descripcion de la empresa"}
-                    </p>
-                    <div className="puntosSeparacion flex gap-2 text-orange-500 text-3xl justify-center align-center mt-10">
-                      <span> • • </span>
-                      <span> • • </span>
-                      <span> • • </span>
-                    </div>
-                  </div>
-                  {/* Lista 2 */}
-
-                  <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-                    {/* items lista 2 */}
-                    <ul>
-                      {items &&
-                        items
-                          ?.filter((items) => items.lista == 2)
-                          .map((menu, index) => (
-                            <li
-                              key={index}
-                              className=" text-left m-0 flex justify-between align-center px-5"
-                            >
-                              <div className="py-2  itemDescription ">
-                                <p
-                                  style={{ color: `${styles?.textColor1}` }}
-                                  htmlFor="cantidadItems "
-                                  className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                                >
-                                  {menu.nombre}
-                                </p>
-                                <div
-                                  style={{ color: `${styles?.textColor2}` }}
-                                  className="descriptionSpan font-medium text-gray-100   "
-                                >
-                                  {" "}
-                                  {menu.descripcion}.
-                                </div>
-                              </div>
-                              <div
-                                style={{ color: `${styles?.textColor2}` }}
-                                className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                              >
-                                ${menu.precio}
-                              </div>
-                            </li>
-                          ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="columnasMenus relative flex flex-col">
-                  <div className=" absolute group peer containerImg  rounded-full ">
-                    <img
-                      src={imagen?.find((img) => img.nombre == "imagen2")?.url}
-                      width={"300px"}
-                      height="300px"
-                      alt=""
-                      className="mx-auto objet-cover object-center peer rounded-full "
-                    />
-                  </div>
-                  <div className="peer-hover:flex hover:flex mx-auto group hidden md:left-12 top-5 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
-                    <label
-                      htmlFor="imagen2"
-                      name="imagen2"
-                      className="scale-75 group-hover:block block cursor-pointer"
-                    >
-                      <FaEdit />
-                      <input
-                        // ref={filePickerRef}
-                        id="imagen2"
-                        type="file"
-                        name="imagen2"
-                        className="hidden"
-                        onChange={handleSubmitFile}
-                      />
-                    </label>
-                    <button
-                      id="imagen2"
-                      onClick={handleDeleteImagen}
-                      className="scale-75 group-hover:block block cursor-pointer"
-                    >
-                      <FaTimes id="imagen2" />
-                    </button>
-                  </div>
-                  {/* Lista 3 */}
-
-                  <div className="menuLista text-white  text-left Hamburguesas primerColumna  ">
-                    {items &&
-                      items
-                        ?.filter((items) => items.lista == 3)
-                        .map((menu, index) => (
-                          <li
-                            key={index}
-                            className=" text-left m-0 flex justify-between align-center px-5"
-                          >
-                            <div className="py-2  itemDescription ">
-                              <p
-                                style={{ color: `${styles?.textColor1}` }}
-                                htmlFor="cantidadItems "
-                                className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                              >
-                                {menu.nombre}
-                              </p>
-                              <div
-                                style={{ color: `${styles?.textColor2}` }}
-                                className="descriptionSpan text-gray-100 font-medium  "
-                              >
-                                {" "}
-                                {menu.descripcion}.
-                              </div>
-                            </div>
-                            <div
-                              style={{ color: `${styles?.textColor2}` }}
-                              className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                            >
-                              ${menu.precio}
-                            </div>
-                          </li>
-                        ))}
-                  </div>
-                  <div className=" absolute group containerImgAbajo  rounded-full">
-                    <div className="overflow-hidden mx-auto rounded-full mt-2">
-                      <img
-                        src={
-                          imagen?.find((img) => img.nombre == "imagen3")?.url
-                        }
-                        height="100%"
-                        width="100%"
-                        alt=""
-                        className="mx-auto objet-cover objet-center -translate-y-12 overflow-hidden rounded-full "
-                      />
-                    </div>
-                    <div className="group-hover:flex hover:flex mx-auto group hidden md:left-1/2 top-8 absolute cursor-pointer z-50 bg-gray-700/80 p-1 rounded">
-                      <label
-                        htmlFor="imagen3"
-                        name="imagen3"
-                        className="scale-75 group-hover:block block cursor-pointer"
-                      >
-                        <FaEdit />
-                        <input
-                          // ref={filePickerRef}
-                          id="imagen3"
-                          type="file"
-                          name="imagen3"
-                          className="hidden"
-                          onChange={handleSubmitFile}
-                        />
-                      </label>
-                      <button
-                        id="imagen3"
-                        onClick={handleDeleteImagen}
-                        className="scale-75 group-hover:block block cursor-pointer"
-                      >
-                        <FaTimes id="imagen3" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Modelo1 
+            styles={styles}
+            categorias={categorias}
+            items={items}
+            perfilCuenta={perfilCuenta}
+            handleDeleteImagen={handleDeleteImagen}
+            handleSubmitFile={handleSubmitFile}
+            imagen={imagen}
+            />
+            {/* <ModeloOriginal
+            styles={styles}
+            categorias={categorias}
+            items={items}
+            listadoItems={listadoItems}
+            handleDeleteImagen={handleDeleteImagen}
+            handleSubmitFile={handleSubmitFile}
+            /> */}
           </div>
         </section>
       </div>
