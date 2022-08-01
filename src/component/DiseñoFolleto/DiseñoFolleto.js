@@ -14,6 +14,7 @@ import {
 import ModalLoading from "../modal/ModalLoading";
 import Modelo1 from "./Modelo1";
 import ModeloOriginal from "./ModeloOriginal";
+import Pruebadiseño from "./Pruebadiseño";
 const sytileInicial = {
   color1: "#2e2e2e",
   color2: "#271717",
@@ -44,7 +45,6 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     const cargarImagenes = async () => {
       const imagenes = await perfilCuenta.images;
       setImagenes(imagenes);
-      console.log(imagen);
       // setImagenes({
       //   imagen1: imagenes?.find((imagen) => imagen.nombre == "imagen1")?.url,
       //   imagen2: imagenes?.find((imagen) => imagen.nombre == "imagen2")?.url,
@@ -143,7 +143,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
   const handleDeleteImagen = (e) => {
     e.preventDefault();
     const desertRef = ref(storage, imagen[e.target.id]);
-    console.log(imagen[e.target.id]);
+    // console.log(imagen[e.target.id]);
     deleteObject(desertRef);
   };
 
@@ -169,7 +169,6 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
       toast.success("Estilos actualizados");
     });
   };
-  console.log(perfilCuenta)
 
   return (
     <div className="board min-h-full">
@@ -211,7 +210,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
             </div>
 
             {/* empieza folleto */}
-            <Modelo1 
+             <Modelo1 
             styles={styles}
             categorias={categorias}
             items={items}
@@ -219,7 +218,18 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
             handleDeleteImagen={handleDeleteImagen}
             handleSubmitFile={handleSubmitFile}
             imagen={imagen}
-            />
+            /> 
+
+            {/* <Pruebadiseño
+             styles={styles}
+             categorias={categorias}
+             items={items}
+             perfilCuenta={perfilCuenta}
+             handleDeleteImagen={handleDeleteImagen}
+             handleSubmitFile={handleSubmitFile}
+             imagen={imagen}
+             /> */}
+
             {/* <ModeloOriginal
             styles={styles}
             categorias={categorias}

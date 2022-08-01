@@ -36,7 +36,9 @@ const businessName=params.businessName
     };
     category();
     const unsub = onSnapshot(docRefe, (listado) => {
-      setListado(listado.data()[businessName].items.filter(items=>items.active===true));
+      categorias.map(categoria=>
+        setListado(listado.data()[businessName].categorias?.[categoria].filter(items=>items.active===true))
+      )
     });
     return () => unsub();
   }, [perfilCuenta]);
@@ -65,12 +67,12 @@ const businessName=params.businessName
 
 
   return (
-    <div className="flex  py-5 w-full">
+    <div className="flex flex-col flex-wrap  py-5 w-full">
       <div
         style={{
           background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
         }}
-        className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center "
+        className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden m-auto rounded-lg flex flex-col justify-around items-center "
       >
         <header className="w-full flex  min-h-[25%]">
           <div className="h-full w-1/3 flex items-center justify-center relative">
@@ -123,13 +125,13 @@ const businessName=params.businessName
         </header>
         {/* Titulo y Descripcion */}
 
-        <div className="w-full min-h-4/6 flex flex-wrap justify-center items-center space-x-3 space-y-2.5">
+        <div className="w-full py-10 min-h-4/6 flex flex-wrap justify-center items-center space-x-3 space-y-2.5">
           {
               categorias?.map((categoria,i)=>(
                 <div key={i} className="p-3 rounded-lg bg-gray-50/10 backdrop-blur-sm flex flex-col min-h-[50%] min-w-[30%] items-center">
                       <h3
                       style={{ color: `${styles?.textColor1}` }}
-                      className="text-xl  -skew-y-3 mb-2  text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-tl-lg"
+                      className="text-xl  -skew-y-3 mb-2  text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-tl-lg rounded-br-lg"
                     >{categoria}</h3>
                     {
                         perfilCuenta?.categorias?.[categoria].map((item)=>(

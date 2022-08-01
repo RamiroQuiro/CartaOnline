@@ -1,25 +1,24 @@
 import React from "react";
 import { FaEdit, FaTimes } from "react-icons/fa";
 
-export default function Modelo1({
-  styles,
-  imagen,
-  handleDeleteImagen,
-  handleSubmitFile,
-  perfilCuenta,
-  categorias,
-  items,
-}) {
+export default function Pruebadiseño({
+    styles,
+    imagen,
+    handleDeleteImagen,
+    handleSubmitFile,
+    perfilCuenta,
+    categorias,
+    items,
+  }) {
 
-
+  
   return (
-    <div className="flex flex-col w-full">
-      <div
-        style={{
-          background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
-        }}
-        className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center justify-self-auto "
-      >
+    <div className='bg-green-500 w-full'>
+        <div
+          style={{
+            background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
+          }}
+          className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center justify-self-auto ">
         <header className="w-full flex  h-2/6">
           <div className="h-full w-1/3 flex items-center justify-center relative">
             <div className=" absolute peer w-[80%] -rotate-6 rounded-xl">
@@ -115,58 +114,70 @@ export default function Modelo1({
             </div>
           </div>
         </header>
-        {/* Titulo y Descripcion */}
+        <main className="w-full min-h-4/6 flex flex-wrap justify-center items-center space-x-3 space-y-2.5">
 
-        <div className="w-full min-h-4/6 py-10 flex flex-wrap justify-center items-center space-x-3 space-y-2.5">
+        <div className="w-full h-full flex flex-wrap justify-center items-center space-x-3 space-y-2.5 py-10">
           {
-              categorias?.map((categoria,i)=>(
-                <div key={i} className="p-3 rounded-lg bg-gray-50/10 backdrop-blur-sm flex flex-col min-h-[50%] min-w-[30%] items-center">
-                      <h3
-                      style={{ color: `${styles?.textColor1}` }}
-                      className="text-xl text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-lg"
-                    >{categoria}</h3>
-                    {
-                        perfilCuenta?.categorias?.[categoria].map((item,index)=>(
-                            <li
-                            key={index}
-                            className=" text-left w-full m-0 flex justify-between align-center px-5"
-                          >
-                            <div className="py-2  itemDescription ">
-                              <p
-                                style={{ color: `${styles?.textColor1}` }}
-                                htmlFor="cantidadItems "
-                                className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
-                              >
-                                {item.nombre}
-                              </p>
-                              <div
-                                style={{ color: `${styles?.textColor2}` }}
-                                className="descriptionSpan text-gray-100 font-medium  "
-                              >
-                                {" "}
-                                {item.descripcion}.
-                              </div>
-                            </div>
-                            <div
-                              style={{ color: `${styles?.textColor2}` }}
-                              className="inline itemPrecio text-2xl text-center font-bold m-auto"
-                            >
-                              ${item.precio}
-                            </div>
-                          </li>)
-                        )
-                    }      
-                </div>
-              ))
+              categorias?.map((categoria,i)=>
+               {
+                   if (perfilCuenta.categorias?.[categoria].length!=0) {
+                       return(
+                        <div key={i} className="p-3 rounded-lg bg-gray-50/10 backdrop-blur-sm flex flex-col min-h-[50%] min-w-[30%] items-center">
+                            {console.log(perfilCuenta.categorias?.[categoria].length)}
+                              <h3
+                              style={{ color: `${styles?.textColor1}` }}
+                              className="text-xl text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-lg"
+                            >{categoria}</h3>
+                            {
+                                perfilCuenta?.categorias?.[categoria]
+                                
+                                .map((item,index)=>(
+                                    <li
+                                    key={index}
+                                    className=" text-left w-full m-0 flex justify-between align-center px-5"
+                                  >
+                                    <div className="py-2  itemDescription ">
+                                      <p
+                                        style={{ color: `${styles?.textColor1}` }}
+                                        htmlFor="cantidadItems "
+                                        className="cursor-pointer font-bold text-yellow-400 m-0 text-lg"
+                                      >
+                                        {item.nombre}
+                                      </p>
+                                      <div
+                                        style={{ color: `${styles?.textColor2}` }}
+                                        className="descriptionSpan text-gray-100 font-medium  "
+                                      >
+                                        {" "}
+                                        {item.descripcion}.
+                                      </div>
+                                    </div>
+                                    <div
+                                      style={{ color: `${styles?.textColor2}` }}
+                                      className="inline itemPrecio text-2xl text-center font-bold m-auto"
+                                    >
+                                      ${item.precio}
+                                    </div>
+                                  </li>)
+                                )
+                            }      
+                        </div>
+                      )         
+                   }
+               } 
+              
+              )
           }
         </div>
 
+        </main>
         <footer className="w-full px-16 flex bg-gray-100/50 mx-auto gap-4 py-2 justify-between items-center">
           <span>{perfilCuenta.facebook || "facebook"}</span>
           <span>{perfilCuenta.instagram || "Instagram"}</span>
           <span>{perfilCuenta.direccion}</span>
         </footer>
-      </div>
+        </div>
+        
     </div>
-  );
+  )
 }
