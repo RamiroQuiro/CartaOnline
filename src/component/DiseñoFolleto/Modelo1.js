@@ -126,7 +126,9 @@ export default function Modelo1({
                       className="text-xl text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-lg"
                     >{categoria}</h3>
                     {
-                        perfilCuenta?.categorias?.[categoria].map((item,index)=>(
+                        perfilCuenta?.categorias?.[categoria]
+                        ?.filter((item) => item.active === true)
+                        .map((item,index)=>(
                             <li
                             key={index}
                             className=" text-left w-full m-0 flex justify-between align-center px-5"

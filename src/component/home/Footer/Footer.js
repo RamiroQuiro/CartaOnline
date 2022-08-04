@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className="text-center lg:text-left bg-gray-100 text-gray-600">
-  <div className="flex justify-center items-center w-5/6 mx-auto lg:justify-between p-6 border-b border-gray-300">
+    <footer className=" text-center lg:text-left bg-gray-100 text-gray-600">
+  <div className="flex md:flex-row flex-col justify-center items-center w-5/6 mx-auto lg:justify-between p-6 border-b border-gray-300">
     <div className="mr-12 hidden lg:block">
       <span>Siguenos y manda mensaje por nuestras redes:</span>
     </div>
@@ -53,7 +53,7 @@ export default function Footer() {
       </a>
     </div>
   </div>
-  <div className="flex justify-center items-center w-5/6 mx-auto  py-10 text-center md:text-left">
+  <div className="flex  md:flex-row flex-col justify-center items-center w-5/6 mx-auto md:gap-0 gap-7  py-10 text-center md:text-left">
       <div className="">
         
         <p>
@@ -61,7 +61,7 @@ export default function Footer() {
         </p>
       </div>
     
-      <div className=" flex justify-between items-center w-full px-5 py-2 border">
+      <div className=" flex md:flex-row flex-col md:gap-0 gap-5 justify-between items-center w-full px-5 py-2 border">
         <h6 className="uppercase font-semibold  flex justify-center md:justify-start">
           Mapa de Sitio
         </h6>

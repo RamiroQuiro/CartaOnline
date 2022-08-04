@@ -1,5 +1,5 @@
-import { arrayRemove, arrayUnion,  deleteField,  doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import React, { createContext, useContext,  useEffect,  useReducer, useState } from "react";
+import { arrayRemove, arrayUnion,  doc, updateDoc } from "firebase/firestore";
+import React, { createContext, useContext,    useReducer,  } from "react";
 import { db } from "../Firebase";
 import toast, { Toaster } from 'react-hot-toast'
 import ReducerPedidos from "./ReducerPedidos";
@@ -48,7 +48,6 @@ const stateGral=()=>state
 // crear Items nuevos en la collection Items
 const crearCategoria=async(categoria)=>{
     const referencedBusinessName=`${userPerfil.businessName}.categorias.${categoria}`
-    console.log(referencedBusinessName)
     await updateDoc(docRefItems,{ [referencedBusinessName]:arrayUnion()})
   
   toast('Categoria Agregada!', {
@@ -80,8 +79,8 @@ const eliminarCategory = async(newObject)=>{
 
 // traer una sola vez el listado de items
 const listarItems= async (hola)=>{
-const docRef=doc(db,'listado','items');
-const docSnap  = await getDoc(docRefItems)
+// const docRef=doc(db,'listado','items');
+// const docSnap  = await getDoc(docRefItems)
 // console.log(hola,docSnap.data().listado)
 
 }

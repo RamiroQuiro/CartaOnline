@@ -25,7 +25,6 @@ export default function PageItems() {
   const [estadoModal, setEstadoModal] = useState(false);
   const [estadoModal2, setEstadoModal2] = useState(false);
   const [categorias, setCategorias] = useState([]);
-  const [check, setCheck] = useState(true);
   const docRef = doc(db, `listado/empresas/`);
   const businessName = perfilUser?.businessName;
 
@@ -69,12 +68,11 @@ export default function PageItems() {
         (items) => items.productID === productID
       );
     setItemsState(buscado);
-    // setCheck(itemsState?.active);
   };
 
   const handleChangeData = async (categoria) => {
     const referencedBusinessName = `${businessName}.categorias.${categoria}`;
-    console.log(referencedBusinessName);
+
     await updateDoc(docRef, {
       [referencedBusinessName]: listadoItems?.categorias?.[categoria]?.map(
         (items) =>
@@ -104,10 +102,7 @@ export default function PageItems() {
     });
   };
 
-  const handlecheck = ({ target: { checked } }) => {
-    setCheck(checked);
-    setItemsState({ ...itemsState, active: checked });
-  };
+
   return (
     <div className="board min-h-screen">
       <div className=" w-5/6 mx-auto  h-full">
@@ -149,16 +144,16 @@ export default function PageItems() {
               {!categorias ? (
                 <div className="flex justify-center items-center h-full">
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                    loading...
+                    cargando items...
                   </td>
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                    loading...
+                  cargando items...
                   </td>
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                    loading...
+                  cargando items...
                   </td>
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                    loading...
+                  cargando items...
                   </td>
                 </div>
               ) : (
@@ -194,7 +189,8 @@ export default function PageItems() {
                           </span>
                         </div>
                         <tbody key={i}>
-                          {listadoItems?.categorias?.[categoria].map(
+                          {listadoItems?.categorias?.[categoria]
+                          .map(
                             (lista, iItems) => (
                               <tr
                                 onClick={() =>
@@ -284,11 +280,10 @@ export default function PageItems() {
                           >
                             <input
                               type="checkbox"
-                              onChange={handlecheck}
+                              checked={itemsState.active}
                               name="active"
                               id="orange-toggle"
                               className="sr-only peer"
-                              value={itemsState?.active}
                             />
                             <div className="w-10 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-orange-500"></div>
                             <span className="ml-3 text-sm font-medium  peer-checked:text-gray-900 text-gray-500">
@@ -312,11 +307,12 @@ export default function PageItems() {
                             className="relative inline-flex items-center  cursor-pointer"
                           >
                             <input
-                              type="checkbox"
-                              checked={itemsState?.active}
-                              onChange={handleOnChange}
-                              id="orange-toggle"
-                              className="sr-only peer"
+                               type="checkbox"
+                               checked={itemsState.active}
+                               name="active"
+                               id="orange-toggle"
+                               className="sr-only peer"
+                               onChange={handleOnChange}
                             />
                             <div className="w-10 h-5 mx-auto bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-orange-500"></div>
                             <span className="ml-3 text-sm font-medium peer-checked:font-bold peer-checked:text-gray-900 text-gray-300">

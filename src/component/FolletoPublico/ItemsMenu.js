@@ -23,7 +23,7 @@ const {traerPedidos}=useContexto()
     setCantidadItems({
       ...cantidadItems,
       cantidad: count,
-      ItemsMenu: `${e.target.value}`,
+      ItemsMenu: `${e.target.value || e.target.name}`,
       precio: `${precio}`,
       productID:productID
     });
@@ -77,7 +77,7 @@ const {traerPedidos}=useContexto()
         value={cantidadItems.cantidad}
       />
       <div className=" flex flex-col ml-3 algin-center justify-center">
-        <VscTriangleUp className="cursor-pointer" onClick={suma} />
+        <VscTriangleUp className="cursor-pointer" name={optionMenu} onClick={handleCantidadItems} />
         <VscTriangleDown className="cursor-pointer" onClick={resta}/>
       </div>
     </li>

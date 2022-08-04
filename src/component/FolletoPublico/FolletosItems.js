@@ -6,8 +6,8 @@ import ItemsMenu from "./ItemsMenu";
 import { Auth } from "../contexto/AuthContext";
 
 export default function Home() {
-  const {user}=Auth()
   const [listado, setListado] = useState([]);
+  
   const [perfilCuenta, setPerfilCuenta] = useState({});
   const [categorias, setCategorias]=useState([])
   const [styles, setStyles] = useState({});
@@ -72,7 +72,7 @@ const businessName=params.businessName
         style={{
           background: `linear-gradient(${styles?.SelectionRange}deg ,${styles?.color1} ${styles?.porcentaje}%, ${styles?.color2} ${styles?.porcentaje2}%) `,
         }}
-        className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden m-auto rounded-lg flex flex-col justify-around items-center "
+        className=" w-[95%] min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890]  overflow-hidden m-auto rounded-lg flex flex-col justify-around items-center "
       >
         <header className="w-full flex  min-h-[25%]">
           <div className="h-full w-1/3 flex items-center justify-center relative">
@@ -134,7 +134,9 @@ const businessName=params.businessName
                       className="text-xl  -skew-y-3 mb-2  text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-tl-lg rounded-br-lg"
                     >{categoria}</h3>
                     {
-                        perfilCuenta?.categorias?.[categoria].map((item)=>(
+                        perfilCuenta?.categorias?.[categoria]
+                        ?.filter((item) => item.active === true)
+                        .map((item)=>(
                           <ItemsMenu
                           textColor1={styles?.textColor1}
                           textColor2={styles?.textColor2}
@@ -151,11 +153,14 @@ const businessName=params.businessName
           }
         </div>
 
-        <footer className="w-full px-16 flex bg-gray-100/50 mx-auto gap-4 py-2 justify-between items-center">
+        <footer className="w-full px-16 flex bg-gray-100/50 mx-auto gap-4 py-0.5 justify-between items-center">
           <span>{perfilCuenta.facebook || "facebook"}</span>
-          <Link to={`/${businessName}/enviando`} perfilCuenta={perfilCuenta} className="rounded-full buttonEnviar w-4/12 mx-auto 5 font-bold  text-sm bg-green-500 border border-4 border-white px-1 py-1">
+          {
+
+        <Link to={`/${businessName}/enviando`} perfilCuenta={perfilCuenta} className="fixed inset-x-[40%] bottom-8 rounded-full w-32 text-center mx-auto font-medium  text-sm bg-green-500 border border-4 border-white px-1 py-1">
             Realizar Pedido
           </Link>
+          }
           <span>{perfilCuenta.instagram || "Instagram"}</span>
           <span>{perfilCuenta.direccion}</span>
         </footer>
