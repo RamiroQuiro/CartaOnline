@@ -24,10 +24,10 @@ export default function InventarioProductos({
   }, [listadoItems]);
 
   return (
-    <section className="inventarioComidas w-full hover:-translate-y-2 cursor-pointer duration-300 shadow-md    border-2  row-span-3 text-medium px-5 p-4 rounded-lg">
-      <div className="head mb-6   ">
-        <h2 className="font-bold text-gray-700 text-2xl">
-          Lista de Productos Activos
+    <section className=" bg-gray-200/60 backdrop-blur-sm  w-full duration-300 shadow-md   border-2  row-span-3 text-medium px-5 p-4 rounded md:rounded-lg">
+      <div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-between md:items-center mb-6   ">
+        <h2 className="font-medium text-gray-700 text-lg md:text-xl">
+          Productos Activos
         </h2>
         <button
           onClick={() => setEstadoModal(!estadoModal)}
@@ -60,16 +60,16 @@ export default function InventarioProductos({
       {!categorias ? (
         <div className="flex justify-center items-center h-full">
           <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-            loading...
+            Cargando...
           </td>
           <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-            loading...
+            Cargando...
           </td>
           <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-            loading...
+            Cargando...
           </td>
           <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-            loading...
+            Cargando...
           </td>
         </div>
       ) : (

@@ -13,11 +13,7 @@
   }
 
  
-  .containerAccount {
-    width:85%;
-    margin:  auto;
-  }
-  
+
 
   .head {
     display: flex;
@@ -26,13 +22,13 @@
   
  
   
-  .containerAccount {
+  /* .containerAccount {
     display: grid;
     height: 80%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 30px;
-  }
+  } */
 
   
   /* .logo h1 {

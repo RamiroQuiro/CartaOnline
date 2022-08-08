@@ -34,30 +34,20 @@
 
 .userSignIn{
        overflow: hidden;   
-    width: 800px;
     height: 500px;
     margin: auto;
     z-index: 50;
-    background: #ffcacabe;
-    backdrop-filter: blur(10px);
     box-shadow: 0px 5px 6px 2px #3d3d3d70
 }
 
-.imgBox{
-height: 105%;
 
-}
-.formBox{
-    background: transparent;
-}
+
 .imgBoxSignUp{
     left: -100%;
     border-radius: 25%;
 }
 .formBoxUp{
-     left:100%     ; 
-     background: #DBFA4690;
-     backdrop-filter: blur(10px);
+     z-index: 50;
 }
 .imgBoxUp{
     left:-100%;

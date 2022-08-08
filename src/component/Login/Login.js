@@ -71,10 +71,10 @@ const handleLogin = async(e)=>{
     <div className="w-full relative containerLogin h-screen  bg-red-200 flex items-center justify-center  bg-gray-200">
        <Toaster/>
       <div className="shape"></div>
-      <div className="shape"></div>
-        <div className="userSignIn  relative shadow-lg border-2 border-gray-100 rounded-lg">
-          <div className="userBox  absolute top-0 left-0 w-full h-full flex justify-center items-center ">
-            <div className="imgBox relative w-1/2 h-full duration-500">
+      <div className="shape"></div>/
+        <div className="userSignIn  w-10/12 md:w-6/12 min-h-[500px] bg-[#ffcacabe]/70 md:backdrop-blur-sm relative shadow-lg border-2 border-gray-100 rounded-lg">
+          <div className={`${active?'opacity-0':' opacity-100'}userBox duration-200 absolute top-0 left-0 md:w-full h-full flex justify-center items-center `}>
+            <div className="imgBox md:block hidden relative w-1/2 h-full duration-500">
               <img
                 src="https://source.unsplash.com/random/800x800/?img=1"
                 // src="https://images.pexels.com/photos/1260968/pexels-photo-1260968.jpeg"
@@ -82,9 +82,9 @@ const handleLogin = async(e)=>{
                 className=" absolute object-cover w-full h-full duration-300"
               />
             </div>
-            <div className="formBox  relative w-1/2 h-full flex justify-center items-center px-8 py-8 duration-500 " >
+            <div className={`${active&&'opacity-0'} formBox  relative md:w-1/2 h-full flex justify-center items-center md:p-8 px-5 duration-500 `} >
               <form action="" onSubmit={handleLogin}>
-                <h2 className="font-bold text-2xl uppercase text-center tracking-wider w-full mb-8 text-gray-600">Sign In</h2>
+                <h2 className="font-bold text-2xl uppercase text-center tracking-wider w-full mb-8 text-gray-600">Ingresar</h2>
        
                 <input
                   type="text"
@@ -100,8 +100,8 @@ const handleLogin = async(e)=>{
                   placeholder="**********"
                   className="w-full px-3 py-2 rounded border-none outline-none tracking-wide text-gray-800 bg-gray-100 my-2 font-medium"
                 />
-                <input type="submit" name="submit"  value="login" id="" 
-                className="w-1/3  px-3 py-2 rounded border-none outline-none tracking-wide uppercase text-gray-100 bg-blue-400 my-2 mx-auto font-bold cursor-pointer duration-500"/>
+                <input type="submit" name="submit"  value="Ingresar" id="" 
+                className="  px-3 py-2 rounded border-none outline-none tracking-wide uppercase text-gray-100 bg-blue-400 my-2 mx-auto font-bold cursor-pointer duration-500"/>
                 <p className="relative mt-5 text-xs uppercase tracking-wide text-gray-800">
                   No tienes una cuenta? <button  onClick={activar } className="uppercase cursor-pointer text-blue-600 font-bold">Registrate</button>
                 </p>
@@ -110,14 +110,14 @@ const handleLogin = async(e)=>{
           </div>
           <div className="userBoxUp   duration-500 top-0 left-0 w-full h-full flex justify-center items-center ">
         
-            <div className={active? 'active formBoxUp  relative w-1/2 h-full flex justify-center items-center bg-white px-8 py-8 duration-500  ': 'formBoxUp opacity-0  relative w-1/2 h-full flex justify-center items-center bg-white px-8 py-8 duration-500 ' }>
+            <div className={active? 'active formBoxUp  bg-[#DBFA4690] md:backdrop-blur-sm relative w-full  md:w-1/2 flex justify-center items-center bg-white px-8 py-8 duration-500  ': 'formBoxUp opacity-1  relative md:w-1/2 w-full -translate-x-[100%] flex justify-center items-center bg-white px-8 py-8 duration-500 ' }>
               <form action="" onSubmit={handleRegister}>
-                <h2 className="font-bold text-2xl uppercase text-center tracking-wider w-full mb-8 text-gray-600">Sign Up</h2>
+                <h2 className="font-bold text-2xl uppercase text-center tracking-wider w-full mb-8 text-gray-600">Registrar</h2>
                 <input
                   type="text"
                   name="businessName"
                   onChange={handleChange}
-                  placeholder="businessName"
+                  placeholder="Nombre de la Empresa"
                   className="w-full px-3 py-2 rounded border-none outline-none tracking-wide text-gray-800 bg-gray-100 my-2 font-medium"
                 />
                 <input
@@ -125,7 +125,7 @@ const handleLogin = async(e)=>{
                   name="userName"
                   onChange={handleChange}
                   id=""
-                  placeholder="UserName"
+                  placeholder="Tu Nombre"
                   className="w-full px-3 py-2 rounded border-none outline-none tracking-wide text-gray-800 bg-gray-100 my-2 font-medium"
                 />
                 <input
@@ -141,7 +141,7 @@ const handleLogin = async(e)=>{
                   name="password"
                   onChange={handleChange}
                   id=""
-                  placeholder="create password"
+                  placeholder="Contraseña"
                   className="w-full px-3 py-2 rounded border-none outline-none tracking-wide text-gray-800 bg-gray-100 my-2 font-medium"
                 />
                 <input
@@ -149,17 +149,17 @@ const handleLogin = async(e)=>{
                   name="password"
                   onChange={handleChange}
                   id=""
-                  placeholder="confirm password"
+                  placeholder="Confirmar Contraseña"
                   className="w-full px-3 py-2 rounded border-none outline-none tracking-wide text-gray-800 bg-gray-100 my-2 font-medium"
                 />
-                <input type="submit" name="submit" value="SignUp" id="" 
-                className="w-1/3  px-3 py-2 right-0 rounded border-none outline-none tracking-wide uppercase text-gray-100 bg-blue-400 my-2 mx-auto font-bold cursor-pointer duration-500"/>
+                <input type="submit" name="submit" value="Registrar" id="" 
+                className="  px-3 py-2 right-0 rounded border-none outline-none tracking-wide uppercase text-gray-100 bg-blue-400 my-2 mx-auto font-bold cursor-pointer duration-500"/>
                 <p className="relative mt-5 text-right text-xs uppercase tracking-wide text-gray-800">
                  Ya tienes una cuenta? <button  onClick={activar }  className=" uppercase text-blue-600 font-bold">Entrar</button>
                 </p>
               </form>
             </div>
-            <div className={active?"active imgBoxUp imgBox duration-500  relative w-1/2 h-full ": " imgBoxUp  duration-500 relative w-1/2 h-full "}>
+            <div className={active?"active hidden md:block imgBoxUp imgBox duration-500  relative w-1/2 h-full ": " imgBoxUp  duration-500 relative w-1/2 h-full "}>
               <img
                 src="https://source.unsplash.com/random/800x800/?img=2"
                 alt=""

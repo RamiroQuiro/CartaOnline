@@ -9,10 +9,10 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
 
   const bgArriba=styles?.color1
   return (
-    <div className="flex flex-col z-40   justify-around items-center mb-2 ">
+    <div className="flex md:flex-col z-40   justify-around items-center mb-2 w-full ">
       <label
         htmlFor="acordionDiseños"
-        className="text-gray-700  w-full hover:bg-paleta-600/70 group group-checked:bg-paleta-600 font-medium flex flex-col gap-2  border-t-2 border-b-2 pt-1 justify-center items-center cursor-pointer max-h-full duration-150"
+        className="text-gray-700  w-full hover:bg-paleta-600/70 group group-checked:bg-paleta-600 font-medium flex flex-col gap-2  border-t-2 border-b-2 pt-1 justify-center items-center cursor-pointer h-full md:max-h-full duration-150"
       >
         <input
           id="acordionDiseños"
@@ -39,8 +39,8 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
             d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"
           />
         </svg>
-        <div className="hidden flex-col bg-gray-200/50 w-full peer-checked:bg- max-h-0 peer-checked:flex  duration-150 -translate-y-8 peer-checked:translate-y-0 peer-checked:max-h-max z-50 ">
-          <div className="flex flex-col">
+        <div className="hidden flex-col md:bg-gray-200/50 bg-gray-200/90  w-full peer-checked:bg- max-h-0 peer-checked:flex md:bottom-0 left-0 -bottom-28 absolute md:relative duration-150 md:-translate-y-8 peer-checked:translate-y-0 peer-checked:max-h-max z-50  ">
+        <div className="flex md:flex-col justify-around items-center">
             <div className=" flex flex-col py-2 gap-1 justify-center items-center">
               <input
                 name="color1"
@@ -140,7 +140,7 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
       </label>
       <label
         htmlFor="acordionDiseñosTexto"
-        className="text-gray-700  w-full hover:bg-paleta-600/70 group group-checked:bg-paleta-600 font-medium flex flex-col gap-2  border-t-2 border-b-2 pt-1 justify-center items-center cursor-pointer max-h-full duration-150 ">
+        className="text-gray-700  w-full hover:bg-paleta-600/70 group group-checked:bg-paleta-600 font-medium flex flex-col gap-2  border-t-2 border-b-2 pt-1 justify-center items-center cursor-pointer h-full md:max-h-full  duration-150 ">
         <input
           id="acordionDiseñosTexto"
           className=" peer group z-50 absolute hidden w-full opacity-0"
@@ -166,8 +166,8 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
             d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"
           />
         </svg>
-        <div className="hidden flex-col bg-gray-200/50 w-full peer-checked:bg- max-h-0 peer-checked:flex  duration-150 -translate-y-8 peer-checked:translate-y-0 peer-checked:max-h-max z-50  ">
-        <div className="flex flex-col">
+        <div className="hidden flex-col md:bg-gray-200/50 bg-gray-200/90  w-full peer-checked:bg- max-h-0 peer-checked:flex md:bottom-0 left-0 -bottom-20 absolute md:relative duration-150 md:-translate-y-8 peer-checked:translate-y-0 peer-checked:max-h-max z-50  ">
+        <div className="flex md:flex-col justify-around items-center">
         <div className=" flex flex-col py-2 gap-1 justify-center items-center">
             <input
               name="textColor1"

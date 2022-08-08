@@ -174,16 +174,16 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
     <div className="board min-h-full">
       {loading == true && <ModalLoading />}
       <Toaster />
-      <div className=" w-[95%] pl-10 px-2 mx-auto">
+      <div className=" w-[95%] md:pl-10 md:px-2  pt-8 md:pt-0 mx-auto">
         <section className="perfilCuenta flex flex-col  bg-gray-100 :bg-gray-500 :bg-opacity-40 bg-opacity-60 backdrop-filter backdrop-blur-sm w-full  shadow-md border-2  :border-gray-600 text-medium  py-5 px-2 gap-2 rounded-lg">
           <div className="flex justify-around items-center w-full  rounded text-xs px-1  :bg-paleta-100 :text-white">
             <div>diseño Folleto</div>
             <div>Diseño Afiches</div>
             <div>Diseños</div>
           </div>
-          <div className="flex">
+          <div className="flex md:flex-row flex-col">
             {/* Outlet de los diseños */}
-            <div className="flex flex-col z-50 bg-gray-50 rounded border  :bg-paleta-100 :text-white text-sm w-diez">
+            <div className="flex md:flex-col z-50 bg-gray-50 rounded border relative    text-sm md:w-diez">
               <AcordionDiseños
                 handleUpSelect={"handleUpSelect"}
                 businessName={businessName}
@@ -193,7 +193,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
               />
 
               {/* botonera */}
-              <form className="flex flex-col gap-5 justify-around items-center mb-2 ">
+              <form className="flex flex-col gap-2 justify-center md:justify-around items-center mb-2 ">
                 <button
                   className={` font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 p-1.5 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}
                   onClick={handleStyleFolleto}

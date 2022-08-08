@@ -32,8 +32,8 @@ export default function Navbar({perfilUser}) {
   return (
     <div className="">
       <Toaster />
-      <header className="flex mx-auto py-2 px-5">
-        <div className="logo group relative duration-300  flex   hover:-translate-y-0.5  hover:shadow-xl py-1 items-center gap-5 text-2xl font-bold text-paleta-300">
+      <header className="flex mx-auto py-2 md:py-4  md:px-5">
+        <div className="logo group relative duration-300  flex   hover:-translate-y-0.5  hover:shadow-xl py-1 items-center gap-5 md:text-2xl text-lg font-bold text-paleta-300">
           <Link 
           to={`/${perfilUser?.businessName}`}
           target="_blank"
@@ -51,7 +51,9 @@ export default function Navbar({perfilUser}) {
           ></i>
         </div>
       </header>
-      <nav className="nav rounded bg-paleta-100  overflow-hidden hover:overflow-visible z-30 left-5">
+      <nav className="md:-translate-x-5 md:translate-y-full flex md:flex-col sticky top-0  md:fixed z-50 md:w-[4.5%] md:border-r-2 border-b-2 md:rounded bg-paleta-100  overflow-hidden hover:overflow-visible md:left-5
+      
+      ">
         <NavLink
           className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
           to={"account"}

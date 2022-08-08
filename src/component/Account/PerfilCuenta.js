@@ -24,9 +24,9 @@ const navigate = useNavigate()
   };
 
   return (
-    <section className="perfilCuenta   inventarioComidas w-full  hover:-translate-y-2 cursor-pointer duration-300 shadow-md border-2 border text-medium p-4 rounded-lg">
-      <div className="head  mb-4">
-        <h2 className="text-right  font-bold  text-gray-700 text-2xl">
+    <section className="   bg-gray-200/60 backdrop-blur-sm w-full   cursor-pointer duration-300 shadow-md border-2  text-medium p-4 rounded-lg">
+      <div className="flex justify-between items-center mb-6   ">
+        <h2 className="text-right  font-medium  text-gray-700 md:text-xl text-lg">
           Tarjeta de presetación
         </h2>
         <button
@@ -47,7 +47,7 @@ const navigate = useNavigate()
         </div>
         <div className="detallesCardProfile flex justify-center items-center  w-1/2 p-5">
           <div className="flex gap-2 flex-col text-left -ml-10 text-white">
-            <div className="block font-medium jutify-center items-center text-sm flex gap-2 -ml-2 ">
+            <div className=" font-medium jutify-center items-center text-sm flex gap-2 -ml-2 ">
               <CgProfile className="font-bold scale-150 	" />{" "}
               <h2 className="text-paleta- font-bold text-2xl">
                 {perfilUser?.userName}

@@ -16,17 +16,15 @@ export default function EnviandoPedido() {
   });
   const navigate = useNavigate();
 
-  const numeroWhatsApp=5493855353174
+  const numeroWhatsApp = 5493855353174;
 
-  
   const volver = () => {
     navigate(-1);
   };
 
-
-const params=useParams()
-const businessName=params.businessName
-const docRef = doc(db, `listado/empresas`);
+  const params = useParams();
+  const businessName = params.businessName;
+  const docRef = doc(db, `listado/empresas`);
 
   useEffect(() => {
     const montarPedido = () => {
@@ -37,17 +35,18 @@ const docRef = doc(db, `listado/empresas`);
   }, []);
 
   useEffect(() => {
-    const traerData =async() => {
- const data= await getDoc(docRef).then((data) => data.data()[businessName]);
-setPerfilCuenta({
-  businessName: data.businessName,
-  nTel1: data.nTel1,
-  direccion: data.direccion,
-})
-    }
-    traerData()
-  },[])
-
+    const traerData = async () => {
+      const data = await getDoc(docRef).then(
+        (data) => data.data()[businessName]
+      );
+      setPerfilCuenta({
+        businessName: data.businessName,
+        nTel1: data.nTel1,
+        direccion: data.direccion,
+      });
+    };
+    traerData();
+  }, []);
 
   const sumaTotal = () => {
     return lista.reduce((a, b) => a + (Number(b.precio) || 0) * b.cantidad, 0);
@@ -55,25 +54,33 @@ setPerfilCuenta({
   const suma = sumaTotal();
 
   const handleChange = (e) => {
-   setPedido({...pedido,[e.target.name]:e.target.value});
+    setPedido({ ...pedido, [e.target.name]: e.target.value });
   };
 
   const enviar = (e) => {
     e.preventDefault();
     setTimeout(() => {
-         window.open(
-        `https://wa.me/549${perfilCuenta.nTel1}?text=Hola,%20este%20es%20mi%20pedido:${
-          lista.map((item =>(`%0A%0A ✓ *${item.cantidad}* *${item.ItemsMenu}* ` ) ))
-        }%0A%0AMi%20nombre%20es%20*${pedido.nombre}*%0A%0A%20Mi%20dirección es%20*${pedido.direccion}*,%3A%0A%0Aobservación:%20*${pedido.mensaje}* %0A%0A(◠﹏◠)%0A%0AEl%20total%20es:%20*${suma}*`,
+      window.open(
+        `https://wa.me/549${
+          perfilCuenta.nTel1
+        }?text=Hola,%20este%20es%20mi%20pedido:${lista.map(
+          (item) => `%0A%0A ✓ *${item.cantidad}* *${item.ItemsMenu}* `
+        )}%0A%0AMi%20nombre%20es%20*${
+          pedido.nombre
+        }*%0A%0A%20Mi%20dirección es%20*${
+          pedido.direccion
+        }*,%3A%0A%0Aobservación:%20*${
+          pedido.mensaje
+        }* %0A%0A(◠﹏◠)%0A%0AEl%20total%20es:%20*${suma}*`,
         `_blank`
       );
     }, 200);
-  }
+  };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="mainContainer shadow-2xl border border-1 ">
-        <section id="left">
+    <div className="flex md:flex-row text-gray-800 flex-col justify-center items-center h-screen md:bg-gray-100 bg-gray-50 py-2 md:py-0">
+      <div className="relative md:bg-white rounded-xl md:w-2/5 w-full h-full md:h-3/5 mb-16 shadow-2xl md:border md:border-1 md:block flex flex-col items-center justify-between">
+        <section className=" text-white md:flex flex-col flex-nowrap px-3 py-7 md:h-[70vh] h-2/3 md:-top-10 md:-left-36 w-full md:w-[70%] relative left ">
           <div id="head">
             <h1 className="font-bold text-xl mt-5">Este es su pedido</h1>
           </div>
@@ -88,8 +95,11 @@ setPerfilCuenta({
             ))}
           </ul>
         </section>
-        <section className="font-medium" id="right">
-          <form onSubmit={enviar}>
+        <section className="font-medium  z-50 md:absolute md:left-[45%] md:w-[50%] md:h-full w-full md:top-0  flex  flex-col flex-nowrap md:pl-5 px-5 mt-5 md:mt-0 justify-center items-center ">
+          <form
+            onSubmit={enviar}
+            className="flex gap-2 flex-nowrap flex-col w-full"
+          >
             <label htmlFor="expiry-month" className="inline-block">
               Total de su pedido es:
             </label>
@@ -98,22 +108,22 @@ setPerfilCuenta({
               className="inline-block"
               name="total"
               id=""
-            
             >{`$ ${suma}`}</p>
 
-            <div id="form-sec-code" className="form-field">
+<div className="flex flex-col flex-nowrap justify-center mb-5">
               <label htmlFor="sec-code" className="text-sm pt-3">
                 Nombre
               </label>
               <input
                 type="text"
                 name="nombre"
+                className="outline-none bg-gray-100/95 border-b-2 p-1.5 rounded mt-0.5 relative border-none"
                 onChange={handleChange}
-                placeholder="Ramiro Quiroga"
+                placeholder="Nombre y Apeliido"
                 required
               />
             </div>
-            <div id="form-sec-code" className="form-field">
+            <div className="flex flex-col flex-nowrap justify-center mb-5">
               <label htmlFor="sec-code" className="text-sm  ">
                 Dirección
               </label>
@@ -121,31 +131,33 @@ setPerfilCuenta({
                 type="text"
                 name="direccion"
                 onChange={handleChange}
-                placeholder="Mza 14 Lt 24 B°El Rincon"
+                className="outline-none bg-gray-100/95 border-b-2 p-1.5 rounded mt-0.5 relative border-none"
+                placeholder="Dirección"
                 required
               />
             </div>
-            <div id="form-sec-code" className="form-field">
+            <div className="flex flex-col flex-nowrap justify-center md:mb-5">
               <label htmlFor="sec-code" className="text-sm ">
                 Obsercación
               </label>
               <textarea
                 type="text"
                 onChange={handleChange}
-                name="mensaje" 
-                className="text-sm px-2 py-5"
+                name="mensaje"
+                className="outline-none bg-gray-100/95 border-b-2 p-1.5 rounded mt-0.5 relative border-none"
                 placeholder="un poco crocante, mas salsa, poca salsa, etc"
-                
               />
             </div>
 
-            <button type="submit">Mandar WhatsApp</button>
+            <button 
+            className="bg-gradient-to-tr from-blue-400 to-blue-300 p-2 border-none rounded-xl text-white font-bold text-sm duration-200 mb:mt-5 my-2 md:my-0 hover:from-transparent hover:to-transparent hover:shadow-[0_0_0_2px_#4183d7] hover:text-[#4183d7]"
+            type="submit">Mandar WhatsApp</button>
           </form>
         </section>
       </div>
       <button
         onClick={volver}
-        className="uppercase text-blue-600 font-bold absolute bottom-3 left-50"
+        className="uppercase  text-blue-600 font-bold absolute bottom-3 left-50"
       >
         {" "}
         volver

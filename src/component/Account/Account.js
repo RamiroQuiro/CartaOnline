@@ -35,7 +35,7 @@ traer()
     <div>
       <div className="board min-h-screen">
      
-        <div className="containerAccount md:flex md:flex-col">
+        <div className="md:w-10/12 mx-auto pt-8 md:pt-0 flex flex-col  md:flex-row gap-5">
        
         <InventarioProductos listadoItems={listadoItems} handleDeleteItems={handleDeleteItems} /> 
         <PerfilCuenta perfilUser={perfilUser}

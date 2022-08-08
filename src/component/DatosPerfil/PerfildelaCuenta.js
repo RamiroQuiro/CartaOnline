@@ -10,7 +10,7 @@ import SubidaLogo from "./SubidaLogo";
 
 export default function PerfildelaCuenta() {
   const { user } = Auth();
-  const [perfilUserLogin,listadoItems]=useOutletContext();
+  const [perfilUserLogin, listadoItems] = useOutletContext();
   const [perfilUser, setPerfilUser] = useState({});
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);
   const [editarPerfil, setEditarPerfil] = useState();
@@ -31,7 +31,7 @@ export default function PerfildelaCuenta() {
     // const dataEdit = await getDoc(doc(db, "listado/empresas")).then(
     //   (consulta) => consulta?.data()[data?.businessName]
     // );
-    await updateDoc(docRef, { perfilUser })
+    await updateDoc(docRef, { perfilUser });
     await updateDoc(doc(db, "listado/empresas"), {
       [listadoItems?.businessName]: {
         ...listadoItems,
@@ -42,12 +42,12 @@ export default function PerfildelaCuenta() {
         instagram: perfilUser?.instagram,
         direccion: perfilUser?.direccion,
         descripcion: perfilUser?.descripcion,
-
       },
     }).then(() => {
-    toast("Perfil Actualizado!", {
-      icon: "💪💪",
-    })})
+      toast("Perfil Actualizado!", {
+        icon: "💪💪",
+      });
+    });
     setHabilitarEdicion(!habilitarEdicion);
   };
   useEffect(() => {
@@ -67,10 +67,10 @@ export default function PerfildelaCuenta() {
 
   return (
     <div className="board min-h-screen">
-    <div className=" w-5/6 mx-auto  h-full">
-      <section className="perfilCuenta  inventarioComidas w-full h-full  shadow-md border-2  text-medium px-5 py-5 rounded-lg">
-          <div className="flex  mx-auto gap-4 lg:py-8 justify-around lg:px-15">
-          <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2  text-medium px-5 py-5 rounded-lg">
+      <div className=" md:w-10/12 mx-auto pt-8 md:pt-0 flex flex-col  md:flex-row gap-5">
+        <section className=" bg-gray-200/60 backdrop-blur-sm   w-full h-full  shadow-md border-2 text-medium px-1 md:px-5 py-5 rounded md:rounded-lg">
+          <div className="flex flex-col md:flex-row  mx-auto gap-4 lg:py-8 justify-around lg:px-15">
+            <div className="  bg-gray-200/90 w-full   duration-300 shadow-md border-2  text-medium px-1 md:px-5 py-5 rounded-lg">
               <h2 className="font-bold text-center mb-2 text-gray-700 text-2xl">
                 Datos de Perfil
               </h2>
@@ -219,11 +219,8 @@ export default function PerfildelaCuenta() {
                 handleChange={handleChange}
                 handleEditItems={handleEditItems}
               />
-            
-               <SubidaLogo
-                perfilUserLogin={perfilUserLogin}
-                />
-              
+
+              <SubidaLogo perfilUserLogin={perfilUserLogin} />
             </div>
           </div>
         </section>

@@ -102,15 +102,14 @@ export default function PageItems() {
     });
   };
 
-
   return (
     <div className="board min-h-screen">
-      <div className=" w-5/6 mx-auto  h-full">
-        <section className="perfilCuenta  inventarioComidas w-full h-full  shadow-md border-2  text-medium px-5 py-5 rounded-lg">
-          <div className="flex  mx-auto gap-4 lg:py-8 justify-around lg:px-15">
-            <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2  text-medium px-5 py-5 rounded-lg">
-              <div className="head mb-6   ">
-                <h2 className="font-bold text-gray-700 text-2xl">
+      <div className="  md:w-10/12 mx-auto pt-8 md:pt-0 flex flex-col  md:flex-row gap-5">
+        <section className="bg-gray-200/60 backdrop-blur-sm   w-full h-full  shadow-md border-2 text-medium px-1 md:px-5 py-5 rounded md:rounded-lg">
+          <div className="flex flex-col md:flex-row  mx-auto gap-4 lg:py-8 justify-around lg:px-15">
+            <div className="  bg-gray-200/90 w-full  duration-300 shadow-md border-2  text-medium px-2 md:px-5 py-5 rounded-lg">
+              <div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-between md:items-center mb-6">
+                <h2 className="font-medium text-gray-700 text-lg md:text-xl">
                   Lista de Productos
                 </h2>
                 <button
@@ -147,30 +146,30 @@ export default function PageItems() {
                     cargando items...
                   </td>
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                  cargando items...
+                    cargando items...
                   </td>
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                  cargando items...
+                    cargando items...
                   </td>
                   <td className="w-full text-center bg-gray-500 animate-pulse dark:text-gray-400">
-                  cargando items...
+                    cargando items...
                   </td>
                 </div>
               ) : (
                 <>
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs w-full text-gray-300 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <table className="w-full text-sm text-left text-gray-400 ">
+                  <thead className="text-xs w-full text-gray-300 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr className="bg-gray-500  ">
-                        <th scope="col" className="px-6 py-1.5">
+                        <th scope="col" className="px-2 py-1.5">
                           Items
                         </th>
-                        <th scope="col" className="px-6 text-center py-1.5">
+                        <th scope="col" className="px-2 text-center py-1.5">
                           Precio
                         </th>
-                        <th scope="col" className="px-6 text-center py-1.5">
+                        <th scope="col" className="px-2 text-center py-1.5">
                           Estado
                         </th>
-                        <th scope="col" className="px-6 text-center">
+                        <th scope="col" className="px-2 text-center">
                           Accion
                         </th>
                       </tr>
@@ -188,9 +187,8 @@ export default function PageItems() {
                             x
                           </span>
                         </div>
-                        <tbody key={i}>
-                          {listadoItems?.categorias?.[categoria]
-                          .map(
+                        <tbody className="" key={i}>
+                          {listadoItems?.categorias?.[categoria].map(
                             (lista, iItems) => (
                               <tr
                                 onClick={() =>
@@ -200,23 +198,23 @@ export default function PageItems() {
                                   )
                                 }
                                 key={iItems}
-                                className=" border-b cursor-pointer border-blue-400 bg-gray-100  hover:bg-gray-50 "
-                              >
+                                className=" border-b cursor-pointer border-blue-400 bg-gray-100 dark:border-gray-700 hover:bg-gray-50"
+                      >
                                 <td
                                   scope="row"
-                                  className=" px-6 py-2 font- text-gray-900  whitespace-nowrap"
+                                  className=" px-4 py-2 font- text-gray-900  whitespace-nowrap"
                                 >
                                   {lista.nombre}
                                 </td>
-                                <td className="px-6 text-center py-2">
+                                <td className="px-2 text-center py-2">
                                   {" "}
                                   ${lista.precio}
                                 </td>
                                 <td
                                   className={
                                     lista.active
-                                      ? "px-6 text-center text-xs text-green-400  py-2"
-                                      : "px-6 text-center text-xs text-red-400  py-2"
+                                      ? "px-2 text-center text-xs text-green-400  py-2"
+                                      : "px-2 text-center text-xs text-red-400  py-2"
                                   }
                                 >
                                   {" "}
@@ -244,7 +242,7 @@ export default function PageItems() {
                 </>
               )}
             </div>
-            <div className="perfilCuenta  inventarioComidas w-full   duration-300 shadow-md border-2 border text-medium px-5 py-5 rounded-lg mx-auto flex flex-col gap-3">
+            <div className="  bg-gray-200/90 w-full  duration-300 shadow-md border-2  text-medium px-2 md:px-5 py-5 rounded-lg">
               <h2 className="font-bold text-gray-700 text-2xl text-center">
                 Detalle de Items
               </h2>
@@ -253,7 +251,7 @@ export default function PageItems() {
                   <img src={pensando} />
                 </div>
               ) : (
-                <div className="cardFood-container shadow-md  text-gray-700 font-medium h-96 bg-white w-8/12 max-w-11/12 mx-auto flex flex-col justify-between rounded z-50 overflow-y-auto">
+                <div className="cardFood-container shadow-md  text-gray-700 font-medium h-96 bg-white md:w-8/12 w-11/12 max-w-11/12 mx-auto flex flex-col justify-between rounded z-50 overflow-y-auto">
                   <div className="cardFood-bgArriba h-2/3 flex justify-center px-4 items-center">
                     {!habilitarEdicion ? (
                       <h1 className="text-4xl break-words text-white uppercase font-medium bg-gray-800 rounded-r-lg border-r-8 border-paleta-600 bg-opacity-80 px-2 py-2">
@@ -307,12 +305,12 @@ export default function PageItems() {
                             className="relative inline-flex items-center  cursor-pointer"
                           >
                             <input
-                               type="checkbox"
-                               checked={itemsState.active}
-                               name="active"
-                               id="orange-toggle"
-                               className="sr-only peer"
-                               onChange={handleOnChange}
+                              type="checkbox"
+                              checked={itemsState.active}
+                              name="active"
+                              id="orange-toggle"
+                              className="sr-only peer"
+                              onChange={handleOnChange}
                             />
                             <div className="w-10 h-5 mx-auto bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-2 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-orange-500"></div>
                             <span className="ml-3 text-sm font-medium peer-checked:font-bold peer-checked:text-gray-900 text-gray-300">
