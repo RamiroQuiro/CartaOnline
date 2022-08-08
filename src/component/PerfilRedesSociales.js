@@ -1,7 +1,9 @@
 import React from 'react'
 import { FaFacebook,FaInstagram,FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-export default function PerfilRedesSociales({habilitarEdicion,perfilUser,handleChange,handleChangeData,handleEditItems}) {
+export default function PerfilRedesSociales({habilitarEdicion,perfilUser,setPerfilUser,handleChange}) {
+
+
   return (
 <div>
             <h2 className="font-bold text-center mb-2 text-gray-700 text-xl"> Redes Sociales</h2>
@@ -11,19 +13,19 @@ export default function PerfilRedesSociales({habilitarEdicion,perfilUser,handleC
                     {!habilitarEdicion ? (
                       <h1 className="text-lg outline-none text-white w-1/5 ">
                         {" "}
-                        {perfilUser?.Instagram || "---"}
+                        {perfilUser?.instagram || "---"}
                       </h1>
                     ) : (
                       <input
                         className=" border focus:border-2 duration-300 border-blue-100 focus:bg-white bg-gray-50 rounded py-1 px-1 outline-none "
                         onChange={handleChange}
-                        name="Instagram"
-                        value={perfilUser?.Instagram}
+                        name="instagram"
+                        value={perfilUser?.instagram}
                         type="text"
                       />
                     )}<Link 
                     className="right-0 absolute hover:animate-pulse cursor-pointer mr-6 md:mr-12"
-                    to={"//www.instagram.com/"+perfilUser?.Instagram}
+                    to={"//www.instagram.com/"+perfilUser?.instagram}
                     target="_blank"
                     ><FaExternalLinkAlt/></Link>
                   </div>{" "}
@@ -31,19 +33,19 @@ export default function PerfilRedesSociales({habilitarEdicion,perfilUser,handleC
                     <p className="inline-flex bg-paleta-facebook gap-2   py-1 pl-2  text-white "><FaFacebook/> www.facebook.com/</p>
                     {!habilitarEdicion ? (
                       <p className="text-lg  outline-none text-white  ">
-                        {perfilUser?.Facebook || "---"}
+                        {perfilUser?.facebook || "---"}
                        </p>
                     ) : (
                       <input
                         className=" border focus:border-2 duration-300 border-blue-100 focus:bg-white bg-gray-50 rounded py-1 px-1 outline-none "
                         onChange={handleChange}
-                        name="Facebook"
-                        value={perfilUser?.Facebook}
+                        name="facebook"
+                        value={perfilUser?.facebook}
                         type="text"
                       />
                     )} <Link 
                     className="right-0 absolute hover:animate-pulse cursor-pointer mr-6 md:mr-12"
-                    to={"//www.facebook.com/"+perfilUser?.Facebook}
+                    to={"//www.facebook.com/"+perfilUser?.facebook}
                     target="_blank"
                     ><FaExternalLinkAlt/></Link>
                   </div>

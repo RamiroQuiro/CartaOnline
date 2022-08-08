@@ -1,9 +1,12 @@
 import { createContext,useContext, useEffect, useState} from 'react'
-import {  createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {  createUserWithEmailAndPassword,  onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { db, gAuth } from '../Firebase';
-import { addDoc, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { async } from '@firebase/util';
+import {    doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../img/Logo.png"
+ import imagen1 from "../../img/pizzas.webp"
+ import imagen2 from "../../img/burguer.webp"
+// import imagen3 from "../../img/"
 import toast from 'react-hot-toast';
 
 
@@ -35,13 +38,15 @@ const register=async (mail,password,userName,businessName)=>{
   })
   updateDoc(doc(db, `listado/empresas`),{
     [`${businessName}`]:{
+      perfilUser:{
         businessName:businessName,
         email:mail,
         nTel1:'',
         nTel2:'',
         facebook:'',
         instagram:'',
-        direccion:'',
+        direccion:'',}
+        ,
       items:[],
       styles:{
         color1: "#2e2e2e",
@@ -53,15 +58,15 @@ const register=async (mail,password,userName,businessName)=>{
       },
       images:[{
         nombre: "",
-        url: "",
+        url: logo,
         posicion: "logo", 
       },{
         nombre: "",
-        url: "",
+        url: `https://firebasestorage.googleapis.com/v0/b/firestore-app-4200e.appspot.com/o/imagenes%2Fpinzasromanas%2Fimagen1?alt=media&token=ecc65560-1ea2-4cd2-936c-b3be33aee2e4`,
         posicion: "imagen1", 
       },{
         nombre: "",
-        url: "",
+        url: `https://firebasestorage.googleapis.com/v0/b/firestore-app-4200e.appspot.com/o/imagenes%2Fpinzasromanas%2Fimagen2?alt=media&token=7761e7e9-ed56-4345-9f9f-f53d5af508a2`,
         posicion: "imagen2", 
       },{
         nombre: "",
@@ -113,8 +118,8 @@ const loginGoogle=()=>{
 // traer perfiul de usuario
 const traerDataProfile = async () => {
   const data = await getDoc(docRef);
-  return data?.data() 
   console.log(data.data())
+  return data?.data() 
 };
 
 // escribir en el perfil

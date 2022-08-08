@@ -11,7 +11,7 @@ export default function FormularioImagenes({perfilUser}) {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const docRef = doc(db, `listado/empresas`);
-    const businessName = perfilUser.businessName + ".images";
+    const businessName =`${perfilUser?.businessName}.images`;
 
     useEffect(() => {
         if (!file) {

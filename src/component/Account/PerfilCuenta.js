@@ -68,10 +68,10 @@ const navigate = useNavigate()
             <div className="block flex gap-2 jutify-center items-center font-medium  text-sm ">
           <div className="flex">
           <i className="gg-facebook  inline-block"></i>
-          <p  className=" inline-block"> / {perfilUser?.Facebook}</p></div>
+          <p  className=" inline-block"> / {perfilUser?.facebook}</p></div>
         </div>
         <div className="block flex gap-2 jutify-center items-center  -ml-2 font-medium text-sm ">
-          <div className="flex"> <i className="gg-instagram   inline-block"></i><p  className="pl-2 inline-block">  / {perfilUser?.Instagram}</p></div>
+          <div className="flex"> <i className="gg-instagram   inline-block"></i><p  className="pl-2 inline-block">  / {perfilUser?.instagram}</p></div>
           </div>
           </div>
         </div>

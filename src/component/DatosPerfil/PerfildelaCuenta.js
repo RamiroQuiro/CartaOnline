@@ -15,6 +15,7 @@ export default function PerfildelaCuenta() {
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);
   const [editarPerfil, setEditarPerfil] = useState();
   const docRef = doc(db, `usuarios/${user?.uid}`);
+  const docRefPubli=doc(db, "listado/empresas")
 
   const handleChange = ({ target: { name, value } }) => {
     setPerfilUser({ ...perfilUser, [name]: value });
@@ -32,23 +33,16 @@ export default function PerfildelaCuenta() {
     //   (consulta) => consulta?.data()[data?.businessName]
     // );
     await updateDoc(docRef, { perfilUser });
-    await updateDoc(doc(db, "listado/empresas"), {
-      [listadoItems?.businessName]: {
-        ...listadoItems,
-        businessName: perfilUser?.businessName,
-        nTel1: perfilUser?.nTel1,
-        nTel2: perfilUser?.nTel2,
-        facebook: perfilUser?.facebook,
-        instagram: perfilUser?.instagram,
-        direccion: perfilUser?.direccion,
-        descripcion: perfilUser?.descripcion,
-      },
-    }).then(() => {
-      toast("Perfil Actualizado!", {
-        icon: "💪💪",
-      });
-    });
-    setHabilitarEdicion(!habilitarEdicion);
+    const referencedBusinessName= `${perfilUser?.businessName}.perfilUser`
+    console.log(perfilUser)
+     await updateDoc(docRefPubli, {
+       [referencedBusinessName]: perfilUser,
+     }).then(() => {
+       toast("Perfil Actualizado!", {
+         icon: "💪💪",
+       });
+     });
+     setHabilitarEdicion(!habilitarEdicion);
   };
   useEffect(() => {
     const traer = async () =>
@@ -220,7 +214,7 @@ export default function PerfildelaCuenta() {
                 handleEditItems={handleEditItems}
               />
 
-              <SubidaLogo perfilUserLogin={perfilUserLogin} />
+              <SubidaLogo setPerfilUser={setPerfilUser} perfilUserLogin={perfilUserLogin} />
             </div>
           </div>
         </section>

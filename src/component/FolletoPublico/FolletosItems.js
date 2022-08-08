@@ -94,14 +94,14 @@ const businessName=params.businessName
                 style={{ color: `${styles?.textColor1}` }}
                 className="text-paleta-200  font-bold md:text-4xl text-2xl italic"
               >
-                {perfilCuenta?.businessName}
+                {perfilCuenta?.perfilUser?.businessName}
               </h1>
               <hr className="h-4 w-10/12 mx-auto my-1 md:my-2" />
               <p
                 style={{ color: `${styles?.textColor2}` }}
                 className="text-white text-sm px-2 md:px-0"
               >
-                {perfilCuenta?.descripcion || "Descripcion de la empresa"}
+                {perfilCuenta?.perfilUser?.descripcion || "Descripcion de la empresa"}
               </p>
               <div 
               style={{ color: `${styles?.textColor1}`}}
@@ -156,15 +156,15 @@ const businessName=params.businessName
         </div>
 
         <footer className="w-full mt-14 bottom-0 px-16 flex flex-wrap bg-gray-100/50 mx-auto md:gap-4 py-0.5 justify-between items-center">
-          <span>{perfilCuenta.facebook || "facebook"}</span>
+          <span>{perfilCuenta?.perfilUser?.facebook || "facebook"}</span>
           {
 
         <Link to={`/${businessName}/enviando`} perfilCuenta={perfilCuenta} className="fixed inset-x-[30%] text-white bottom-12 rounded-full w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1">
             Realizar Pedido
           </Link>
           }
-          <span>{perfilCuenta.instagram || "Instagram"}</span>
-          <span>{perfilCuenta.direccion}</span>
+          <span>{perfilCuenta?.perfilUser?.instagram || "Instagram"}</span>
+          <span>{perfilCuenta?.perfilUser?.direccion}</span>
         </footer>
       </div>
     </div>

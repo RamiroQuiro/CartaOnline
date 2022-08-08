@@ -37,7 +37,7 @@ export default function EnviandoPedido() {
   useEffect(() => {
     const traerData = async () => {
       const data = await getDoc(docRef).then(
-        (data) => data.data()[businessName]
+        (data) => data.data()[businessName].perfilUser
       );
       setPerfilCuenta({
         businessName: data.businessName,
@@ -78,15 +78,15 @@ export default function EnviandoPedido() {
   };
 
   return (
-    <div className="flex md:flex-row text-gray-800 flex-col justify-center items-center h-screen md:bg-gray-100 bg-gray-50 py-2 md:py-0">
-      <div className="relative md:bg-white rounded-xl md:w-2/5 w-full h-full md:h-3/5 mb-16 shadow-2xl md:border md:border-1 md:block flex flex-col items-center justify-between">
-        <section className=" text-white md:flex flex-col flex-nowrap px-3 py-7 md:h-[70vh] h-2/3 md:-top-10 md:-left-36 w-full md:w-[70%] relative left ">
+    <div className="flex min-h-screen md:flex-row text-gray-800 flex-col justify-center items-center  md:bg-gray-100 bg-gray-50 py-2 md:py-0">
+      <div className="flex flex-col md:flex-row  bg-white md:w-2/5 md:h-[70vh] rounded-xl border items-center justify-between px-5">
+        <section className=" text-white md:flex flex-col flex-nowrap px-3 py-7 md:h-[80vh] h-2/3 md:-top-1 md:-left-10 w-[100vw]  relative left ">
           <div id="head">
-            <h1 className="font-bold text-xl mt-5">Este es su pedido</h1>
+            <h1 className="text-2xl md:text-xl font-bold mt-5 mb-2">Este es su pedido</h1>
           </div>
-          <ul className="rounded-lg px-5 py-5">
+          <ul className="rounded-lg px-5 py-2">
             {lista.map((item) => (
-              <li className="uppercase text-sm py-2 border-b-2 font-bold">
+              <li className="uppercase md:text-sm text py-2 border-b-2 font-bold">
                 {item.cantidad}
                 {" - "}
                 {item.ItemsMenu}
@@ -95,7 +95,7 @@ export default function EnviandoPedido() {
             ))}
           </ul>
         </section>
-        <section className="font-medium  z-50 md:absolute md:left-[45%] md:w-[50%] md:h-full w-full md:top-0  flex  flex-col flex-nowrap md:pl-5 px-5 mt-5 md:mt-0 justify-center items-center ">
+        <section className="font-medium  z-50 md:h-full w-screen md:top-0  flex  flex-col flex-nowrap md:-ml-8 px-8 mt-5 md:mt-0 justify-center items-center ">
           <form
             onSubmit={enviar}
             className="flex gap-2 flex-nowrap flex-col w-full"
@@ -105,12 +105,12 @@ export default function EnviandoPedido() {
             </label>
             <p
               type="text"
-              className="inline-block"
+              className="inline-block text-2xl md:text-xl font-bold text-red-500"
               name="total"
               id=""
             >{`$ ${suma}`}</p>
 
-<div className="flex flex-col flex-nowrap justify-center mb-5">
+<div className="flex flex-col flex-nowrap justify-center md:mb-5">
               <label htmlFor="sec-code" className="text-sm pt-3">
                 Nombre
               </label>
@@ -123,7 +123,7 @@ export default function EnviandoPedido() {
                 required
               />
             </div>
-            <div className="flex flex-col flex-nowrap justify-center mb-5">
+            <div className="flex flex-col flex-nowrap justify-center md:mb-5">
               <label htmlFor="sec-code" className="text-sm  ">
                 Dirección
               </label>
@@ -154,14 +154,15 @@ export default function EnviandoPedido() {
             type="submit">Mandar WhatsApp</button>
           </form>
         </section>
-      </div>
-      <button
+        <button
         onClick={volver}
-        className="uppercase  text-blue-600 font-bold absolute bottom-3 left-50"
+        className="uppercase  text-blue-600 font-bold my-8 md:my-0 md:absolute bottom-3 inset-x-1/3"
       >
         {" "}
         volver
       </button>
+      </div>
+     
     </div>
   );
 }

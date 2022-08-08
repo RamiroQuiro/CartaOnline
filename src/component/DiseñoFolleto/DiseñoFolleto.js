@@ -37,7 +37,7 @@ export default function DiseñoFolleto({ perfilUserLogin }) {
   const [styles, setStyles] = useState(sytileInicial);
   const docRef = doc(db, `listado/empresas/`);
   const businessName = listadoItems?.businessName;
-  const businessNameImages = perfilCuenta?.businessName + ".images";
+  const businessNameImages = perfilCuenta?.perfilUser?.businessName + ".images";
   const [imagen, setImagenes] = useState(null);
 
   // const imagenes=perfilCuenta.images
