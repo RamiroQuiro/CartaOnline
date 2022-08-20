@@ -2,6 +2,10 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'wave-pattern': "url('img/wave-white.png')",
+        'wave-pattern2': "url('img/pattern.svg')",
+      },
       spacing:{
         "diez": "10%",
       },

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./itemsMenu.css";
-import { useContexto } from "../contexto/ContextProvider";
+import { useContexto } from "../../contexto/ContextProvider";
 
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import { useEffect } from "react";
@@ -14,7 +14,6 @@ export default function ItemsMenu({
   textColor2,
 }) {
   const { traerPedidos } = useContexto();
-
   const [cantidadItems, setCantidadItems] = useState({
     ItemsMenu: "",
     cantidad: 0,
