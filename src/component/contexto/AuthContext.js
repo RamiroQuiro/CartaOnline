@@ -118,7 +118,6 @@ const loginGoogle=()=>{
 // traer perfiul de usuario
 const traerDataProfile = async () => {
   const data = await getDoc(docRef);
-  console.log(data.data())
   return data?.data() 
 };
 

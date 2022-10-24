@@ -13,18 +13,23 @@ import PageImagenes from "./component/PageImagenes";
 import DiseñoFolleto from "./component/DiseñoFolleto/DiseñoFolleto";
 import Home from "./Home";
 import Folleto2 from "./component/DiseñoFolleto/EstilosFolletos/Folleto2";
+import EditorFolleto from "./component/DiseñoFolleto/OutletdeDiseños/EditorFolleto";
+import StyleContexto from "./component/contexto/ContextDelDiseño";
+import Diseños from "./component/DiseñoFolleto/OutletdeDiseños/Diseños";
 function App() {
-
   return (
     <BrowserRouter>
       <AuthContext>
         <ContextProvider>
+              <StyleContexto>
           <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/:businessName" element={<FolletosItems />} />
+            <Route
+              path="/:businessName/enviando"
+              element={<EnviandoPedido />}
+            />
 
-            <Route path="/" element={<Home />}/ >
-            <Route path="/:businessName" element={<FolletosItems />}/ >
-            <Route path="/:businessName/enviando" element={<EnviandoPedido />} />
-         
             <Route path="/login" element={<Login />} />
             <Route
               element={
@@ -37,10 +42,14 @@ function App() {
               <Route path="perfildelaCuenta" element={<PerfildelaCuenta />} />
               <Route path="pageItems" element={<PageItems />} />
               <Route path="pageIgames" element={<PageImagenes />} />
-              <Route path="disenioFolleto" element={<DiseñoFolleto />} />
+                <Route path="disenioFolleto" element={<DiseñoFolleto />}>
+                  <Route path="disenios"  index element={<Diseños/>}/>
+                  <Route path="editorFolleto" element={<EditorFolleto />} />
+                </Route>
             </Route>
-              <Route path="folleto2" element={<Folleto2 />} />
+            <Route path="folleto2" element={<Folleto2 />} />
           </Routes>
+              </StyleContexto>
         </ContextProvider>
       </AuthContext>
     </BrowserRouter>

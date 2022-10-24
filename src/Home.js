@@ -12,7 +12,7 @@ import SectionBannerChicos from "./component/home/Main/SectionBannerChicos";
 import SectionPrecio from "./component/home/Main/SectionPrecio";
 import Contacto from "./component/home/Main/Contacto";
 import Footer from "./component/home/Footer/Footer";
-import menulinea from "./img/menulinea.svg";
+// import menulinea from "./img/menulinea.svg";
 
 export default function Home() {
   const [toggle, setToggles] = useState(false);
@@ -28,7 +28,7 @@ export default function Home() {
           <img src={Logo} alt="logo" width={"100px"} height="100px" className={`${toggle?'opacity-0':'opacity-100 '} duration-300`} />
           <button className=" right-16 fixed " onClick={handleToggle}>
             <img
-              src={menulinea}
+              src={'menulinea'}
               alt="menu linear"
               width={"40px"}
               height="40px"

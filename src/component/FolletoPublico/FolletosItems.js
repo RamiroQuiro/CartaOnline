@@ -8,9 +8,9 @@ import Folleto3 from "../DiseñoFolleto/EstilosFolletos/Folleto3";
 
 export default function Home() {
   const [listado, setListado] = useState([]);
-  const [diseños,setDiseños]= useState(null)
+  const [diseños, setDiseños] = useState(null);
   const [perfilCuenta, setPerfilCuenta] = useState({});
-  const [categorias, setCategorias]=useState([])
+  const [categorias, setCategorias] = useState([]);
   const [styles, setStyles] = useState({});
   const [imagen, setImagenes] = useState({
     imagen1: "imagen1",
@@ -18,17 +18,15 @@ export default function Home() {
     imagen3: "url",
   });
 
-
   const docRefe = doc(db, `listado/empresas`);
 
-const params=useParams()
-const businessName=params.businessName
+  const params = useParams();
+  const businessName = params.businessName;
 
- 
   useEffect(() => {
     const category = () => {
       if (perfilCuenta) {
-        const array=perfilCuenta?.categorias
+        const array = perfilCuenta?.categorias;
         if (array) {
           const obj = Object.keys(array);
           setCategorias(obj);
@@ -37,15 +35,19 @@ const businessName=params.businessName
     };
     category();
     const unsub = onSnapshot(docRefe, (listado) => {
-      categorias.map(categoria=>
-        setListado(listado.data()[businessName].categorias?.[categoria].filter(items=>items.active===true))
-      )
-      setDiseños(listado.data()[businessName]?.perfilUser?.diseñoFolleto)
+      categorias.map((categoria) =>
+        setListado(
+          listado
+            .data()
+            [businessName].categorias?.[categoria].filter(
+              (items) => items.active === true
+            )
+        )
+      );
+      setDiseños(listado.data()[businessName]?.perfilUser?.diseñoFolleto);
     });
     return () => unsub();
   }, [perfilCuenta]);
-
-    
 
   useEffect(() => {
     const unsub = onSnapshot(docRefe, (datos) => {
@@ -53,52 +55,78 @@ const businessName=params.businessName
       setPerfilCuenta(datosTraidos[businessName]);
       setStyles(datosTraidos[businessName].styles);
       setImagenes({
-        imagen1: datosTraidos[businessName]?.images?.find((imagen) => imagen.nombre == "imagen1")?.url,
-        imagen2: datosTraidos[businessName]?.images?.find((imagen) => imagen.nombre == "imagen2")?.url,
-        imagen3: datosTraidos[businessName]?.images?.find((imagen) => imagen.nombre == "imagen3")?.url,
+        logo: datosTraidos[businessName]?.images?.find(
+          (imagen) => imagen.posicion == "logo"
+        )?.url,
+        imagen1: datosTraidos[businessName]?.images?.find(
+          (imagen) => imagen.nombre == "imagen1"
+        )?.url,
+        imagen2: datosTraidos[businessName]?.images?.find(
+          (imagen) => imagen.nombre == "imagen2"
+        )?.url,
+        imagen3: datosTraidos[businessName]?.images?.find(
+          (imagen) => imagen.nombre == "imagen3"
+        )?.url,
       });
     });
-    
-    return () => unsub();
 
+    return () => unsub();
   }, []);
 
 
-   
-
-
-  return (
-    <div className="flex flex-col w-full md:py-2 py-5">
-   
-
-    
-{/* <Folleto1
-     styles={styles}
-     imagen={imagen}
-     categorias={categorias}
-     businessName={businessName}
-     perfilCuenta={perfilCuenta}
-     /> */}
- <Folleto2
-     styles={styles}
-     imagen={imagen}
-     categorias={categorias}
-     businessName={businessName}
-     perfilCuenta={perfilCuenta}
-
-     /> 
-{/* 
-     <Folleto3
-        styles={styles}
-        imagen={imagen}
-        categorias={categorias}
-        businessName={businessName}
-        perfilCuenta={perfilCuenta}
-     /> */}
-     
-    </div>
-  );
+  if(!styles?.diseñoFolleto){
+    return (  <div className="flex flex-col w-full md:py-2 py-5">
+         <div
+      
+        className=" md:w-[98%] w-full min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col md:gap-4 justify-around items-center justify-self-auto relative "
+      >
+      Cargando..
+      </div>
+      </div>)
+  }else{
+    switch (styles?.diseñoFolleto) {
+      case 1:
+        return (
+          <div className="flex flex-col w-full md:py-2 py-5">
+            <Folleto1
+              styles={styles}
+              imagen={imagen}
+              categorias={categorias}
+              businessName={businessName}
+              perfilCuenta={perfilCuenta}
+            />
+          </div>
+        );
+        break;
+  case 2:
+    return (
+      <div className="flex flex-col w-full md:py-2 py-5">
+         <Folleto2
+          styles={styles}
+          imagen={imagen}
+          categorias={categorias}
+          businessName={businessName}
+          perfilCuenta={perfilCuenta}
+        />
+      </div>
+    );
+    break
+    case 3:
+    return (
+      <div className="flex flex-col w-full md:py-2 py-5">
+          <Folleto3
+          styles={styles}
+          imagen={imagen}
+          categorias={categorias}
+          businessName={businessName}
+          perfilCuenta={perfilCuenta}
+       /> 
+      </div>
+    );
+    break
+      default:
+        break;
+    }
+  }
+  
 }
-
-
-

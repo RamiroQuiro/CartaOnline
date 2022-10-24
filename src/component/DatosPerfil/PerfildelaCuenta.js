@@ -34,7 +34,6 @@ export default function PerfildelaCuenta() {
     // );
     await updateDoc(docRef, { perfilUser });
     const referencedBusinessName= `${perfilUser?.businessName}.perfilUser`
-    console.log(perfilUser)
      await updateDoc(docRefPubli, {
        [referencedBusinessName]: perfilUser,
      }).then(() => {

@@ -167,9 +167,9 @@ export default function Modelo1({
           }
         </div>
         <footer className="w-full mt-14 bottom-0 px-16 flex flex-wrap bg-gray-100/50 mx-auto md:gap-4 py-0.5 justify-between items-center">
-          <span>{perfilCuenta.facebook || "facebook"}</span>
-          <span>{perfilCuenta.instagram || "Instagram"}</span>
-          <span>{perfilCuenta.direccion}</span>
+          <span>{perfilCuenta?.facebook || "facebook"}</span>
+          <span>{perfilCuenta?.instagram || "Instagram"}</span>
+          <span>{perfilCuenta?.direccion}</span>
         </footer>
       </div>
     </div>

@@ -32,17 +32,17 @@ export default function Folleto2({styles,perfilCuenta,imagen,categorias,business
   const renderImg = (imagen, width) => {
     return (
       <figure
-        className={`px-4 py-3 flex flex-col items-center w-full mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
+        className={`md:px-4 py-3 flex flex-col items-center w-full mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
       >
         <img
           width={"300px"}
           height="150px"
           src={imagen}
           alt="imagen"
-          className="  object-cover object-center md:w-[${width}%] h-[200px] z-30  rounded-xl "
+          className={`object-cover object-center w-[${width}%] h-auto z-30  rounded-xl`}
         />
         <figcaption className="font-bold text-sm px-5 text-center">
-          no hhya tierra como la mia dice el cantor en su canto
+          
         </figcaption>
       </figure>
     );
@@ -52,21 +52,21 @@ export default function Folleto2({styles,perfilCuenta,imagen,categorias,business
    
       <div
        
-        className=" lg:w-[60%] md:w-11/12  w-full min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center relative "
+        className=" lg:w-[60%] md:w-11/12  w-screen min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center relative "
       >
         <div className="flex lg:flex-row flex-col-reverse flex-wrap  items-stretch justify-between   w-full h-full">
           <section
               style={{
                 background: `linear-gradient(45deg ,${styles?.color1} 0%, ${styles?.color1}90 100%) `,
               }}
-          className="bg-gradient-to-t min-h-max w-full  flex flex-col items-center mx-auto justify-between from-gray-900 to-gray-900/90 lg:w-3/5 pb-10  lg:text-center text-white relative">
+          className="bg-gradient-to-t min-h-max w-full  flex flex-col items-center md:mx-auto justify-between from-gray-900 to-gray-900/90 lg:w-3/5 pb-10  lg:text-center text-white relative">
             <div className="min-h-diez text-center flex flex-col items-center gap-2 w-10/12 md:text-center lg:px-4 py-10">
               <h1  style={{ color: `${styles.color2}` }} className="text-7xl font-black text-yellow-500">Menu</h1>
               <h2 className="font-medium ">
                 {perfilCuenta?.perfilUser?.descripcion}
               </h2>
             </div>
-            <div className="w-11/12 flex flex-col h-full items-center justify-start py-2 gap-3 mg:mx-auto text-white">
+            <div className="w-11/12 flex flex-col h-full items-center justify-start md:py-2 gap-3 mg:mx-auto text-white">
               {categorias?.map((categoria, i) => itemsMenu(categoria, i))}
             </div>
             {
@@ -89,7 +89,7 @@ export default function Folleto2({styles,perfilCuenta,imagen,categorias,business
             </div>
             {renderImg(imagen.logo, 50)}
 
-            <h1 className="text-5xl mx-auto w-full font-black px-5 text-gray-900 break-words text-center">
+            <h1 className="text-3xl mx-auto w-full font-black px-5 text-gray-900 break-words text-center">
               {perfilCuenta?.perfilUser?.businessName}
             </h1>
             <div className="hidden lg:flex flex-col lg:px-4 items-center justify-between">
