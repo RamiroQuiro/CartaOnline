@@ -1,7 +1,7 @@
 import { arrayRemove, arrayUnion,  doc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext,    useReducer,  } from "react";
 import { db } from "../Firebase";
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import ReducerPedidos from "./ReducerPedidos";
 import { Auth } from "./AuthContext";
 
@@ -18,8 +18,8 @@ const estadoInicial={
 }
 
 export default function ContextProvider  ({ children }) {
-  const { user,userPerfil }=Auth()
-const docRef = doc(db, `usuarios/${user?.uid}`);
+  const {userPerfil }=Auth()
+// const docRef = doc(db, `usuarios/${user?.uid}`);
 const docRefItems = doc(db, `listado/empresas`);
 
 const [state, dispatch] = useReducer(ReducerPedidos, estadoInicial)
@@ -31,15 +31,15 @@ const traerPedidos=(stateMenu)=>{
       payload:stateMenu
     })
 }
-const suma = () => {
-dispatch({
-  type:'RESTAR',
-  payload:' count',
-})
-  };
-  const resta = () => {
+// const suma = () => {
+// dispatch({
+//   type:'RESTAR',
+//   payload:' count',
+// })
+//   };
+//   const resta = () => {
  
-    };
+//     };
     
 const stateGral=()=>{
   console.log(state)
@@ -58,7 +58,7 @@ const crearCategoria=async(categoria)=>{
   });}
 
 const crearItems=async(item,categoria)=>{
-    const referencedBusinessName=userPerfil.businessName+".categorias"+"."+categoria
+    const referencedBusinessName=`${userPerfil?.businessName}.categorias.${categoria}`
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayUnion(item)})
   
   toast('Items Agregado!', {

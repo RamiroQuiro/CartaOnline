@@ -1,4 +1,3 @@
-import { FaDAndD, FaEdit, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Items2 from "../../FolletoPublico/Items/Items2";
 import ImagenesFolleto2 from "./ComponentesFolleto2/ImagenesFolleto2";
@@ -31,25 +30,7 @@ export default function Folleto2({editFolleto,styles,perfilCuenta,imagen,categor
     );
   };
 
-  const renderImg = (imagen, width) => {
-    return (
-      <figure
-        className={`md:px-4 py-3 flex flex-col items-center relative w-full  mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
-      >
-          <img
-          width={"300px"}
-          height="150px"
-          src={imagen}
-          alt="imagen"
-          className={`object-cover object-center w-[${width}%] h-auto z-30  rounded-xl`}
-        />
-    
-        <figcaption className="font-bold text-sm px-5 text-center">
-          
-        </figcaption>
-      </figure>
-    );
-  };
+
   return (
    
       <div
