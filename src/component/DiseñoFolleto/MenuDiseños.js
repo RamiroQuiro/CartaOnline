@@ -28,7 +28,7 @@ export default function MenuDiseños() {
        text={"Editor de Folleto"}
        />
        <ItemsMenu 
-       link={''}
+       link={'afiches'}
        text={"Diseño Afiches"}
        />
       </div>

@@ -1,19 +1,15 @@
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import {  doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { FcUpload } from "react-icons/fc";
-import { db, storage, storageRef } from "./Firebase";
 import Galeria from "./Galeria";
 import FormularioImagenes from "./FormularioImagenes";
+import { db } from "./Firebase";
 
 export default function PageImagenes() {
-  const [listadoItems, perfilUser] = useOutletContext();
+  const [ perfilUser] = useOutletContext();
 
   const [imagenes, setImagenes] = useState(null);
   const docRef = doc(db, `listado/empresas`);
-  const businessName = perfilUser.businessName + ".images";
 
   useEffect(() => {
     const traer = async () => {

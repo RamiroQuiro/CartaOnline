@@ -1,15 +1,11 @@
-import { onLog } from "firebase/app";
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link, NavLink, useNavigate ,useOutletContext} from "react-router-dom";
-import { Auth } from "../contexto/AuthContext";
-import { db, gAuth } from "../Firebase";
-import { FaShapes, FaCogs,FaBookOpen,FaColumns,FaFileImage } from "react-icons/fa";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { gAuth } from "../Firebase";
+import { FaShapes, FaCogs,FaBookOpen,FaColumns } from "react-icons/fa";
 import "./navbar.css";
 
 export default function Navbar({perfilUser}) {
-  const { user } = Auth();
 
   const navigate = useNavigate();
 
@@ -84,7 +80,7 @@ export default function Navbar({perfilUser}) {
         </NavLink> */}
         <NavLink 
         className={ ({ isActive }) =>isActive ? "buttonActive group" : "button group relative duration-300"}
-        to={"disenioFolleto"}>
+        to={"disenios"}>
           <FaColumns />
           <span className=" text-xs opacity-0  group-hover:opacity-100 translate-y-12 group-hover:translate-y-0 absolute  text-gray-800  left-full bottom-full -ml-2 -mb-4  bg-paleta-600 bg-opacity-90 duration-200 font-bold  px-3 py-2  whitespace-nowrap  rounded-tl-lg rounded-r-lg border-r-2 border-paleta-200  ">Diseño de Folleto</span>
         </NavLink>

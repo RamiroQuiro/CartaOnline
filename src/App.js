@@ -14,6 +14,7 @@ import DiseñoFolleto from "./component/DiseñoFolleto/DiseñoFolleto";
 import Home from "./Home";
 import EditorFolleto from "./component/DiseñoFolleto/OutletdeDiseños/EditorFolleto";
 import Diseños from "./component/DiseñoFolleto/OutletdeDiseños/Diseños";
+import Afiches from "./component/DiseñoFolleto/EditorAfiches/Afiches";
 function App() {
   return (
     <BrowserRouter>
@@ -42,6 +43,7 @@ function App() {
                 <Route  element={<DiseñoFolleto />}>
                   <Route path="disenios"  index element={<Diseños/>}/>
                   <Route path="editorFolleto" element={<EditorFolleto />} />
+                  <Route path="afiches" element={<Afiches />} />
                 </Route>
             </Route>
           </Routes>
