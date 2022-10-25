@@ -49,6 +49,7 @@ const register=async (mail,password,userName,businessName)=>{
         ,
       items:[],
       styles:{
+        diseñoFolleto:1,
         color1: "#2e2e2e",
         color2: '#271717',
         SelectionRange: 19,

@@ -13,7 +13,7 @@ export default function ItemsMenu({
   textColor1,
   textColor2,
 }) {
-  const { traerPedidos } = useContexto();
+  const { traerPedidos,stateGral } = useContexto();
   const [cantidadItems, setCantidadItems] = useState({
     ItemsMenu: "",
     cantidad: 0,

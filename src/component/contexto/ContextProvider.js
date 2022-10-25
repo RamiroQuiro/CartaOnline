@@ -41,7 +41,10 @@ dispatch({
  
     };
     
-const stateGral=()=>state
+const stateGral=()=>{
+  console.log(state)
+  return state
+}
 
 // funciones Firestore
 

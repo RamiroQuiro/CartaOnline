@@ -12,7 +12,7 @@ export default function Diseños() {
 
 const [perfilCuenta] =useOutletContext()
 const [opcion,setOpcion]=useState(50)
-const [isActive,setIsActive]= useState(1)
+const [isActive,setIsActive]= useState(0)
 const docRef = doc(db, `listado/empresas/`);
 
 useEffect(() => {
@@ -38,7 +38,7 @@ useEffect(() => {
 
 
 const handleStyleFolleto = async (id) => {
-  const referencedBusinessName= `${perfilCuenta?.businessName}.styles.diseñoFolleto`
+  const referencedBusinessName= `${perfilCuenta?.perfilUser?.businessName}.styles.diseñoFolleto`
   await updateDoc(docRef, {
     [referencedBusinessName]: id,
   }).then((data)=>{
@@ -47,12 +47,11 @@ const handleStyleFolleto = async (id) => {
 };
 
 
-useEffect(()=>{
-  handleStyleFolleto(isActive)
-},[isActive])
+
 
 const handleCarrusel=(id)=>{
   setIsActive(id)
+  handleStyleFolleto(id)
   switch (id) {
     case 1:
         setOpcion(50)

@@ -47,7 +47,7 @@ function App() {
                   <Route path="editorFolleto" element={<EditorFolleto />} />
                 </Route>
             </Route>
-            <Route path="folleto2" element={<Folleto2 />} />
+            {/* <Route path="folleto2" element={<Folleto2 />} /> */}
           </Routes>
               </StyleContexto>
         </ContextProvider>

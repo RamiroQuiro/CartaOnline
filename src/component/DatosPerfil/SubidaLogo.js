@@ -10,20 +10,21 @@ export default function SubidaLogo({ perfilUserLogin }) {
   const [fileURL, setFileURL] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [imagen, setImagen] = useState(null);
+  const [logo, setLogo] = useState(null);
   const [habilitarFormulario, setHabilitarFormulario] = useState(false);
   const docRef = doc(db, `listado/empresas`);
-  const businessName = perfilUserLogin?.businessName + "."+"images";
+  const businessName = perfilUserLogin?.perfilUser?.businessName + "."+"images";
 
-  const logo = perfilUserLogin.images;
+  const imagen = perfilUserLogin?.images;
+  console.log(logo," imagen:", imagen," bussinessName:",businessName)
   useEffect(() => {
     const cargarLogo = async () => {
-      logo
-        ? setImagen(logo?.find((imagen) => imagen.posicion === "logo"))
-        : setImagen(null);
+      imagen
+        ? setLogo(imagen?.find((imagen) => imagen.posicion === "logo"))
+        : setLogo(null);
     };
     cargarLogo();
-  }, [imagen, file]);
+  }, [logo, file]);
 
   useEffect(() => {
     if (!file) {
@@ -46,7 +47,7 @@ export default function SubidaLogo({ perfilUserLogin }) {
     );
     await uploadBytes(fileRef, file).then(async (uploadTask) => {
       await getDownloadURL(fileRef).then(async (url) => {
-        !imagen?
+        !logo?.posicion?
         updateDoc(docRef, {
           [businessName]:arrayUnion({
             nombre: fileName, 
@@ -56,10 +57,10 @@ export default function SubidaLogo({ perfilUserLogin }) {
       })
         :
         await updateDoc(docRef, {
-          [businessName]: logo?.map((image) =>
-            image.posicion === "logo"
-              ? { ...image, nombre: fileName, url: url, posicion: "logo" }
-              : { ...image }
+          [businessName]: imagen?.map((img) =>
+          img.posicion == "logo"
+            ? { ...img, url: url, nombre: fileName }
+            : img
           ),
         }).then(() => {
             toast.success("Imagen subida correctamente");
@@ -88,9 +89,9 @@ export default function SubidaLogo({ perfilUserLogin }) {
   return (
     <div className="font-bold flex flex-col mt-4 items-centar gap-2 text-center mb-2 text-gray-700 text-2xl">
       <h2 className="font-bold text-center mb-2">Logo</h2>
-      {imagen && !habilitarFormulario ? (
+      {logo && !habilitarFormulario ? (
         <div>
-          <img className="w-44 mx-auto mb-4 h-auto" src={imagen.url} alt="" />
+          <img className="w-44 mx-auto mb-4 h-auto" src={logo.url} alt="" />
           <button
             onClick={habilitarForm}
             className={`uppercase font-medium text-xs border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 px-3 py-2 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none `}

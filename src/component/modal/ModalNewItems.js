@@ -14,7 +14,7 @@ export default function ModalNewItems({ categorias, setEstadoModal }) {
     categoria: "1",
     active: true,
   });
-  const [check,setCheck] = useState(true);
+  // const [check,setCheck] = useState(true);
 
  
   const handleChange = ({ target: { name, value, } }) => {
@@ -22,7 +22,7 @@ export default function ModalNewItems({ categorias, setEstadoModal }) {
   };
 
 const handlecheck=({target:{checked}})=>{
-  setCheck(checked)
+  // setCheck(checked)
   setProducto({...producto,active:checked})
 }
 

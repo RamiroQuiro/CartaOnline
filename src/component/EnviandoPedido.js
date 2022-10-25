@@ -16,7 +16,6 @@ export default function EnviandoPedido() {
   });
   const navigate = useNavigate();
 
-  const numeroWhatsApp = 5493855353174;
 
   const volver = () => {
     navigate(-1);
@@ -29,7 +28,7 @@ export default function EnviandoPedido() {
   useEffect(() => {
     const montarPedido = () => {
       const listorti = stateGral();
-      setLista(listorti.pedidosGral);
+      setLista(listorti?.pedidosGral);
     };
     montarPedido();
   }, []);

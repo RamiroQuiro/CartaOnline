@@ -1,7 +1,9 @@
+import { FaDAndD, FaEdit, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Items2 from "../../FolletoPublico/Items/Items2";
+import ImagenesFolleto2 from "./ComponentesFolleto2/ImagenesFolleto2";
 
-export default function Folleto2({styles,perfilCuenta,imagen,categorias,businessName}) {
+export default function Folleto2({editFolleto,styles,perfilCuenta,imagen,categorias,businessName,handleSubmitFile,handleDeleteImagen}) {
   
 
   const itemsMenu = (categoria, i) => {
@@ -32,22 +34,22 @@ export default function Folleto2({styles,perfilCuenta,imagen,categorias,business
   const renderImg = (imagen, width) => {
     return (
       <figure
-        className={`md:px-4 py-3 flex flex-col items-center w-full mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
+        className={`md:px-4 py-3 flex flex-col items-center relative w-full  mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
       >
-        <img
+          <img
           width={"300px"}
           height="150px"
           src={imagen}
           alt="imagen"
           className={`object-cover object-center w-[${width}%] h-auto z-30  rounded-xl`}
         />
+    
         <figcaption className="font-bold text-sm px-5 text-center">
           
         </figcaption>
       </figure>
     );
   };
-
   return (
    
       <div
@@ -87,17 +89,29 @@ export default function Folleto2({styles,perfilCuenta,imagen,categorias,business
             <div className="hidden lg:flex h-full -translate-x-2 z-30 absolute">
               <div className="bg-wave-pattern w-16 bg-repeat-y h-full mix-blend-exclusion "></div>
             </div>
-            {renderImg(imagen.logo, 50)}
-
+            <ImagenesFolleto2
+            className=""
+            imagen ={imagen?.find(element=>element.posicion=="logo")?.url}
+            width={50}
+            />
             <h1 className="text-3xl mx-auto w-full font-black px-5 text-gray-900 break-words text-center">
               {perfilCuenta?.perfilUser?.businessName}
             </h1>
             <div className="hidden lg:flex flex-col lg:px-4 items-center justify-between">
-              {renderImg(imagen.imagen1, 70)}
+             
+             {
+             imagen?.filter(element=>element.posicion!=="logo").map((img,i)=>(
+                <ImagenesFolleto2
+                imagen={img.url}
+                name={img.posicion}
+                editFolleto={editFolleto}
+                handleDeleteImagen={handleDeleteImagen}
+                handleSubmitFile={handleSubmitFile}
+                key={i}
+                />
+             ))
+             }
 
-              {renderImg(imagen.imagen2, 70)}
-
-              {renderImg(imagen.imagen3, 70)}
             </div>
 
             <div className="bg-gray-100/30 backdrop-blur-sm px-3 py-5 text-sm font-bold flex lg:flex-col  w-full mx-auto  items-center justify-between gap-2 mt-2">

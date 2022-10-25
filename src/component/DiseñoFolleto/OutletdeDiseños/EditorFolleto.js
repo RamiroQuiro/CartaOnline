@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import ModalLoading from "../../modal/ModalLoading";
 import ModeloOriginal from "../ModeloOriginal";
 import Pruebadiseño from "../Pruebadiseño";
+import RenderEditorDiseño from "./RenderEditorDiseño";
 const sytileInicial = {
   color1: "#2e2e2e",
   color2: "#271717",
@@ -26,8 +27,7 @@ const sytileInicial = {
 
 export default function EditorFolleto() {
   const [perfilCuenta, listadoItems] = useOutletContext();
-  // const [perfilCuenta,setPerfilCuenta]=useState()
-  // const [listadoItems,setListadoItems]=useState()
+  const [imagen, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filet, setFile] = useState(null);
   const [categorias, setCategorias] = useState([]);
@@ -37,18 +37,14 @@ export default function EditorFolleto() {
   const docRef = doc(db, `listado/empresas/`);
   const businessName = listadoItems?.businessName;
   const businessNameImages = perfilCuenta?.perfilUser?.businessName + ".images";
-  const [imagen, setImagenes] = useState(null);
+  // const [imagen, setImagenes] = useState(null);
 
   // const imagenes=perfilCuenta.images
   useEffect(() => {
     const cargarImagenes = async () => {
       const imagenes = await perfilCuenta.images;
       setImagenes(imagenes);
-      // setImagenes({
-      //   imagen1: imagenes?.find((imagen) => imagen.nombre == "imagen1")?.url,
-      //   imagen2: imagenes?.find((imagen) => imagen.nombre == "imagen2")?.url,
-      //   imagen3: imagenes?.find((imagen) => imagen.nombre == "imagen3")?.url,
-      // });
+ 
     };
     cargarImagenes();
     const cargarStyles = async () => {
@@ -92,13 +88,13 @@ export default function EditorFolleto() {
     const file = e.target.files[0];
     setFile(filet);
     setLoading(true);
+    const referencedBusinessName= `${perfilCuenta?.perfilUser?.businessName}.images`
     const fileName = e.target.name;
-    console.log(fileName);
     const fileRef = ref(storage, `imagenes/${businessName}/${fileName}`);
     await uploadBytes(fileRef, file).then(async () => {
       await getDownloadURL(fileRef).then(async (url) => {
         await updateDoc(docRef, {
-          [businessNameImages]: imagen.map((img) =>
+          [referencedBusinessName]: imagen.map((img) =>
             img.posicion == fileName
               ? { ...img, url: url, nombre: fileName }
               : img
@@ -146,52 +142,51 @@ export default function EditorFolleto() {
     });
   };
 
-  const Render = ({diseñoFolleto}) => {
-console.log(diseñoFolleto)
-    switch (diseñoFolleto) {
-      case 1:
-        return (
-          <ModeloOriginal
-            styles={styles}
-            categorias={categorias}
-            items={items}
-            listadoItems={listadoItems}
-            handleDeleteImagen={handleDeleteImagen}
-            handleSubmitFile={handleSubmitFile}
-          />
-        );
-        break
-      case 2:
-        return (
-          <Pruebadiseño
-            styles={styles}
-            categorias={categorias}
-            items={items}
-            perfilCuenta={perfilCuenta}
-            handleDeleteImagen={handleDeleteImagen}
-            handleSubmitFile={handleSubmitFile}
-            imagen={imagen}
-          />
-        );
-        break;
-      case 3:
-        return (
-          <Modelo1
-            styles={styles}
-            categorias={categorias}
-            items={items}
-            perfilCuenta={perfilCuenta}
-            handleDeleteImagen={handleDeleteImagen}
-            handleSubmitFile={handleSubmitFile}
-            imagen={imagen}
-          />
-        );
-        break;
-      default:
-        break;
-    }
-  };
-
+//   const Render = ({diseñoFolleto}) => {
+// console.log(diseñoFolleto)
+//     switch (diseñoFolleto) {
+//       case 1:
+//         return (
+//           <ModeloOriginal
+//             styles={styles}
+//             categorias={categorias}
+//             items={items}
+//             listadoItems={listadoItems}
+//             handleDeleteImagen={handleDeleteImagen}
+//             handleSubmitFile={handleSubmitFile}
+//           />
+//         );
+//         break
+//       case 2:
+//         return (
+//           <Pruebadiseño
+//             styles={styles}
+//             categorias={categorias}
+//             items={items}
+//             perfilCuenta={perfilCuenta}
+//             handleDeleteImagen={handleDeleteImagen}
+//             handleSubmitFile={handleSubmitFile}
+//             imagen={imagen}
+//           />
+//         );
+//         break;
+//       case 3:
+//         return (
+//           <Modelo1
+//             styles={styles}
+//             categorias={categorias}
+//             items={items}
+//             perfilCuenta={perfilCuenta}
+//             handleDeleteImagen={handleDeleteImagen}
+//             handleSubmitFile={handleSubmitFile}
+//             imagen={imagen}
+//           />
+//         );
+//         break;
+//       default:
+//         break;
+//     }
+//   };
   return (
     <div className="flex md:flex-row flex-col">
       {loading == true && <ModalLoading />}
@@ -224,12 +219,19 @@ console.log(diseñoFolleto)
 
       {/* empieza folleto */}
 
-      {styles?.diseñoFolleto && <Render diseñoFolleto={styles?.diseñoFolleto}/>
+      {styles?.diseñoFolleto && 
+      
+      <RenderEditorDiseño
+      styles={styles}
+      categorias={categorias}
+      items={items}
+      perfilCuenta={perfilCuenta}
+      handleDeleteImagen={handleDeleteImagen}
+      handleSubmitFile={handleSubmitFile}
+      imagen={imagen}
+      />
       }
-      {/*
-       */}
-
-      {/* */}
+     
     </div>
   );
 }
