@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ContenedorOpcionDiseño({onClick,id,isActive}) {
+export default function ContenedorOpcionDiseño({onClick,id,isActive,title,children}) {
 
   return (
     <div 
@@ -26,13 +26,11 @@ export default function ContenedorOpcionDiseño({onClick,id,isActive}) {
 
     <div className="mt-4 md:mx-4 md:mt-0">
       <h1 className="text-2xl font-semibold text-gray-700 capitalize ">
-        Menu Carta
+       {title}
       </h1>
 
       <p class="mt-3 text-gray-500 ">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Provident ab nulla quod dignissimos vel non corrupti doloribus
-        voluptatum eveniet
+       {children}
       </p>
     </div>
   </div>

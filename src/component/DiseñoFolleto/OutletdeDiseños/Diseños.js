@@ -46,7 +46,20 @@ const handleStyleFolleto = async (id) => {
   })
 };
 
-
+const descipcionFolletos=[
+  {
+    title:"Modelo 1",
+    descripcion:"Folleto pensado para varios items y varias categoria",
+  },
+  {
+    title:"Modelo 2",
+    descripcion:"Modelo simple con los items ordenados en columna a la derecha",
+  },
+  {
+    title:"Modelo 3",
+    descripcion:"Modelo a de pocos items en donde a primera vista se vizualzan los items",
+  },
+]
 
 
 const handleCarrusel=(id)=>{
@@ -78,21 +91,21 @@ const handleCarrusel=(id)=>{
       </div>
       <div className="w-full flex flex-wrap items-center ">
         <div className="flex-auto w-1/2 flex flex-col gap-3 my-8 items-center justify-center">
-          <ContenedorOpcionDiseño
-          onClick={handleCarrusel}
-          isActive={isActive}
-          id={1}
-          />
-          <ContenedorOpcionDiseño
-          onClick={handleCarrusel}
-          isActive={isActive}
-          id={2}
-          />
-          <ContenedorOpcionDiseño
-          onClick={handleCarrusel}
-          isActive={isActive}
-          id={3}
-          />
+
+          {
+            descipcionFolletos?.map((element,i)=>(
+              
+              <ContenedorOpcionDiseño
+              onClick={handleCarrusel}
+              isActive={isActive}
+              id={i+1}
+              title={element.title}
+              >
+                {element.descripcion}
+                </ContenedorOpcionDiseño>
+            ))
+          }
+  
           
         </div>
         <div className="flex-auto w-1/2 h-[620px] bg-white rounded-tl-5xl rounded-bl-5xl relative rounded-lg flex flex-col overflow-hidden items-center justify-center">
