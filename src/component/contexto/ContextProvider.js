@@ -60,7 +60,7 @@ const crearCategoria=async(categoria)=>{
 const crearItems=async(item,categoria)=>{
     const referencedBusinessName=`${userPerfil?.businessName}.categorias.${categoria}`
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayUnion(item)})
-  
+    
   toast('Items Agregado!', {
     icon: '👏',
   });
@@ -68,7 +68,7 @@ const crearItems=async(item,categoria)=>{
 }
 // eliminar items
 const eliminarItems=async(item,categoria)=>{
-  const referencedBusinessName=userPerfil.businessName+".categorias"+"."+categoria
+  const referencedBusinessName=`${userPerfil?.businessName}.categorias.${categoria}`
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayRemove(item)})
   toast('Items Eliminado!', {
     icon: '👏',

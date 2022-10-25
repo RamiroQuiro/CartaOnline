@@ -39,12 +39,11 @@ function App() {
               <Route path="perfildelaCuenta" element={<PerfildelaCuenta />} />
               <Route path="pageItems" element={<PageItems />} />
               <Route path="pageIgames" element={<PageImagenes />} />
-                <Route path="disenioFolleto" element={<DiseñoFolleto />}>
+                <Route  element={<DiseñoFolleto />}>
                   <Route path="disenios"  index element={<Diseños/>}/>
                   <Route path="editorFolleto" element={<EditorFolleto />} />
                 </Route>
             </Route>
-            {/* <Route path="folleto2" element={<Folleto2 />} /> */}
           </Routes>
         </ContextProvider>
       </AuthContext>
