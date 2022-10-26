@@ -31,8 +31,11 @@ const handleChange =(e)=>{
 
 const handleRegister =async(e)=>{
   e.preventDefault()
+if(user.password!== user.passwordRevalid){
+  toast.error('Las contraseñas no coinciden')
+}else{
   register(user.email,user.password,user.userName,user.businessName)
- 
+}
 }
 
 const handleLogin = async(e)=>{
@@ -58,9 +61,18 @@ const handleLogin = async(e)=>{
             },
           });
           break;
+          case 'auth/too-many-requests':
+            toast.error('Usuario bloqueado temporalmente, por varios intentos de acceso erroneo')
+            break;
+            case 'auth/wrong-password':
+              toast.error('La Contraseña es Incorrecta')
+              break;
         case 'auth/user-disabled':
           toast.error('El usuario esta deshabilitado');
           break
+          default:
+            console.log(error)
+            break
      }
     // toast(errorCode)  
   });
@@ -68,16 +80,15 @@ const handleLogin = async(e)=>{
 
 
   return (
-    <div className="w-full relative containerLogin h-screen  bg-red-200 flex items-center justify-center  bg-gray-200">
+    <div className="w-full relative containerLogin h-screen  bg-red-200 flex items-center justify-center ">
        <Toaster/>
       <div className="shape"></div>
-      <div className="shape"></div>/
-        <div className="userSignIn  w-10/12 md:w-6/12 min-h-[500px] bg-[#ffcacabe]/70 md:backdrop-blur-sm relative shadow-lg border-2 border-gray-100 rounded-lg">
+      <div className="shape"></div>
+        <div className="userSignIn  w-11/12 md:w-6/12 min-h-[500px] bg-[#ffcacabe]/70 md:backdrop-blur-sm relative shadow-lg border-2 border-gray-100 rounded-lg">
           <div className={`${active?'opacity-0':' opacity-100'}userBox duration-200 absolute top-0 left-0 md:w-full h-full flex justify-center items-center `}>
             <div className="imgBox md:block hidden relative w-1/2 h-full duration-500">
               <img
                 src="https://source.unsplash.com/random/800x800/?img=1"
-                // src="https://images.pexels.com/photos/1260968/pexels-photo-1260968.jpeg"
                 alt=""
                 className=" absolute object-cover w-full h-full duration-300"
               />
@@ -146,7 +157,7 @@ const handleLogin = async(e)=>{
                 />
                 <input
                   type="password"
-                  name="password"
+                  name="passwordRevalid"
                   onChange={handleChange}
                   id=""
                   placeholder="Confirmar Contraseña"

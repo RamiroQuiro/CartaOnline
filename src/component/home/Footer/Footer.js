@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className=" text-center lg:text-left bg-gray-100 text-gray-600">
-  <div className="flex md:flex-row flex-col justify-center items-center w-5/6 mx-auto lg:justify-between p-6 border-b border-gray-300">
+    <footer className=" text-center lg:text-left bg-gray-100 text-gray-600 py-16">
+  {/* <div className="flex md:flex-row flex-col justify-center items-center w-5/6 mx-auto lg:justify-between p-6 border-b border-gray-300">
     <div className="mr-12 hidden lg:block">
       <span>Siguenos y manda mensaje por nuestras redes:</span>
     </div>
@@ -52,7 +52,7 @@ export default function Footer() {
         </svg>
       </a>
     </div>
-  </div>
+  </div> */}
   <div className="flex  md:flex-row flex-col justify-center items-center w-5/6 mx-auto md:gap-0 gap-7  py-10 text-center md:text-left">
       <div className="">
         
@@ -66,25 +66,23 @@ export default function Footer() {
           Mapa de Sitio
         </h6>
         <p className="">
-          <a href="#!" className="text-gray-600">Producto</a>
+          <a href="#home" className="text-gray-600">Producto</a>
         </p>
         <p className="">
-          <a href="#!" className="text-gray-600">Precio</a>
+          <a href="#precio" className="text-gray-600">Precio</a>
         </p>
         <p>
-          <a href="#!" className="text-gray-600">Contacto</a>
+          <a href="#contacto" className="text-gray-600">Contacto</a>
         </p>
         <p>
-          <a href="#!" className="text-gray-600">Preguntas Frecuentes</a>
+          <a href="#preguntas" className="text-gray-600">Preguntas Frecuentes</a>
         </p>
-        <p>
-          <a href="#!" className="text-gray-600">Ayuda</a>
-        </p>
+        
       </div>
     
   </div>
   <div className="flex justify-center items-center w-5/6 mx-auto  text-center p-6 ">
-    <span>© Power By: </span>
+    <span>© Power By ►► : </span>
     <a className="text-gray-600 font-semibold" href="https://ramiroquiroga.vercel.app/"> RamiroQuiroga</a>
   </div>
 </footer>

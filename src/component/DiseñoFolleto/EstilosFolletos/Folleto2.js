@@ -96,9 +96,9 @@ export default function Folleto2({editFolleto,styles,perfilCuenta,imagen,categor
             </div>
 
             <div className="bg-gray-100/30 backdrop-blur-sm px-3 py-5 text-sm font-bold flex lg:flex-col  w-full mx-auto  items-center justify-between gap-2 mt-2">
-            <p>{perfilCuenta?.perfilUser?.facebook}</p>
-          <p>{perfilCuenta?.perfilUser?.instagram}</p>
-          <p>{perfilCuenta?.perfilUser?.nTel1}</p>
+            {perfilCuenta?.perfilUser?.facebbok&&<p>{perfilCuenta?.perfilUser?.facebook}</p>}
+          {perfilCuenta?.perfilUser?.instagram&& <p>{perfilCuenta?.perfilUser?.instagram}</p>}
+          {perfilCuenta?.perfilUser?.nTel1&& <p>{perfilCuenta?.perfilUser?.nTel1}</p>}
           <p>{perfilCuenta?.perfilUser?.direccion}</p>
             </div>
           </section>

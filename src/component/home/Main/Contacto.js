@@ -19,7 +19,7 @@ const handleChange = (e)=>{
 
 
   return (
-    <section className="w-5/6 mx-auto flex flex-col my-20">
+    <section id="contacto" className="w-5/6 mx-auto flex flex-col py-20 my-20">
     <div className="flex justify-center">
       <div className="text-center lg:max-w-3xl md:max-w-xl">
         <h2 className="text-3xl font-bold mb-12 px-6">Contactanos</h2>

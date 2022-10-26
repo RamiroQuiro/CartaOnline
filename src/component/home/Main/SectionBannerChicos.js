@@ -8,8 +8,8 @@ import escalera from "../../../img/escaleras.png";
 
 export default function SectionBannerChicos() {
   return (
-    <section className="flex w-5/6 py-5 justify-around items-center mx-auto ">
-      <div className="flex flex-col relative gap-3">
+    <section id="producto" className="flex w-5/6 py-5 my-20 justify-around items-center mx-auto ">
+      <div className="flex flex-col relative gap-10">
         <div className="md:pl-14 mt-4">
           <div className="flex items-center  flex-row-reverse gap-8 border-2 p-5 text-lg">
             <div>

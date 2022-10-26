@@ -28,6 +28,7 @@ export default function Folleto1({
               alt="imagen1"
               className="md:mb-4  objet-contain object-center w-full p-1 max-w-[200px] h-auto max-h-[350px] z-30  rounded-xl "
             />
+            
           </div>
         </div>
         {/* Titulo y Descripcion */}

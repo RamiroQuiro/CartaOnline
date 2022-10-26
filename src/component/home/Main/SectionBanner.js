@@ -3,10 +3,10 @@ import tilde from "../../../img/garrapata.png";
 
 export default function SectionBanner() {
   return ( 
-  <section className=" w-full bg-orange-500/5 sectionBanner my-20 md:h-screen flex md:flex-row flex-col items-center">
+  <section className=" w-full bg-orange-500/5 sectionBanner my-28 md:h-screen flex md:flex-row flex-col items-center">
   <div className="w-5/6 flex md:flex-row flex-col justify-around items-center mx-auto md:px-6 px-2 gap-8 md:gap-0 py-14">
     <div className='md:w-2/3 w-full '>
-    <div className="md:text-4xl text-2xl text-center text-orange-100/80 break-words bg-paleta-facebook/80 backdrop-blur-sm md:mx-5 mx-auto rounded-bl-xl rounded-tl-5xl rounded-br-5xl rounded-tr-xl hover:rounded-bl-5xl hover:rounded-tr-5xl hover:rounded-tl-md hover:rounded-br-md py-12 px-2 -rotate-3 hover:-rotate-0 duration-75 z-30 font-bold md:w-[80%] w-full">
+    <div className="md:text-4xl text-2xl text-center text-gray-100/80 break-words bg-paleta-facebook/80 backdrop-blur-sm md:mx-5 mx-auto rounded-bl-xl rounded-tl-5xl rounded-br-5xl rounded-tr-xl hover:rounded-bl-5xl hover:rounded-tr-5xl hover:rounded-tl-md hover:rounded-br-md py-12 px-2 -rotate-3 hover:-rotate-0 duration-75 z-30 font-bold md:w-[80%] w-full">
       <h2 className="py-5 px-2">Queres tener tu CartaOnline?</h2>
       <h2 className="py-5 px-2">
         Crea un menú en tan sólo simples pasos:

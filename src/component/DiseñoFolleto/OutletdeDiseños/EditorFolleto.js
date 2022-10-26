@@ -7,13 +7,13 @@ import { db, storage } from "../../Firebase";
 import {
   deleteObject,
   getDownloadURL,
+  getStorage,
   ref,
   uploadBytes,
 } from "firebase/storage";
 import toast from "react-hot-toast";
+
 import ModalLoading from "../../modal/ModalLoading";
-import ModeloOriginal from "../ModeloOriginal";
-import Pruebadiseño from "../Pruebadiseño";
 import RenderEditorDiseño from "./RenderEditorDiseño";
 const sytileInicial = {
   color1: "#2e2e2e",
@@ -26,6 +26,7 @@ const sytileInicial = {
 };
 
 export default function EditorFolleto() {
+  const storages=getStorage()
   const [perfilCuenta, listadoItems] = useOutletContext();
   const [imagen, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -71,7 +72,7 @@ export default function EditorFolleto() {
       }
     };
     cargarItems();
-  }, [filet]);
+  }, [filet,imagen]);
 
   useEffect(() => {
     if (!filet) {
@@ -95,14 +96,14 @@ export default function EditorFolleto() {
       await getDownloadURL(fileRef).then(async (url) => {
         await updateDoc(docRef, {
           [referencedBusinessName]: imagen.map((img) =>
-            img.posicion == fileName
-              ? { ...img, url: url, nombre: fileName }
-              : img
+          img.posicion == fileName
+          ? { ...img, url: url, nombre: fileName }
+          : img
           ),
         })
-          .then(() => {
-            setLoading(false);
-            toast.success("Imagen subida correctamente");
+        .then(() => {
+          setLoading(false);
+          toast.success("Imagen subida correctamente");
           })
           .catch((error) => {
             setLoading(false);
@@ -112,11 +113,27 @@ export default function EditorFolleto() {
       });
     });
   };
-
-  const handleDeleteImagen = (e) => {
-    e.preventDefault();
-    const desertRef = ref(storage, imagen[e.target.id]);
-    deleteObject(desertRef);
+  
+  const handleDeleteImagen =async  (name) => {
+    const referencedBusinessName= `${perfilCuenta?.perfilUser?.businessName}.images`
+    const desertRef = ref(storages, `imagenes/${perfilCuenta?.perfilUser?.businessName}/${name}`);
+    deleteObject(desertRef).then((data)=>toast.success('imagen borrada'))
+    await updateDoc(docRef, {
+      [referencedBusinessName]: imagen.map((img) =>
+        img.posicion == name
+          ? { ...img, url: "", nombre: name }
+          : img
+      ),
+    })
+      .then(() => {
+        setLoading(false);
+        toast.success("Imagen borrada correctamente");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert("Error al borrar imagen, intente de nuevo");
+        console.log(error);
+      });
   };
 
   {

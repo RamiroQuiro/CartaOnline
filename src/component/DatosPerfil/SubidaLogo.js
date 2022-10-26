@@ -16,7 +16,6 @@ export default function SubidaLogo({ perfilUserLogin }) {
   const businessName = perfilUserLogin?.perfilUser?.businessName + "."+"images";
 
   const imagen = perfilUserLogin?.images;
-  console.log(logo," imagen:", imagen," bussinessName:",businessName)
   useEffect(() => {
     const cargarLogo = async () => {
       imagen
