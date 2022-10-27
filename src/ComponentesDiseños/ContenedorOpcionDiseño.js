@@ -6,8 +6,8 @@ export default function ContenedorOpcionDiseño({onClick,id,isActive,title,child
     <div 
     onClick={()=>onClick(id)}
     id={id}
-    className={`${isActive==id?'bg-gray-100/50 shadow-lg scale-105':''} md:flex md:items-start  p-5 cursor-pointer border rounded-lg bg-white hover:bg-gray-100/50 hover:shadow-md duration-150 md:w-3/4`}>
-    <span className="inline-block p-2 text-blue-500 bg-blue-100 rounded-xl md:mx-4 ">
+    className={`${isActive==id?'bg-gray-100/50 shadow-lg lg:scale-105':''} flex lg:items-start max-h-20 lg:max-h-full lg:h-32 lg:p-5 p-2 cursor-pointer border rounded-lg bg-white hover:bg-gray-100/50 hover:shadow-lg duration-150 flex-auto w-full lg:w-3/4`}>
+    <span className="lg:inline-block lg:p-2 text-blue-500 bg-blue-100 rounded-xl mr-2 items-center m-auto lg:mx-4 ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="w-6 h-6"
@@ -24,12 +24,12 @@ export default function ContenedorOpcionDiseño({onClick,id,isActive,title,child
       </svg>
     </span>
 
-    <div className="mt-4 md:mx-4 md:mt-0">
-      <h1 className="text-2xl font-semibold text-gray-700 capitalize ">
+    <div className="lg:mx-4 lg:mt-0 flex lg:block items-center gap-2 justify-between w-full lg:text-left text-center">
+      <h1 className="lg:text-2xl font-semibold text-gray-700 capitalize ">
        {title}
       </h1>
 
-      <p class="mt-3 text-gray-500 ">
+      <p className="lg:mt-3 text-gray-500 leading-tight text-sm ">
        {children}
       </p>
     </div>

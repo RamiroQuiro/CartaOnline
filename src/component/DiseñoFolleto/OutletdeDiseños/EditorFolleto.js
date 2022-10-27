@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import AcordionDiseños from "../AcordionDiseños";
-import Modelo1 from "../Modelo1";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../Firebase";
 import {
   deleteObject,
@@ -27,7 +26,7 @@ const sytileInicial = {
 
 export default function EditorFolleto() {
   const storages=getStorage()
-  const [perfilCuenta, listadoItems] = useOutletContext();
+  const {perfilCuenta, listadoItems} = useOutletContext();
   const [imagen, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filet, setFile] = useState(null);
@@ -37,8 +36,6 @@ export default function EditorFolleto() {
   const [styles, setStyles] = useState(sytileInicial);
   const docRef = doc(db, `listado/empresas/`);
   const businessName = listadoItems?.businessName;
-  const businessNameImages = perfilCuenta?.perfilUser?.businessName + ".images";
-  // const [imagen, setImagenes] = useState(null);
 
   // const imagenes=perfilCuenta.images
   useEffect(() => {

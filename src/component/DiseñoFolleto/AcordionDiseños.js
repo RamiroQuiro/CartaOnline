@@ -7,7 +7,6 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
     setStyles({ ...styles, [e.target.name]: e.target.value });
   };
 
-  const bgArriba=styles?.color1
   return (
     <div className="flex md:flex-col z-40   justify-around items-center mb-2 w-full ">
       <label
@@ -21,7 +20,7 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
         />
         <p
           htmlFor="acordionDiseños"
-          className="peer-checked:text-paleta-600 peer-checked:font-bold w-full block rounded-lg z-50 whitespace-nowrap text-center cursor-pointer  px-1"
+          className="peer-checked:text-paleta-600 peer-checked:font-bold w-full break-words block rounded-lg z-50 whitespace-nowrap text-center cursor-pointer  px-1"
         >
           Paleta de colores{" "}
         </p>
@@ -39,7 +38,7 @@ export default function AcordionDiseños({ handleUpSelect, styles, setStyles }) 
             d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"
           />
         </svg>
-        <div className="hidden flex-col md:bg-gray-200/50 bg-gray-200/90  w-full peer-checked:bg- max-h-0 peer-checked:flex md:bottom-0 left-0 -bottom-28 absolute md:relative duration-150 md:-translate-y-8 peer-checked:translate-y-0 peer-checked:max-h-max z-50  ">
+        <div className="hidden flex-col md:bg-gray-200/50 bg-gray-200/90  w-full peer-checked:bg- max-h-0 peer-checked:flex md:bottom-0 left-0 -bottom-24 absolute md:relative duration-150 md:-translate-y-8 peer-checked:translate-y-0 peer-checked:max-h-max z-50  ">
         <div className="flex md:flex-col justify-around items-center">
             <div className=" flex flex-col py-2 gap-1 justify-center items-center">
               <input

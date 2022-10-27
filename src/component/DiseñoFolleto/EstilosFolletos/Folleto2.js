@@ -35,17 +35,19 @@ export default function Folleto2({editFolleto,styles,perfilCuenta,imagen,categor
    
       <div
        
-        className=" lg:w-[60%] md:w-11/12  w-screen min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center relative "
+        className=" lg:w-[60%] md:w-11/12  w-full min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col justify-around items-center relative "
       >
         <div className="flex lg:flex-row flex-col-reverse flex-wrap  items-stretch justify-between   w-full h-full">
           <section
               style={{
                 background: `linear-gradient(45deg ,${styles?.color1} 0%, ${styles?.color1}90 100%) `,
               }}
-          className="bg-gradient-to-t min-h-max w-full  flex flex-col items-center md:mx-auto justify-between from-gray-900 to-gray-900/90 lg:w-3/5 pb-10  lg:text-center text-white relative">
+          className="bg-gradient-to-t min-h-max w-full  flex flex-col items-stretch md:mx-auto justify-between from-gray-900 to-gray-900/90 lg:w-3/5 pb-10  lg:text-center text-white relative">
             <div className="min-h-diez text-center flex flex-col items-center gap-2 w-10/12 md:text-center lg:px-4 py-10">
               <h1  style={{ color: `${styles.color2}` }} className="text-7xl font-black text-yellow-500">Menu</h1>
-              <h2 className="font-medium ">
+              <h2 
+               
+               className="font-medium ">
                 {perfilCuenta?.perfilUser?.descripcion}
               </h2>
             </div>

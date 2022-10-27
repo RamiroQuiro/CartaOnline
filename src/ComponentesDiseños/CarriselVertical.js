@@ -4,28 +4,42 @@ import diseño2 from "../img/diseño2.png"
 import diseño3 from "../img/diseño3.png"
 
 export default function CarriselVertical({transladar}) {
-  console.log('estoy renzediranzo',transladar)
+
+const arrayImg=[
+  {
+    src:diseño1,
+    id:1,
+  },
+  {
+    src:diseño2,
+    id:2,
+  },
+  {
+    src:diseño3,
+    id:3,
+  },
+]
+
+
   return (
     <div
     style={{
-      transform:`translateY(${transladar*-1}px)` 
+      transform:`translateY(${transladar*-1}rem)` 
     }}
-    className={` flex flex-col items-center w-full rounded-xl px-16 h-[30%]  duration-700  gap-[50px]  justify-start`}>
-    <img
-      className="w-auto h-[300px] object-contain object-center  rounded-xl  "
-      src={diseño1}
-      alt=""
-    />
-    <img
-      className="w-auto h-[300px] object-contain object-center  rounded-xl  "
-      src={diseño2}
-      alt=""
-    />
-    <img
-      className="w-auto h-[300px] object-cover object-center  rounded-xl  "
-      src={diseño3}
-      alt=""
-    />
+    className={` flex flex-col items-center w-full rounded-xl md:px-16 px-5 lg:h-[30%] h-[100px]  duration-700 gap-16 justify-start`}>
+   
+   {
+    arrayImg?.map((img,i)=>(
+      <img
+      key={i}
+        className="lg:w-[400px] h-[300px] object-contain object-center  rounded-xl  "
+        src={img.src}
+        alt={img.src}
+      />
+
+    ))
+   }
+ 
   </div>
   )
 }

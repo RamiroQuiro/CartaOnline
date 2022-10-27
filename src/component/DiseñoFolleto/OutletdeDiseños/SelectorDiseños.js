@@ -6,11 +6,11 @@ import CarriselVertical from "../../../ComponentesDiseños/CarriselVertical";
 import { useOutletContext } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
-export default function Diseños() {
+export default function SelectorDiseños() {
 
-const [perfilCuenta] =useOutletContext()
+const {perfilCuenta,movil} =useOutletContext()
 const [opcion,setOpcion]=useState(50)
 const [isActive,setIsActive]= useState(0)
 const docRef = doc(db, `listado/empresas/`);
@@ -19,6 +19,7 @@ useEffect(() => {
   const diseño=()=>{
     const diseñoFolleto=perfilCuenta?.styles?.diseñoFolleto
   setIsActive(diseñoFolleto)
+  console.log(movil)
   switch (diseñoFolleto) {
     case 1:
         setOpcion(50)
@@ -67,13 +68,21 @@ const handleCarrusel=(id)=>{
   handleStyleFolleto(id)
   switch (id) {
     case 1:
-        setOpcion(50)
+        setOpcion(0)
       break;
     case 2:
-        setOpcion(400)
+    if(!movil){
+      setOpcion(23)
+    }else{
+      setOpcion(18)
+    }
       break;
     case 3:
-        setOpcion(750)
+      if(!movil){
+        setOpcion(46)
+      }else{
+        setOpcion(36)
+      }
       break;
   
     default:
@@ -90,7 +99,7 @@ const handleCarrusel=(id)=>{
         <span className="inline-block w-1 h-1 ml-1 bg-paleta-300 rounded-full"></span>
       </div>
       <div className="w-full flex flex-wrap items-center ">
-        <div className="flex-auto w-1/2 flex flex-col gap-3 my-8 items-center justify-center">
+        <div className=" lg:w-1/2 w-11-12 mx-auto  flex flex-col gap-1  lg:gap-3 my-8 items-center justify-center">
 
           {
             descipcionFolletos?.map((element,i)=>(
@@ -108,12 +117,12 @@ const handleCarrusel=(id)=>{
   
           
         </div>
-        <div className="flex-auto w-1/2 h-[620px] bg-white rounded-tl-5xl rounded-bl-5xl relative rounded-lg flex flex-col overflow-hidden items-center justify-center">
-          <div className="min-h-[20%] w-full bg-gradient-to-b  from-gray-500/30 to-transparent backdrop-blur-sm z-40 absolute top-0 left-0"></div>
+        <div className="flex-auto md:w-1/2 w-full md:h-[620px] h-[300px] bg-white md:rounded-tl-5xl md:rounded-bl-5xl relative rounded-lg flex flex-col overflow-hidden items-center justify-center mb-20">
+          <div className="min-h-[20%] md:block hidden w-full bg-gradient-to-b  from-gray-500/30 to-transparent backdrop-blur-sm z-40 absolute top-0 left-0"></div>
             <CarriselVertical
             transladar={opcion}
             />
-          <div className=" min-h-[20%] w-full bg-gradient-to-t from-gray-500/30 to-transparent backdrop-blur-sm absolute bottom-0 left-0"></div>
+          <div className=" min-h-[20%] w-full md:block hidden bg-gradient-to-t from-gray-500/30 to-transparent backdrop-blur-sm absolute bottom-0 left-0"></div>
         </div>
       </div>
     </ContenedorBlanco>
