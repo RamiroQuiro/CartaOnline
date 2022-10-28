@@ -6,7 +6,7 @@ export default function ContenedorOpcionDiseño({onClick,id,isActive,title,child
     <div 
     onClick={()=>onClick(id)}
     id={id}
-    className={`${isActive==id?'bg-gray-100/50 shadow-lg lg:scale-105':''} flex lg:items-start max-h-20 lg:max-h-full lg:h-32 lg:p-5 p-2 cursor-pointer border rounded-lg bg-white hover:bg-gray-100/50 hover:shadow-lg duration-150 flex-auto w-full lg:w-3/4`}>
+    className={`${isActive==id?'bg-gray-100/50 shadow-lg lg:scale-105':''} flex items-start max-h-20 lg:max-h-full lg:h-32 lg:p-5 p-2 cursor-pointer border rounded-lg bg-white hover:bg-gray-100/50 hover:shadow-lg duration-150 flex-auto w-full lg:w-3/4`}>
     <span className="lg:inline-block lg:p-2 text-blue-500 bg-blue-100 rounded-xl mr-2 items-center m-auto lg:mx-4 ">
       <svg
         xmlns="http://www.w3.org/2000/svg"

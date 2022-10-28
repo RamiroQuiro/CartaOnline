@@ -53,24 +53,24 @@ const navigate = useNavigate()
                 {perfilUser?.userName}
               </h2>
             </div>
-            <div  className="block font-medium jutify-center items-center text-sm flex gap-2 -ml-2">
+            <div  className=" font-medium jutify-center items-center text-sm flex gap-2 -ml-2">
               <FcPhoneAndroid />{" "}
               <p>
                 {perfilUser?.nTel1 || "--"} | {perfilUser?.nTel2}{" "}
               </p>
             </div>
-            <div className="block  font-medium jutify-center items-center text-sm  flex gap-2 ">
+            <div className=" font-medium jutify-center items-center text-sm  flex gap-2 ">
               <FcFeedback /> <p>{perfilUser?.email} </p>
             </div>
-            <div className="block flex jutify-center items-center gap-2  font-medium text-sm ">
+            <div className=" flex jutify-center items-center gap-2  font-medium text-sm ">
               <FcHome /> <p>{perfilUser?.direccion}</p>
             </div>
-            <div className="block flex gap-2 jutify-center items-center font-medium  text-sm ">
+            <div className=" flex gap-2 jutify-center items-center font-medium  text-sm ">
           <div className="flex">
           <i className="gg-facebook  inline-block"></i>
           <p  className=" inline-block"> / {perfilUser?.facebook}</p></div>
         </div>
-        <div className="block flex gap-2 jutify-center items-center  -ml-2 font-medium text-sm ">
+        <div className=" flex gap-2 jutify-center items-center  -ml-2 font-medium text-sm ">
           <div className="flex"> <i className="gg-instagram   inline-block"></i><p  className="pl-2 inline-block">  / {perfilUser?.instagram}</p></div>
           </div>
           </div>

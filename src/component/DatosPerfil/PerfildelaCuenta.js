@@ -1,10 +1,10 @@
-import { addDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {  doc, getDoc,  updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Auth } from "../contexto/AuthContext";
 import { db } from "../Firebase";
 
 import toast, { Toaster } from "react-hot-toast";
-import { Link, Navigate, useOutletContext } from "react-router-dom";
+import {  Navigate, useOutletContext } from "react-router-dom";
 import PerfilRedesSociales from "../PerfilRedesSociales";
 import SubidaLogo from "./SubidaLogo";
 

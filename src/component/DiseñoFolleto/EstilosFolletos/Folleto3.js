@@ -4,22 +4,29 @@ import { Link } from "react-router-dom";
 import Items2 from "../../FolletoPublico/Items/Items2";
 
 export default function Folleto3({
+  editFolleto,
   styles,
   perfilCuenta,
   imagen,
   categorias,
   businessName,
+  handleSubmitFile,
+  handleDeleteImagen,
 }) {
   const itemsMenu = (categoria, i) => {
     return (
       <div className={`w-full flex flex-col items-center  `}>
-        <h1
+       { 
+        perfilCuenta?.categorias?.[categoria]?.filter(
+          (item) => item.active === true
+        ).length !== 0 && 
+       <h1
           key={i}
           style={{ color: `${styles.textColor1}` }}
           className="text-3xl  border-r-2 border-b-2 border-t-2 rounded-sm font-serif mb-1 w-10/12 text-center py-2"
         >
           {categoria}
-        </h1>
+        </h1>}
         {/* <hr className="w-10/12 mb-1 border-l-4" /> */}
         {perfilCuenta?.categorias?.[categoria]
           ?.filter((item) => item.active === true)
@@ -73,20 +80,20 @@ export default function Folleto3({
         <div className="md:w-11/12 w-full flex flex-col h-full items-center justify-center py-2 gap-3 mx-auto mb-10">
           {categorias?.map((categoria, i) => itemsMenu(categoria, i))}
         </div>
-        {
-          <Link
-            to={`/${businessName}/enviando`}
-            perfilCuenta={perfilCuenta}
-            className="absolute inset-x-[30%] text-white bottom-16 rounded-full w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1"
-          >
-            Realizar Pedido
-          </Link>
-        }
-        <div className="bg-gray-100/30 backdrop-blur-sm px-3 py-5 text-sm font-bold flex   w-full mx-auto  items-center justify-around gap-2 mt-2">
-          <p>{perfilCuenta?.perfilUser?.facebook}</p>
-          <p>{perfilCuenta?.perfilUser?.instagram}</p>
-          <p>{perfilCuenta?.perfilUser?.nTel1}</p>
-          <p>{perfilCuenta?.perfilUser?.direccion}</p>
+        {!editFolleto&&
+            <Link
+              to={`/${businessName}/enviando`}
+              perfilCuenta={perfilCuenta}
+              className="absolute inset-x-[30%] text-white  z-50 bottom-4 rounded-lg w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1"
+            >
+              Realizar Pedido
+            </Link>
+          }
+        <div className="bg-gray-100/30 backdrop-blur-sm px-3 py-5 text-sm font-bold flex flex-wrap  w-full mx-auto  items-center justify-around gap-2 mb-14 mt-2">
+        { perfilCuenta?.perfilUser?.facebook&& <p  className="flex-auto font-medium  text-center">{perfilCuenta?.perfilUser?.facebook}</p>}
+        { perfilCuenta?.perfilUser?.instagram&&  <p className="flex-auto font-medium  text-center">{perfilCuenta?.perfilUser?.instagram}</p>}
+         { perfilCuenta?.perfilUser?.nTel1&& <p className="flex-auto font-medium  text-center">{perfilCuenta?.perfilUser?.nTel1}</p>}
+         { perfilCuenta?.perfilUser?.direccion&&  <p className="flex-auto font-medium  text-center">{perfilCuenta?.perfilUser?.direccion}</p>}
         </div>
       </div>
     </div>

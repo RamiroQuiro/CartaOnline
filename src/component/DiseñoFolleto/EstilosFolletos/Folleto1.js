@@ -3,13 +3,14 @@ import ItemsMenu from "../../FolletoPublico/Items/ItemsMenu";
 import ImagenesFolleto2 from "./ComponentesFolleto2/ImagenesFolleto2";
 
 export default function Folleto1({
+  editFolleto,
   styles,
   perfilCuenta,
   imagen,
   categorias,
   businessName,
-  name,
-  editFolleto,
+  handleSubmitFile,
+  handleDeleteImagen,
 }) {
   return (
     <div
@@ -21,20 +22,21 @@ export default function Folleto1({
       <header className="w-full flex md:flex-row flex-col items-center justify-center  h-2/6">
         <div className="md:h-full py-2 md:py-0 h-1/3 w-full  md:w-1/3 md:flex items-center justify-center relative">
           <div className=" md:absolute peer w-[50%] md:w-[80%] mx-auto md:-rotate-6 rounded-xl">
-            <img
-              width={"200"}
-              height="200px"
-              src={imagen?.find((img) => img?.posicion == "imagen1")?.url}
-              alt="imagen1"
-              className="md:mb-4  objet-contain object-center w-full p-1 max-w-[200px] h-auto max-h-[350px] z-30  rounded-xl "
+            <ImagenesFolleto2
+              editFolleto={editFolleto}
+              handleDeleteImagen={handleDeleteImagen}
+              handleSubmitFile={handleSubmitFile}
+              name="imagen1"
+              classNameImg={"rounded-xl"}
+              imagen={imagen?.find((img) => img?.posicion == "imagen1")?.url}
             />
-            
           </div>
         </div>
         {/* Titulo y Descripcion */}
         <div className="h-full md:w-1/3 flex flex-wrap items-center justify-center relative">
           <ImagenesFolleto2
             width={30}
+            classNameImg="w-40"
             imagen={imagen?.find((img) => img?.posicion == "logo")?.url}
           />
           <div className="text-center md:w-8/12 mx-auto h-1/3 mt-5 mb-5">
@@ -64,12 +66,13 @@ export default function Folleto1({
         </div>
         <div className=" h-full lg:w-1/3 w-1/5 hidden md:flex items-center justify-end relative">
           <div className=" absolute peer w-full mx-auto md:w-[80%] rotate-6 rounded-xl">
-            <img
-              width={"300px"}
-              height="300px"
-              src={imagen?.find((img) => img?.posicion == "imagen2")?.url}
-              alt={"imagen2"}
-            className="md:mb-4  objet-contain object-center w-full p-1 max-w-[275px] h-auto max-h-[350px] z-30  rounded-xl "
+            <ImagenesFolleto2
+              editFolleto={editFolleto}
+              handleDeleteImagen={handleDeleteImagen}
+              handleSubmitFile={handleSubmitFile}
+              name="imagen2"
+              classNameImg={"rounded-xl"}
+              imagen={imagen?.find((img) => img?.posicion == "imagen2")?.url}
             />
           </div>
         </div>
@@ -77,47 +80,68 @@ export default function Folleto1({
       {/* Titulo y Descripcion */}
 
       <div className="w-full min-h-[4/5]  md:py-6 md:px-3 flex md:flex-row flex-wrap  justify-center items-center gap-1 md:gap-4">
-        {categorias?.map((categoria, i) => (
-          <div
-            key={i}
-            className="md:p-3 p-2 rounded-lg bg-gray-50/10 backdrop-blur-sm flex flex-col min-h-[30%] w-11/12 flex-initial md:w-[30%] items-center"
-          >
-            <h3
-              style={{ color: `${styles?.textColor1}` }}
-              className="md:text-xl -skew-y-3 text-lg text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-lg"
-            >
-              {categoria}
-            </h3>
-            {perfilCuenta?.categorias?.[categoria]
-              ?.filter((item) => item.active === true)
-              .map((item) => (
-                <ItemsMenu
-                  textColor1={styles?.textColor1}
-                  textColor2={styles?.textColor2}
-                  key={item.productID}
-                  optionMenu={item.nombre}
-                  description={item.descripcion}
-                  precio={item.precio}
-                  productID={item.productID}
-                />
-              ))}
-          </div>
-        ))}
+        {
+          //mapeamos categorias
+          categorias?.map(
+            (categoria, i) =>
+              //condicional si hay categorias vacias
+              perfilCuenta?.categorias?.[categoria]?.filter(
+                (item) => item.active === true
+              ).length !== 0 && (
+                <div
+                  key={i}
+                  className="md:p-3 p-2 rounded-lg bg-gray-50/10 backdrop-blur-sm flex flex-col min-h-[30%] w-11/12 flex-initial md:w-[30%] items-center"
+                >
+                  <h3
+                    style={{ color: `${styles?.textColor1}` }}
+                    className="md:text-xl -skew-y-3 text-lg text-center w-6/12 font-medium bg-gray-500 px-4 py-1 rounded-lg"
+                  >
+                    {categoria}
+                  </h3>
+                  {perfilCuenta?.categorias?.[categoria]
+                    ?.filter((item) => item.active === true)
+                    .map((item) => (
+                      <ItemsMenu
+                        textColor1={styles?.textColor1}
+                        textColor2={styles?.textColor2}
+                        key={item.productID}
+                        optionMenu={item.nombre}
+                        description={item.descripcion}
+                        precio={item.precio}
+                        productID={item.productID}
+                      />
+                    ))}
+                </div>
+              )
+          )
+        }
       </div>
 
       <footer className="w-full mt-14 bottom-0 px-16 mb-10 flex flex-wrap bg-gray-100/50 mx-auto md:gap-4 py-0.5 justify-between items-center">
-        <span>{perfilCuenta?.perfilUser?.facebook || "facebook"}</span>
+        {perfilCuenta?.perfilUser?.facebook && (
+          <span className="flex-auto font-medium  text-center">
+            {perfilCuenta?.perfilUser?.facebook || "facebook"}
+          </span>
+        )}
         {!editFolleto && (
           <Link
             to={`/${businessName}/enviando`}
             perfilCuenta={perfilCuenta}
-            className="fixed inset-x-[30%] text-white bottom-2 rounded-lg w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1"
+            className="absolute inset-x-[30%] text-white md:bottom-4 bottom-2 rounded-lg w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1"
           >
             Realizar Pedido
           </Link>
         )}
-        <span>{perfilCuenta?.perfilUser?.instagram || "Instagram"}</span>
-        <span>{perfilCuenta?.perfilUser?.direccion}</span>
+        {perfilCuenta?.perfilUser?.instagram && (
+          <span className="flex-auto font-medium text-center">
+            {perfilCuenta?.perfilUser?.instagram}
+          </span>
+        )}
+        {perfilCuenta?.perfilUser?.direccion && (
+          <span className="flex-auto font-medium  text-center">
+            {perfilCuenta?.perfilUser?.direccion}
+          </span>
+        )}
       </footer>
     </div>
   );

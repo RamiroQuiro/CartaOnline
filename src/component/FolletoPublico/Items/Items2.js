@@ -44,7 +44,7 @@ export default function Items2({ nombre,
     }, [cantidadItems]);
   
     return (
-        <div key={productID} className="w-10/12 flex items-ceter justify-between my-1 text-left relative">
+        <div key={productID} className="md:w-10/12 w-11/12 flex items-ceter justify-between my-1 text-left relative">
         <div className="md:py-2  py-1 w-4/6 ">
           <button
             htmlFor="cantidadItems "
@@ -76,7 +76,7 @@ export default function Items2({ nombre,
           type="number"
           name="ItemsMenu"
           id={productID}
-          style={{ outlineColor: `${textColor1}`}}
+          style={{ outlineColor: `${textColor1} `,color: `${textColor2}`}}
           className="cantidadItems text-lg text-center focus:bg-yellow-400 font-bold rounded border-orange-100"
           placeholder="0"
           value={cantidadItems.cantidad}

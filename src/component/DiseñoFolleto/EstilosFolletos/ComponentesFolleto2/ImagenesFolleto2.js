@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaEdit, FaTimes } from 'react-icons/fa'
 
-export default function ImagenesFolleto2({className,imagen,name,width,figcaption,editFolleto,handleSubmitFile,handleDeleteImagen}) {
+export default function ImagenesFolleto2({className,classNameImg,imagen,name,width,figcaption,editFolleto,handleSubmitFile,handleDeleteImagen}) {
   return (
     <figure
     className={`${className} md:px-4 py-3 flex flex-col items-center relative w-full  mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
@@ -12,7 +12,7 @@ export default function ImagenesFolleto2({className,imagen,name,width,figcaption
       height="150px"
       src={imagen}
       alt="imagen"
-      className={`object-contain object-center w-[${width}%] max-h-[300px] z-30  rounded-lg p-1 peer`}
+      className={`${classNameImg} object-contain object-center w-[${width}%] max-h-[300px] z-30 bg-gray-500  rounded-lg p-1 peer`}
     />
   }
 
@@ -23,7 +23,7 @@ export default function ImagenesFolleto2({className,imagen,name,width,figcaption
       height="150px"
       src={imagen}
       alt="imagen"
-      className={`object-contain object-center w-[${width}%] max-h-[300px] z-30  rounded-lg p-1 peer`}
+      className={`${classNameImg} object-contain object-center w-[${width}%] max-h-[300px] z-30  rounded-lg p-1 peer`}
     />
   }
 {!editFolleto?

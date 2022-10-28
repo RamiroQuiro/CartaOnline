@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 export default function SelectorDiseños() {
 
 const {perfilCuenta,movil} =useOutletContext()
-const [opcion,setOpcion]=useState(50)
+const [opcion,setOpcion]=useState(0)
 const [isActive,setIsActive]= useState(0)
 const docRef = doc(db, `listado/empresas/`);
 
@@ -19,7 +19,6 @@ useEffect(() => {
   const diseño=()=>{
     const diseñoFolleto=perfilCuenta?.styles?.diseñoFolleto
   setIsActive(diseñoFolleto)
-  console.log(movil)
   switch (diseñoFolleto) {
     case 1:
         setOpcion(50)
@@ -32,6 +31,7 @@ useEffect(() => {
       break;
   
     default:
+      setOpcion(400)
       break;
   }}
   diseño()
@@ -119,9 +119,11 @@ const handleCarrusel=(id)=>{
         </div>
         <div className="flex-auto md:w-1/2 w-full md:h-[620px] h-[300px] bg-white md:rounded-tl-5xl md:rounded-bl-5xl relative rounded-lg flex flex-col overflow-hidden items-center justify-center mb-20">
           <div className="min-h-[20%] md:block hidden w-full bg-gradient-to-b  from-gray-500/30 to-transparent backdrop-blur-sm z-40 absolute top-0 left-0"></div>
-            <CarriselVertical
+           {
+           perfilCuenta&&
+           <CarriselVertical
             transladar={opcion}
-            />
+            />}
           <div className=" min-h-[20%] w-full md:block hidden bg-gradient-to-t from-gray-500/30 to-transparent backdrop-blur-sm absolute bottom-0 left-0"></div>
         </div>
       </div>
