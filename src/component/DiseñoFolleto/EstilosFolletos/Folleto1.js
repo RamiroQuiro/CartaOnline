@@ -127,7 +127,7 @@ export default function Folleto1({
           <Link
             to={`/${businessName}/enviando`}
             perfilCuenta={perfilCuenta}
-            className="absolute inset-x-[30%] text-white md:bottom-4 bottom-2 rounded-lg w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1"
+            className="absolute inset-x-[30%] text-white md:bottom-2 bottom-2 rounded-lg w-32 text-center mx-auto font-medium  text-sm bg-green-500/70 border border-white px-1 py-1"
           >
             Realizar Pedido
           </Link>
