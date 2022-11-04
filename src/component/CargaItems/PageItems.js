@@ -26,7 +26,6 @@ export default function PageItems() {
   const businessName = docRefCategorias
 
 
-  console.log(listadoItems)
   useEffect(() => {
     const category = () => {
       if (listadoItems) {

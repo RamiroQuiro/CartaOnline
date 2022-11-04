@@ -27,7 +27,6 @@ export default function FormularioImagenes({perfilUser}) {
     
     const handleSubmitFile = async (e) => {
       e.preventDefault();
-      console.log(businessName)
       setLoading(true);
       const fileName = e.target.nombre.value;
       const filePosicion=e.target.posicion.value;

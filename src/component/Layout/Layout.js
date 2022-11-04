@@ -48,7 +48,6 @@ export default function Layout() {
     });
     return () => unsub();
   }, []);
-  console.log(perfilUserLogin)
   return (
     <div className="containerLayout w-full overflow-x-hidden">
       <Navbar perfilUser={perfilUserLogin} className="z-50" />
