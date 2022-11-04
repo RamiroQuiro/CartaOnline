@@ -3,9 +3,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FcUpload } from "react-icons/fc";
+import { Auth } from "../contexto/AuthContext";
 import { db, storage } from "../Firebase";
 
 export default function SubidaLogo({ perfilUserLogin }) {
+  const{user}=Auth()
   const [previewURL, setPreviewURL] = useState(null);
   const [fileURL, setFileURL] = useState(null);
   const [file, setFile] = useState(null);
@@ -13,7 +15,7 @@ export default function SubidaLogo({ perfilUserLogin }) {
   const [logo, setLogo] = useState(null);
   const [habilitarFormulario, setHabilitarFormulario] = useState(false);
   const docRef = doc(db, `listado/empresas`);
-  const businessName = perfilUserLogin?.perfilUser?.businessName + "."+"images";
+  const businessName =`${user?.uid}.images`;
 
   const imagen = perfilUserLogin?.images;
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function SubidaLogo({ perfilUserLogin }) {
     const fileName = e.target.nombre.value;
     const fileRef = ref(
       storage,
-      `imagenes/${perfilUserLogin.businessName}/${file.name}`
+      `imagenes/${user?.uid}/${file.name}`
     );
     await uploadBytes(fileRef, file).then(async (uploadTask) => {
       await getDownloadURL(fileRef).then(async (url) => {

@@ -9,12 +9,11 @@ import PerfilRedesSociales from "../PerfilRedesSociales";
 import SubidaLogo from "./SubidaLogo";
 
 export default function PerfildelaCuenta() {
-  const { user } = Auth();
-  const [perfilUserLogin, listadoItems] = useOutletContext();
+  const [perfilUserLogin, listadoItems,movil,uidUser] = useOutletContext();
   const [perfilUser, setPerfilUser] = useState({});
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);
-  const [editarPerfil, setEditarPerfil] = useState();
-  const docRef = doc(db, `usuarios/${user?.uid}`);
+  const [editarPerfil, setEditarPerfil] = useState({});
+  const docRef = doc(db, `usuarios/${uidUser}`);
   const docRefPubli=doc(db, "listado/empresas")
 
   const handleChange = ({ target: { name, value } }) => {
@@ -28,12 +27,9 @@ export default function PerfildelaCuenta() {
 
   const handleChangeData = async (e) => {
     e.preventDefault();
-    // const data = await getDoc(docRef).then((data) => data?.data().perfilUser);
-    // const dataEdit = await getDoc(doc(db, "listado/empresas")).then(
-    //   (consulta) => consulta?.data()[data?.businessName]
-    // );
+   
     await updateDoc(docRef, { perfilUser });
-    const referencedBusinessName= `${perfilUser?.businessName}.perfilUser`
+    const referencedBusinessName= `${uidUser}.perfilUser`
      await updateDoc(docRefPubli, {
        [referencedBusinessName]: perfilUser,
      }).then(() => {
@@ -44,6 +40,7 @@ export default function PerfildelaCuenta() {
      setHabilitarEdicion(!habilitarEdicion);
   };
   useEffect(() => {
+
     const traer = async () =>
       await traerDataProfile().then((data) => setEditarPerfil(data));
     traer();
@@ -54,9 +51,6 @@ export default function PerfildelaCuenta() {
     setPerfilUser(data?.data().perfilUser);
   };
 
-  const irAPaginas = () => {
-    Navigate("//www.facebook.com" + [perfilUser?.Facebook]);
-  };
 
   return (
     <div className="board min-h-screen">

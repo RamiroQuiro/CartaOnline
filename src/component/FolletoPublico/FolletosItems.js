@@ -21,6 +21,35 @@ const [estadoDelCarrito, setEstadoDelCarrito] = useState(null)
   const params = useParams();
   const businessName = params.businessName;
 
+
+  useEffect(() => {
+    const unsub = onSnapshot(docRefe, (datos) => {
+      const arrays = Object.values(datos.data());
+      var arr = arrays.reduce((accum, items) => accum.concat(items), [])
+      const datosTraidos = arr.find(buscar=>buscar?.perfilUser?.businessName==businessName)
+      setPerfilCuenta(datosTraidos);
+      setStyles(datosTraidos?.styles);
+      setImagenes(datosTraidos?.images)
+      // setImagenes({
+      //   logo: datosTraidos[businessName]?.images?.find(
+      //     (imagen) => imagen.posicion == "logo"
+      //   )?.url,
+      //   imagen1: datosTraidos[businessName]?.images?.find(
+      //     (imagen) => imagen.posicion == "imagen1"
+      //   )?.url,
+      //   imagen2: datosTraidos[businessName]?.images?.find(
+      //     (imagen) => imagen.posicion == "imagen2"
+      //   )?.url,
+      //   imagen3: datosTraidos[businessName]?.images?.find(
+      //     (imagen) => imagen.posicion == "imagen3"
+      //   )?.url,
+      // });
+    });
+    return () => unsub();
+  }, []);
+
+
+  
   useEffect(() => {
     const category = () => {
       if (perfilCuenta) {
@@ -47,34 +76,11 @@ const [estadoDelCarrito, setEstadoDelCarrito] = useState(null)
     return () => unsub();
   }, [perfilCuenta]);
 
-  useEffect(() => {
-    const unsub = onSnapshot(docRefe, (datos) => {
-      const datosTraidos = datos.data();
-      setPerfilCuenta(datosTraidos[businessName]);
-      setStyles(datosTraidos[businessName].styles);
-      setImagenes(datosTraidos[businessName].images)
-      // setImagenes({
-      //   logo: datosTraidos[businessName]?.images?.find(
-      //     (imagen) => imagen.posicion == "logo"
-      //   )?.url,
-      //   imagen1: datosTraidos[businessName]?.images?.find(
-      //     (imagen) => imagen.posicion == "imagen1"
-      //   )?.url,
-      //   imagen2: datosTraidos[businessName]?.images?.find(
-      //     (imagen) => imagen.posicion == "imagen2"
-      //   )?.url,
-      //   imagen3: datosTraidos[businessName]?.images?.find(
-      //     (imagen) => imagen.posicion == "imagen3"
-      //   )?.url,
-      // });
-    });
-    return () => unsub();
-  }, []);
+
 
 useEffect(() => {
   const response=stateGral()
   setEstadoDelCarrito(response)
-console.log(estadoDelCarrito)
 }, [state])
 
 

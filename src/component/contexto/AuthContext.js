@@ -4,9 +4,6 @@ import { db, gAuth } from '../Firebase';
 import {    doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../img/Logo.png"
- import imagen1 from "../../img/pizzas.webp"
- import imagen2 from "../../img/burguer.webp"
-// import imagen3 from "../../img/"
 import toast from 'react-hot-toast';
 
 
@@ -22,9 +19,16 @@ export default function AuthContext({children}) {
   const [userPerfil,setUserPerfil]= useState(null)
   
   const docRef=doc(db,`usuarios/${user?.uid}`)
-  const docRefItems = doc(db, `listado/${userPerfil?.businessName}`);
  const login= (mail,password)=>signInWithEmailAndPassword(gAuth,mail,password)
 
+ const nombreDiscponible =async (businessName)=>{
+    const nombreDiscponible= await getDoc(doc(db,'listado/empresas')).then((datos)=>{
+      const arrays = Object.values(datos.data());
+      return arrays.reduce((accum, items) => accum.concat(items), [])
+
+    })
+    return nombreDiscponible
+ }
  
           
 const register=async (mail,password,userName,businessName)=>{
@@ -37,7 +41,7 @@ const register=async (mail,password,userName,businessName)=>{
     }
   })
   updateDoc(doc(db, `listado/empresas`),{
-    [`${businessName}`]:{
+    [`${currentUser.user.uid}`]:{
       perfilUser:{
         businessName:businessName,
         email:mail,
@@ -108,6 +112,8 @@ const register=async (mail,password,userName,businessName)=>{
             },
           });
           break;
+          default:
+          break
       }
     })
 }
@@ -125,9 +131,14 @@ const traerDataProfile = async () => {
 // escribir en el perfil
 
 const editarPerfil = async(datos,businessName)=>{
-  const data= (await getDoc(docRef))?.data()
- setDoc(docRef,{...data,[Object.keys(datos)]:Object.values(datos)[0]});
-}
+  nombreDiscponible(businessName).then(async(boleano)=>{
+  if(!boleano){
+  return
+  }else{
+   const data= (await getDoc(docRef))?.data()
+   setDoc(docRef,{...data,[Object.keys(datos)]:Object.values(datos)[0]});
+}})}
+ 
 
 useEffect(()=>{
 const unsuscribe=onAuthStateChanged(gAuth, (user) =>{
@@ -147,7 +158,7 @@ useEffect(() => {
 
   return (
     // eslint-disable-next-line react/jsx-pascal-case
-    <AuthContexto.Provider value={{ user, editarPerfil,traerDataProfile, userPerfil,register, login }}>
+    <AuthContexto.Provider value={{ user, editarPerfil,traerDataProfile, userPerfil,register, login,nombreDiscponible }}>
       {children}
     </AuthContexto.Provider>
   );

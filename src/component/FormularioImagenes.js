@@ -3,35 +3,37 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { FcUpload } from "react-icons/fc";
+import { Auth } from './contexto/AuthContext';
 import { db, storage } from './Firebase';
 
 export default function FormularioImagenes({perfilUser}) {
+  const {user}=Auth()
     const [previewURL, setPreviewURL] = useState(null);
     const [fileURL, setFileURL] = useState(null);
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const docRef = doc(db, `listado/empresas`);
-    const businessName =`${perfilUser?.businessName}.images`;
-
+    const businessName =`${user?.uid}.images`;
     useEffect(() => {
-        if (!file) {
-          return;
-        }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setPreviewURL(reader.result);
-        };
-        reader.readAsDataURL(file);
-      }, [file]);
-
-      const handleSubmitFile = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        const fileName = e.target.nombre.value;
-        const filePosicion=e.target.posicion.value;
-        const fileRef = ref(
-          storage,
-          `imagenes/${perfilUser.businessName}/${file.name}`
+      if (!file) {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewURL(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }, [file]);
+    
+    const handleSubmitFile = async (e) => {
+      e.preventDefault();
+      console.log(businessName)
+      setLoading(true);
+      const fileName = e.target.nombre.value;
+      const filePosicion=e.target.posicion.value;
+      const fileRef = ref(
+        storage,
+          `imagenes/${user?.uid}/${file.name}`
         );
         await uploadBytes(fileRef, file).then(async (uploadTask) => {
           await getDownloadURL(fileRef).then(async (url) => {

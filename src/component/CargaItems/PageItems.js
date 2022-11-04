@@ -1,13 +1,10 @@
 import {
-  arrayRemove,
-  arrayUnion,
   doc,
   getDoc,
-  setDoc,
   updateDoc,
 } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
-import toast, { LoaderIcon, Toaster } from "react-hot-toast";
+import React, {  useEffect, useState } from "react";
+import toast, {  Toaster } from "react-hot-toast";
 import { useOutletContext } from "react-router-dom";
 import pensando from "../../img/pensando.png";
 import "./pageItems.css";
@@ -18,7 +15,7 @@ import ModalNewCategory from "../modal/ModalNewCategory";
 
 export default function PageItems() {
   const { eliminarItems, eliminarCategory } = useContexto();
-  const [listadoItems, perfilUser] = useOutletContext();
+  const [listadoItems, perfilUser,movil,docRefCategorias ] = useOutletContext();
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);
 
   const [itemsState, setItemsState] = useState(false);
@@ -26,8 +23,10 @@ export default function PageItems() {
   const [estadoModal2, setEstadoModal2] = useState(false);
   const [categorias, setCategorias] = useState([]);
   const docRef = doc(db, `listado/empresas/`);
-  const businessName = perfilUser?.businessName;
+  const businessName = docRefCategorias
 
+
+  console.log(listadoItems)
   useEffect(() => {
     const category = () => {
       if (listadoItems) {

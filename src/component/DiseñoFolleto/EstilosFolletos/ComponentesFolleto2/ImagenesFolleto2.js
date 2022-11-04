@@ -4,7 +4,7 @@ import { FaEdit, FaTimes } from 'react-icons/fa'
 export default function ImagenesFolleto2({className,classNameImg,imagen,name,width,figcaption,editFolleto,handleSubmitFile,handleDeleteImagen}) {
   return (
     <figure
-    className={`${className} md:px-4 py-3 flex flex-col items-center relative w-full  mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
+    className={`${className} md:px-4 py-3 flex flex-col items-center obeject-cover relative w-full  mx-auto lg:w-[${width}%]  rounded-xl overflow-hidden`}
   >
     {editFolleto&&!imagen&&
     <img

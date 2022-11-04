@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 
 import ModalLoading from "../../modal/ModalLoading";
 import RenderEditorDiseño from "./RenderEditorDiseño";
+import { Auth } from "../../contexto/AuthContext";
 const sytileInicial = {
   color1: "#2e2e2e",
   color2: "#271717",
@@ -26,6 +27,7 @@ const sytileInicial = {
 
 export default function EditorFolleto() {
   const storages=getStorage()
+  const {user}=Auth()
   const {perfilCuenta, listadoItems} = useOutletContext();
   const [imagen, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,7 +37,7 @@ export default function EditorFolleto() {
   const [items, setItems] = useState([]);
   const [styles, setStyles] = useState(sytileInicial);
   const docRef = doc(db, `listado/empresas/`);
-  const businessName = listadoItems?.businessName;
+  const businessName =user?.uid
 
   // const imagenes=perfilCuenta.images
   useEffect(() => {
@@ -86,7 +88,7 @@ export default function EditorFolleto() {
     const file = e.target.files[0];
     setFile(filet);
     setLoading(true);
-    const referencedBusinessName= `${perfilCuenta?.perfilUser?.businessName}.images`
+    const referencedBusinessName= `${businessName}.images`
     const fileName = e.target.name;
     const fileRef = ref(storage, `imagenes/${businessName}/${fileName}`);
     await uploadBytes(fileRef, file).then(async () => {
@@ -112,8 +114,8 @@ export default function EditorFolleto() {
   };
   
   const handleDeleteImagen =async  (name) => {
-    const referencedBusinessName= `${perfilCuenta?.perfilUser?.businessName}.images`
-    const desertRef = ref(storages, `imagenes/${perfilCuenta?.perfilUser?.businessName}/${name}`);
+    const referencedBusinessName= `${businessName}.images`
+    const desertRef = ref(storages, `imagenes/${businessName}/${name}`);
     deleteObject(desertRef).then((data)=>toast.success('imagen borrada'))
     await updateDoc(docRef, {
       [referencedBusinessName]: imagen.map((img) =>
@@ -138,7 +140,7 @@ export default function EditorFolleto() {
   }
   const handleStyleFolleto = async (e) => {
     e.preventDefault();
-    const referencedBusinessName = businessName + "." + "styles";
+    const referencedBusinessName= `${businessName}.styles`
     await updateDoc(docRef, {
       [referencedBusinessName]: styles,
     }).then(() => {
@@ -148,7 +150,7 @@ export default function EditorFolleto() {
 
   const handleResetStyles = async (e) => {
     e.preventDefault();
-    const referencedBusinessName = businessName + "." + "styles";
+    const referencedBusinessName= `${businessName}.styles`
     await updateDoc(docRef, {
       [referencedBusinessName]: sytileInicial,
     }).then(() => {

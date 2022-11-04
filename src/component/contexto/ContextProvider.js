@@ -18,10 +18,10 @@ const estadoInicial={
 }
 
 export default function ContextProvider  ({ children }) {
-  const {userPerfil }=Auth()
+  const {userPerfil,user }=Auth()
 // const docRef = doc(db, `usuarios/${user?.uid}`);
+const id=user?.uid
 const docRefItems = doc(db, `listado/empresas`);
-
 const [state, dispatch] = useReducer(ReducerPedidos, estadoInicial)
 const traerPedidos=(stateMenu)=>{
     // setPedidoGral(...pedidoGral,stateMenu)
@@ -50,7 +50,7 @@ const stateGral=()=>{
 
 // crear Items nuevos en la collection Items
 const crearCategoria=async(categoria)=>{
-    const referencedBusinessName=`${userPerfil.businessName}.categorias.${categoria}`
+    const referencedBusinessName=`${id}.categorias.${categoria}`
     await updateDoc(docRefItems,{ [referencedBusinessName]:arrayUnion()})
   
   toast('Categoria Agregada!', {
@@ -58,7 +58,7 @@ const crearCategoria=async(categoria)=>{
   });}
 
 const crearItems=async(item,categoria)=>{
-    const referencedBusinessName=`${userPerfil?.businessName}.categorias.${categoria}`
+    const referencedBusinessName=`${id}.categorias.${categoria}`
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayUnion(item)})
     
   toast('Items Agregado!', {
@@ -68,7 +68,7 @@ const crearItems=async(item,categoria)=>{
 }
 // eliminar items
 const eliminarItems=async(item,categoria)=>{
-  const referencedBusinessName=`${userPerfil?.businessName}.categorias.${categoria}`
+  const referencedBusinessName=`${id}.categorias.${categoria}`
     await updateDoc(docRefItems,{[referencedBusinessName]:arrayRemove(item)})
   toast('Items Eliminado!', {
     icon: '👏',
@@ -76,7 +76,7 @@ const eliminarItems=async(item,categoria)=>{
 }
 
 const eliminarCategory = async(newObject)=>{
-  const referencedBusinessName = `${userPerfil.businessName}.categorias`
+  const referencedBusinessName = `${id}.categorias`
   await updateDoc(docRefItems,{[referencedBusinessName]:newObject})
 }
 

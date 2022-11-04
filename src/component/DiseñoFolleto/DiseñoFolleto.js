@@ -6,12 +6,12 @@ import MenuDiseños from "./MenuDiseños";
 
 
 export default function DiseñoFolleto({ perfilUserLogin }) {
-  const [perfilCuenta, listadoItems,movil] = useOutletContext();
-
+  const [perfilCuenta, listadoItems,movil,user] = useOutletContext();
 const outletContexto={
   perfilCuenta,
   listadoItems,
-  movil
+  movil,
+  user
 }
 
   return (

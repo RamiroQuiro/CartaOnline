@@ -10,14 +10,14 @@ import toast from "react-hot-toast";
 
 export default function SelectorDiseños() {
 
-const {perfilCuenta,movil} =useOutletContext()
+const {perfilCuenta,movil,user} =useOutletContext()
 const [opcion,setOpcion]=useState(0)
 const [isActive,setIsActive]= useState(0)
 const docRef = doc(db, `listado/empresas/`);
-
+const businessName=user
 useEffect(() => {
   const diseño=()=>{
-    const diseñoFolleto=perfilCuenta?.styles?.diseñoFolleto
+    const diseñoFolleto=businessName?.styles?.diseñoFolleto
   setIsActive(diseñoFolleto)
   switch (diseñoFolleto) {
     case 1:
@@ -39,7 +39,7 @@ useEffect(() => {
 
 
 const handleStyleFolleto = async (id) => {
-  const referencedBusinessName= `${perfilCuenta?.perfilUser?.businessName}.styles.diseñoFolleto`
+  const referencedBusinessName= `${businessName}.styles.diseñoFolleto`
   await updateDoc(docRef, {
     [referencedBusinessName]: id,
   }).then((data)=>{

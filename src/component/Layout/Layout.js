@@ -16,7 +16,7 @@ export default function Layout() {
 
   const docRef = doc(db, `usuarios/${user?.uid}`);
   const docRefItems = doc(db, "/listado/empresas");
-  const docRefCategorias = perfilUserLogin?.businessName;
+  const docRefCategorias = user?.uid;
   // termina trayendo data user
   useEffect(() => {
     const unsub = onSnapshot(docRefItems, (listado) => {
@@ -48,11 +48,12 @@ export default function Layout() {
     });
     return () => unsub();
   }, []);
+  console.log(perfilUserLogin)
   return (
     <div className="containerLayout w-full overflow-x-hidden">
       <Navbar perfilUser={perfilUserLogin} className="z-50" />
       <main>
-        <Outlet context={[listadoItems, perfilUserLogin, movil]} />
+        <Outlet context={[listadoItems, perfilUserLogin, movil,docRefCategorias]} />
       </main>
     </div>
   );

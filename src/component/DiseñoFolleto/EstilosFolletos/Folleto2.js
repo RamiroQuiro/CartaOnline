@@ -14,7 +14,6 @@ export default function Folleto2({
 }) {
 
   const itemsMenu = (categoria, i) => {
-    console.log( perfilCuenta?.categorias?.["Entradas"])
     return (
       <div className={`w-full flex flex-col items-center  `}>
         {
