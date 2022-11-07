@@ -9,6 +9,8 @@
     "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.12",
     "firebase": "^9.6.10",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "qrcode": "^1.5.1",
     "react": "^17.0.2",
     "react-animated-css": "^1.2.1",

@@ -81,7 +81,7 @@ export default function ItemsMenu({
         type="number"
         name="ItemsMenu"
         id={productID}
-        style={{ outlineColor: `${textColor1}`}}
+        style={{ outlineColor: `${textColor1} `,color: `${textColor2}`}}
         className="cantidadItems text-lg text-center focus:bg-orange-400 font-bold rounded border-orange-100"
         placeholder="0"
         value={cantidadItems.cantidad}

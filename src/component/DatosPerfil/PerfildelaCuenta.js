@@ -9,6 +9,7 @@ import PerfilRedesSociales from "../PerfilRedesSociales";
 import SubidaLogo from "./SubidaLogo";
 
 export default function PerfildelaCuenta() {
+  const {nombreDiscponible}=Auth()
   const [perfilUserLogin, listadoItems,movil,uidUser] = useOutletContext();
   const [perfilUser, setPerfilUser] = useState({});
   const [habilitarEdicion, setHabilitarEdicion] = useState(false);
@@ -40,7 +41,11 @@ export default function PerfildelaCuenta() {
      setHabilitarEdicion(!habilitarEdicion);
   };
   useEffect(() => {
-
+const traerNombre=async()=>{
+const response=  await nombreDiscponible()
+ response.filter(element=>element.perfilUser?.businessName=="ramon")
+}
+console.log(traerNombre())
     const traer = async () =>
       await traerDataProfile().then((data) => setEditarPerfil(data));
     traer();
