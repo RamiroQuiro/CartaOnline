@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../img/Logo.png";
+import menu from "../../img/menu.svg";
 import loginImg from "../../img/empleado.png";
 
  export default function NavBarHome() {
@@ -18,14 +19,14 @@ import loginImg from "../../img/empleado.png";
           height="100px"
           className={`${toggle ? "opacity-0" : "opacity-100 "} duration-300`}
         />
-        <button className=" right-16 fixed " onClick={handleToggle}>
+        <button className=" right-16 fixed bg-red-500 rounded-full " onClick={handleToggle}>
           <img
-            src={"menulinea"}
+            src={menu}
             alt="menu linear"
-            width={"40px"}
-            height="40px"
+            width={"35px"}
+            height="35px"
             className={`${
-              !toggle ? " duration-300" : " duration-300 rotate-90"
+              !toggle ? " duration-300 -rotate-180 " : " duration-300 -rotate-45"
             } fixed`}
           />
         </button>

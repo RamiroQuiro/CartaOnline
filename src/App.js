@@ -15,6 +15,7 @@ import Home from "./Home";
 import EditorFolleto from "./component/DiseñoFolleto/OutletdeDiseños/EditorFolleto";
 import Afiches from "./component/DiseñoFolleto/EditorAfiches/Afiches";
 import SelectorDiseños from "./component/DiseñoFolleto/OutletdeDiseños/SelectorDiseños";
+import AficheCanvas from "./component/DiseñoFolleto/EditorAfiches/AficheCanvas";
 function App() {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ function App() {
                   <Route path="disenios"  index element={<SelectorDiseños/>}/>
                   <Route path="editorFolleto" element={<EditorFolleto />} />
                   <Route path="afiches" element={<Afiches />} />
+                  {/* <Route path="afichesCanvas" element={<AficheCanvas />} /> */}
                 </Route>
             </Route>
           </Routes>

@@ -23,10 +23,10 @@ export default function SectionPrecio() {
                   <div className="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
                     <div className="px-6 py-12 md:px-12">
                       <h2 className="text-3xl font-bold mb-6 pb-2">
-                        $2500/Mes
+                        $1000/Mes
                       </h2>
-                      <p className="text-gray-500 mb-6 pb-2">
-                        Suscripción por $2500 al mes, el precio para diferenciarte de tu competencia.
+                      <p className="text-gray-500 mb-6 pb-2 font-medium">
+                        Suscripción por $1000 al mes, el precio para diferenciarte de tu competencia.
                         Eleva la calidad de tu negocio.
                       </p>
                       <div className="flex flex-wrap mb-6">

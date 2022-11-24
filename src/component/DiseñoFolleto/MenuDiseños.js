@@ -31,6 +31,10 @@ export default function MenuDiseños() {
        link={'afiches'}
        text={"Diseño Afiches"}
        />
+       {/* <ItemsMenu 
+       link={'afichesCanvas'}
+       text={"afichesCanvas"}
+       /> */}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import jsPDF from "jspdf";
 import { useRef } from "react";
 
 export default function Afiches() {
-  const componenteRef=useRef(null)
+  const componenteRef = useRef(null);
   const { perfilCuenta } = useOutletContext();
   const [imagen, setImagen] = useState(null);
   const formatoQR = {
@@ -39,49 +39,48 @@ export default function Afiches() {
     imagenesArray();
   }, []);
 
-
   const handleDownloadPDF = () => {
-   
-const input =document.getElementById('printers')
-html2canvas(input, {
-  logging:true,
-  letterRendering:1,
-  useCORS:true,
-}).then((canvas)=>{
-
- const imgWidth=14.8;
- const imgHeight=canvas.height * imgWidth / canvas.width;
- const imgData=canvas.toDataURL('img/png');
- const pdf=new jsPDF('portrait','cm','a5',2);
-pdf.addImage(imgData,'PNG',0,0,imgWidth,imgHeight)
-pdf.save('qrCarta-Online.pdf')
-})
+    const input = document.querySelector("#printers");
+    html2canvas(input, { logging: true, useCORS: true }).then((canvas) => {
+      const imgWidth = 14.3;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgData = canvas.toDataURL();
+      console.log(imgData);
+      const pdf = new jsPDF("portrait", "cm", "a5");
+      pdf.addImage(imgData, "JPG", 0, 0, imgWidth, imgHeight);
+      pdf.save("qrCarta-Online.pdf");
+    });
   };
 
+  const downloadPDF = async () => {};
 
-
-return(
-    <ContenedorBlanco >
+  return (
+    <ContenedorBlanco>
       <ImagenAfiche
-      ref={componenteRef}
-      id={"printers"} 
-      imagen={imagen}
-      perfilCuenta={perfilCuenta}
-      qrCode={qrCode}
+        ref={componenteRef}
+        id={"printers"}
+        imagen={imagen}
+        perfilCuenta={perfilCuenta}
+        qrCode={qrCode}
       />
       <div className="my-10 mx-auto w-full flex justify-around items-center">
-        
         <ReactToPrint
-        trigger={()=><button>impirmir macho</button>}
-        pageStyle='print'
-        onAfterPrint={()=>{console.log('impreso pa')}}
+          trigger={() => <button>impirmir macho</button>}
+          pageStyle="print"
+          onAfterPrint={() => {
+            console.log("impreso pa");
+          }}
         />
-        <button  className="uppercase font-medium text-xs w-full md:w-1/4 border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 px-3 py-2"
-        >Imprimir</button>
-        <button onClick={handleDownloadPDF} className="uppercase font-medium text-xs w-full border md:w-1/4 text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 px-3 py-2"
-        >Descargar</button>
+        <button className="uppercase font-medium text-xs w-full md:w-1/4 border text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 px-3 py-2">
+          Imprimir
+        </button>
+        <button
+          onClick={handleDownloadPDF}
+          className="uppercase font-medium text-xs w-full border md:w-1/4 text-white bg-blue-400 rounded hover:bg-white hover:border-blue-400 duration-500 hover:text-blue-400 px-3 py-2"
+        >
+          Descargar
+        </button>
       </div>
     </ContenedorBlanco>
   );
-
 }
