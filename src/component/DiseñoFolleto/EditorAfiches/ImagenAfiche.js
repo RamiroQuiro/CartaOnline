@@ -1,19 +1,18 @@
 import React from "react";
-import ImagenesFolleto2 from "../EstilosFolletos/ComponentesFolleto2/ImagenesFolleto2";
 
 export default function ImagenAfiche({id, perfilCuenta, imagen, qrCode,ref }) {
   
   return (
     <div id={id} ref={ref} className="print:visible relative md:w-[720px]  flex md:h-[960px] border-b-4 border-t-4 border-paleta-500 flex-col items-center justify-between mx-auto bg-white rounded-xl overflow-hidden">
     
-        <div className="bg-red-500/70 absolute w-auto h-1/2 top-0 left-0 z-10 backdrop-blur-sm">
-        <img
+        <div className="bg-red-500 absolute w-auto h-1/2 top-0 left-0 z-10 backdrop-blur-sm">
+        {/* <img
           src={imagen?.find((img) => img?.posicion == "imagen1")?.url}
           alt="backgrounQR"
           className="z-0 object-cover w-full h-auto  "
-        />
+        /> */}
       </div>
-      <div className=" bg-orange-500/50 w-full h-1/2 mx-auto text-center pt-8 text-gray-100 z-20 backdrop-blur-sm">
+      <div className=" bg-paleta-300/70 w-full h-1/2 mx-auto text-center pt-8 text-gray-100 z-20 backdrop-blur-sm">
       <img
           src={imagen?.find((img) => img?.posicion == "logo")?.url}
           alt="backgrounQR"

@@ -44,7 +44,7 @@ function App() {
                 <Route  element={<DiseñoFolleto />}>
                   <Route path="disenios"  index element={<SelectorDiseños/>}/>
                   <Route path="editorFolleto" element={<EditorFolleto />} />
-                  <Route path="afiches" element={<Afiches />} />
+                  <Route path="afiches" element={<AficheCanvas />} />
                   {/* <Route path="afichesCanvas" element={<AficheCanvas />} /> */}
                 </Route>
             </Route>

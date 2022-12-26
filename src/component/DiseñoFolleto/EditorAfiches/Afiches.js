@@ -45,7 +45,6 @@ export default function Afiches() {
       const imgWidth = 14.3;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       const imgData = canvas.toDataURL();
-      console.log(imgData);
       const pdf = new jsPDF("portrait", "cm", "a5");
       pdf.addImage(imgData, "JPG", 0, 0, imgWidth, imgHeight);
       pdf.save("qrCarta-Online.pdf");
