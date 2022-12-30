@@ -11,8 +11,8 @@ import toast from "react-hot-toast";
 export default function SelectorDiseños() {
 
 const {perfilCuenta,movil,user} =useOutletContext()
-const [opcion,setOpcion]=useState(0)
-const [isActive,setIsActive]= useState(0)
+const [opcion,setOpcion]=useState(1)
+const [isActive,setIsActive]= useState(1)
 const docRef = doc(db, `listado/empresas/`);
 const businessName=user
 useEffect(() => {

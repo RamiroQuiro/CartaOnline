@@ -70,7 +70,7 @@ roundedRect(ctx,0,0,width,height,50, 5,'#D9501E')
 //instera las imagenes - Logo y el QR
   const instearImg = (ctx, imagen, size) => {
     var img = new Image();
-    img.crossOrigin="anonymous"
+    // img.crossOrigin="anonymous"
     img.src = imagen;
     let widthImg = size;
     let heighthImg = size;
@@ -139,8 +139,8 @@ colocarTexto(ctx,"Scanea para ver nuestros productos",30,720/2,900)
   return (
     <canvas
     // onMouseMove={draw}
-    onMouseDown={startDarwing}
-    onMouseUp={stopDrawing}
+    // onMouseDown={startDarwing}
+    // onMouseUp={stopDrawing}
     className={className}
     ref={canvasRef}
     height={height}
