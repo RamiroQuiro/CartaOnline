@@ -9,86 +9,86 @@ import { db } from "../../Firebase";
 import toast from "react-hot-toast";
 
 export default function SelectorDiseños() {
+  const { perfilCuenta, movil, user } = useOutletContext();
+  const [opcion, setOpcion] = useState(0);
+  const [isActive, setIsActive] = useState(0);
+  const docRef = doc(db, `listado/empresas/`);
+  const businessName = user;
+  useEffect(() => {
+    const diseño = () => {
+      const diseñoFolleto = businessName?.styles?.diseñoFolleto;
+      setIsActive(diseñoFolleto);
+      switch (diseñoFolleto) {
+        case 1:
+          setOpcion(50);
+          break;
+        case 2:
+          setOpcion(400);
+          break;
+        case 3:
+          setOpcion(750);
+          break;
 
-const {perfilCuenta,movil,user} =useOutletContext()
-const [opcion,setOpcion]=useState(0)
-const [isActive,setIsActive]= useState(0)
-const docRef = doc(db, `listado/empresas/`);
-const businessName=user
-useEffect(() => {
-  const diseño=()=>{
-    const diseñoFolleto=businessName?.styles?.diseñoFolleto
-  setIsActive(diseñoFolleto)
-  switch (diseñoFolleto) {
-    case 1:
-        setOpcion(50)
-      break;
-    case 2:
-        setOpcion(400)
-      break;
-    case 3:
-        setOpcion(750)
-      break;
-  
-    default:
-      setOpcion(400)
-      break;
-  }}
-  diseño()
-},[])
-
-
-const handleStyleFolleto = async (id) => {
-  const referencedBusinessName= `${businessName}.styles.diseñoFolleto`
-  await updateDoc(docRef, {
-    [referencedBusinessName]: id,
-  }).then((data)=>{
-    toast.success('Diseño Cambiado')
-  })
-};
-
-const descipcionFolletos=[
-  {
-    title:"Modelo 1",
-    descripcion:"Folleto pensado para varios items y varias categoria",
-  },
-  {
-    title:"Modelo 2",
-    descripcion:"Modelo simple con los items ordenados en columna a la derecha",
-  },
-  {
-    title:"Modelo 3",
-    descripcion:"Modelo a de pocos items en donde a primera vista se vizualzan los items",
-  },
-]
-
-
-const handleCarrusel=(id)=>{
-  setIsActive(id)
-  handleStyleFolleto(id)
-  switch (id) {
-    case 1:
-        setOpcion(0)
-      break;
-    case 2:
-    if(!movil){
-      setOpcion(23)
-    }else{
-      setOpcion(18)
-    }
-      break;
-    case 3:
-      if(!movil){
-        setOpcion(46)
-      }else{
-        setOpcion(36)
+        default:
+          setOpcion(400);
+          break;
       }
-      break;
-  
-    default:
-      break;
-  }
-}
+    };
+    diseño();
+  }, []);
+
+  const handleStyleFolleto = async (id) => {
+    const referencedBusinessName = `${businessName}.styles.diseñoFolleto`;
+    await updateDoc(docRef, {
+      [referencedBusinessName]: id,
+    }).then((data) => {
+      toast.success("Diseño Cambiado");
+    });
+  };
+
+  const descipcionFolletos = [
+    {
+      title: "Modelo 1",
+      descripcion: "Folleto pensado para varios items y varias categoria",
+    },
+    {
+      title: "Modelo 2",
+      descripcion:
+        "Modelo simple con los items ordenados en columna a la derecha",
+    },
+    {
+      title: "Modelo 3",
+      descripcion:
+        "Modelo a de pocos items en donde a primera vista se vizualzan los items",
+    },
+  ];
+
+  const handleCarrusel = (id) => {
+    setIsActive(id);
+    handleStyleFolleto(id);
+    switch (id) {
+      case 1:
+        setOpcion(0);
+        break;
+      case 2:
+        if (!movil) {
+          setOpcion(23);
+        } else {
+          setOpcion(18);
+        }
+        break;
+      case 3:
+        if (!movil) {
+          setOpcion(46);
+        } else {
+          setOpcion(36);
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <ContenedorBlanco>
@@ -100,30 +100,20 @@ const handleCarrusel=(id)=>{
       </div>
       <div className="w-full flex flex-wrap items-center ">
         <div className=" lg:w-1/2 w-11-12 mx-auto  flex flex-col gap-1  lg:gap-3 my-8 items-center justify-center">
-
-          {
-            descipcionFolletos?.map((element,i)=>(
-              
-              <ContenedorOpcionDiseño
+          {descipcionFolletos?.map((element, i) => (
+            <ContenedorOpcionDiseño
               onClick={handleCarrusel}
               isActive={isActive}
-              id={i+1}
+              id={i + 1}
               title={element.title}
-              >
-                {element.descripcion}
-                </ContenedorOpcionDiseño>
-            ))
-          }
-  
-          
+            >
+              {element.descripcion}
+            </ContenedorOpcionDiseño>
+          ))}
         </div>
         <div className="flex-auto md:w-1/2 w-full md:h-[620px] h-[300px] bg-white md:rounded-tl-5xl md:rounded-bl-5xl relative rounded-lg flex flex-col overflow-hidden items-center justify-center mb-20">
           <div className="min-h-[20%] md:block hidden w-full bg-gradient-to-b  from-gray-500/30 to-transparent backdrop-blur-sm z-40 absolute top-0 left-0"></div>
-           {
-           perfilCuenta&&
-           <CarriselVertical
-            transladar={opcion}
-            />}
+          {perfilCuenta && <CarriselVertical transladar={opcion} />}
           <div className=" min-h-[20%] w-full md:block hidden bg-gradient-to-t from-gray-500/30 to-transparent backdrop-blur-sm absolute bottom-0 left-0"></div>
         </div>
       </div>

@@ -13,7 +13,10 @@ import SectionPrecio from "./component/home/Main/SectionPrecio";
 import Contacto from "./component/home/Main/Contacto";
 import Footer from "./component/home/Footer/Footer";
 import NavBarHome from "./component/home/NavBarHome";
-// import menulinea from "./img/menulinea.svg";
+import diseño1 from "./img/diseño1.png"
+import diseño2 from "./img/diseño2.png"
+import diseño3 from "./img/diseño3.png"
+
 
 export default function Home() {
   const [toggle, setToggles] = useState(false);
@@ -21,6 +24,22 @@ export default function Home() {
     setToggles(!toggle);
   };
 
+
+
+const descipcionFolletos=[
+  {
+    title:"Modelo 1",
+    descripcion:"Folleto pensado para varios items y varias categoria",
+  },
+  {
+    title:"Modelo 2",
+    descripcion:"Modelo simple con los items ordenados en columna a la derecha",
+  },
+  {
+    title:"Modelo 3",
+    descripcion:"Modelo a de pocos items en donde a primera vista se vizualzan los items",
+  },
+]
   return (
     <div className={theme.light}>
       <header 
@@ -49,8 +68,10 @@ export default function Home() {
               Precios en tiempo Real
             </p>
           </div>
-          <div className="md:w-1/2 w-full md:my-0 my-10 bg-color flex flex-col bg-gradient-to-tr from-amber-300/70 to-amber-500/80 h-5/6 rounded-lg rounded-b-5xl md:rounded-r-lg md:rounded-l-5xl">
-            
+          <div className="md:w-1/2 w-full md:my-0 my-10 bg-color overflow-hidden relative flex flex-col bg-gradient-to-tr from-amber-300/20 to-amber-500/20 h-5/6 rounded-lg rounded-b-5xl md:rounded-r-lg md:rounded-l-5xl">
+              <img src={diseño1} alt="diseño1" className="w-8/12 absolute left-2 top-1/3 z-30 object-cover" />
+              <img src={diseño2} alt="diseño2" className="w-8/12 absolute left-1/2 top-1/2 z-20 object-cover" />
+              <img src={diseño3} alt="diseño3" className="w-8/12 absolute left-1/3 top-14 z-10 object-cover" />
           </div>
         </div>
         <div className="flex md:flex-row flex-col w-full gap-10 justify-around pt-16 items-center   ">

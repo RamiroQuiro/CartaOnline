@@ -3,7 +3,7 @@ import diseño1 from "../img/diseño1.png"
 import diseño2 from "../img/diseño2.png"
 import diseño3 from "../img/diseño3.png"
 
-export default function CarriselVertical({transladar}) {
+export default function CarriselVertical({transladar,className}) {
 
 const arrayImg=[
   {
@@ -26,7 +26,7 @@ const arrayImg=[
     style={{
       transform:`translateY(${transladar*-1}rem)` 
     }}
-    className={` flex flex-col items-center w-full rounded-xl md:px-16 px-5 lg:h-[30%] h-[100px]  duration-700 gap-16 justify-start`}>
+    className={`${className} flex flex-col items-center w-full rounded-xl md:px-16 px-5 lg:h-[30%] h-[100px]  duration-700 gap-16 justify-start`}>
    
    {
     arrayImg?.map((img,i)=>(

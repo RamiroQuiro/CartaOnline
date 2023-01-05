@@ -16,6 +16,7 @@ import ModalLoading from "../../modal/ModalLoading";
 import RenderEditorDiseño from "./RenderEditorDiseño";
 import { Auth } from "../../contexto/AuthContext";
 const sytileInicial = {
+  diseñoFolleto:1,
   color1: "#2e2e2e",
   color2: "#271717",
   SelectionRange: 19,

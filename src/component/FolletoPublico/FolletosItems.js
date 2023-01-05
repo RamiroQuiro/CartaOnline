@@ -90,8 +90,8 @@ useEffect(() => {
   if (!styles?.diseñoFolleto) {
     return (
       <div className="flex flex-col w-full md:py-2 py-5">
-        <div className=" md:w-[98%] w-full min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col md:gap-4 justify-around items-center justify-self-auto relative ">
-          Cargando..
+        <div className=" md:w-[98%] w-full min-h-[98vh] shadow-[-8px_0_30px_5px_#1c212890] overflow-hidden mx-auto rounded-lg flex flex-col md:gap-4 justify-around items-center justify-self-auto relative text-sm font-bold animate-pulse  ">
+          Cargando...
         </div>
       </div>
     );
