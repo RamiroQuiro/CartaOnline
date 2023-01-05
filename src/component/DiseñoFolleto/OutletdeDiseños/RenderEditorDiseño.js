@@ -58,14 +58,14 @@ export default function RenderEditorDiseño({
         return (
           <div className="flex flex-col w-full md:py-2 py-5">
             <Folleto3
-               editFolleto={true}
-               styles={styles}
-               imagen={imagen}
-               categorias={categorias}
-               handleDeleteImagen={handleDeleteImagen}
-               handleSubmitFile={handleSubmitFile}
-               businessName={perfilCuenta?.perfilUser?.businessName}
-               perfilCuenta={perfilCuenta}
+              editFolleto={true}
+              styles={styles}
+              imagen={imagen}
+              categorias={categorias}
+              handleDeleteImagen={handleDeleteImagen}
+              handleSubmitFile={handleSubmitFile}
+              businessName={perfilCuenta?.perfilUser?.businessName}
+              perfilCuenta={perfilCuenta}
             />
           </div>
         );

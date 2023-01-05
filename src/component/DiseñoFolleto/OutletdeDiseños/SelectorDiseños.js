@@ -29,9 +29,84 @@ export default function SelectorDiseños() {
           setOpcion(750);
           break;
 
+<<<<<<< HEAD
         default:
           setOpcion(400);
           break;
+=======
+const {perfilCuenta,movil,user} =useOutletContext()
+const [opcion,setOpcion]=useState(1)
+const [isActive,setIsActive]= useState(1)
+const docRef = doc(db, `listado/empresas/`);
+const businessName=user
+useEffect(() => {
+  const diseño=()=>{
+    const diseñoFolleto=businessName?.styles?.diseñoFolleto
+  setIsActive(diseñoFolleto)
+  switch (diseñoFolleto) {
+    case 1:
+        setOpcion(50)
+      break;
+    case 2:
+        setOpcion(400)
+      break;
+    case 3:
+        setOpcion(750)
+      break;
+  
+    default:
+      setOpcion(400)
+      break;
+  }}
+  diseño()
+},[])
+
+
+const handleStyleFolleto = async (id) => {
+  const referencedBusinessName= `${businessName}.styles.diseñoFolleto`
+  await updateDoc(docRef, {
+    [referencedBusinessName]: id,
+  }).then((data)=>{
+    toast.success('Diseño Cambiado')
+  })
+};
+
+const descipcionFolletos=[
+  {
+    title:"Modelo 1",
+    descripcion:"Folleto pensado para varios items y varias categoria",
+  },
+  {
+    title:"Modelo 2",
+    descripcion:"Modelo simple con los items ordenados en columna a la derecha",
+  },
+  {
+    title:"Modelo 3",
+    descripcion:"Modelo a de pocos items en donde a primera vista se vizualzan los items",
+  },
+]
+
+
+const handleCarrusel=(id)=>{
+  setIsActive(id)
+  handleStyleFolleto(id)
+  switch (id) {
+    case 1:
+        setOpcion(0)
+      break;
+    case 2:
+    if(!movil){
+      setOpcion(23)
+    }else{
+      setOpcion(18)
+    }
+      break;
+    case 3:
+      if(!movil){
+        setOpcion(46)
+      }else{
+        setOpcion(36)
+>>>>>>> 805eb9f7b49e593627406461878c7e6f252bd742
       }
     };
     diseño();

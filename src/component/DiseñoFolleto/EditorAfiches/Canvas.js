@@ -1,38 +1,31 @@
 import { useRef, useEffect, useState } from "react";
 
 export default function Canvas({
-  id,
   logo,
   width,
   height,
-  props,
   className,
   qrCode,
-  businessName,
-  printer,setPrinter
+  businessName, canvasRef,  canvas,
+  ctx,
 }) {
   const [isDrawing, setIsDrawing] = useState(false);
   const [prevPoint, setPrevPoint] = useState(null);
   const [snapshot, setSnapshot] = useState(false);
-  const canvasRef = useRef(null);
-  const canvas = canvasRef.current;
-  const ctx = canvas?.getContext("2d");
+
 
   useEffect(() => {
+    if (!canvas) return;
     if (!isDrawing) return;
   }, []);
 
 
   useEffect(() => {
-    if(printer){
-      imprimir(ctx,canvas)
-      console.log(printer)
-    }
   
     return () => {
       
     }
-  }, [printer])
+  }, [])
   
   // funcion para marcar las coordenadas dentro del lienzo
   const computePointInCanvas = (clientX, clientY) => {
@@ -77,6 +70,7 @@ roundedRect(ctx,0,0,width,height,50, 5,'#D9501E')
 //instera las imagenes - Logo y el QR
   const instearImg = (ctx, imagen, size) => {
     var img = new Image();
+    // img.crossOrigin="anonymous"
     img.src = imagen;
     let widthImg = size;
     let heighthImg = size;
@@ -87,6 +81,7 @@ roundedRect(ctx,0,0,width,height,50, 5,'#D9501E')
   const instearQR = (ctx, imagen, size) => {
     if(!ctx)return
     var img = new Image();
+    img.crossOrigin="anonymous"
     img.src = imagen;
     let widthImg = size;
     let heighthImg = size;
@@ -126,19 +121,6 @@ colocarTexto(ctx,businessName,70,720/2,250)
 colocarTexto(ctx,"Scanea para ver nuestros productos",30,720/2,900)
 
 
-const imprimir=(ctx,canvas)=>{
-  if(!ctx)return
-  var img=canvas?.toDataURL("image/jpeg", 1);
-  // Crear un elemento <a>
-  let enlace = document.createElement('a');
-  // El título
-  enlace.download = "Canvas como imagen.jpg";
-  // Convertir la imagen a Base64 y ponerlo en el enlace
-  enlace.href = img
-  // Hacer click en él
-  enlace.click();
-  setPrinter(false)
-}
 
   const startDarwing = (e) => {
     setIsDrawing(true);
@@ -151,18 +133,19 @@ const imprimir=(ctx,canvas)=>{
     // const stopDrawing = () => {
     //   setIsDrawing(false);
   };
-
+  function stopDrawing() {
+    setIsDrawing(false);
+  }
   return (
     <canvas
-    id={id}
-      onMouseMove={draw}
-      onMouseDown={startDarwing}
-      // onMouseUp={stopDrawing}
-      height={height}
-      width={width}
-      className={className}
-      ref={canvasRef}
-      {...props}
+    // onMouseMove={draw}
+    // onMouseDown={startDarwing}
+    // onMouseUp={stopDrawing}
+    className={className}
+    ref={canvasRef}
+    height={height}
+    width={width}
+    
     />
   );
 }
