@@ -13,10 +13,9 @@ import SectionPrecio from "./component/home/Main/SectionPrecio";
 import Contacto from "./component/home/Main/Contacto";
 import Footer from "./component/home/Footer/Footer";
 import NavBarHome from "./component/home/NavBarHome";
-import diseño1 from "./img/diseño1.png"
-import diseño2 from "./img/diseño2.png"
-import diseño3 from "./img/diseño3.png"
-
+import diseño1 from "./img/diseño1.png";
+import diseño2 from "./img/diseño2.png";
+import diseño3 from "./img/diseño3.png";
 
 export default function Home() {
   const [toggle, setToggles] = useState(false);
@@ -24,31 +23,32 @@ export default function Home() {
     setToggles(!toggle);
   };
 
-
-
-const descipcionFolletos=[
-  {
-    title:"Modelo 1",
-    descripcion:"Folleto pensado para varios items y varias categoria",
-  },
-  {
-    title:"Modelo 2",
-    descripcion:"Modelo simple con los items ordenados en columna a la derecha",
-  },
-  {
-    title:"Modelo 3",
-    descripcion:"Modelo a de pocos items en donde a primera vista se vizualzan los items",
-  },
-]
+  const descipcionFolletos = [
+    {
+      title: "Modelo 1",
+      descripcion: "Folleto pensado para varios items y varias categoria",
+    },
+    {
+      title: "Modelo 2",
+      descripcion:
+        "Modelo simple con los items ordenados en columna a la derecha",
+    },
+    {
+      title: "Modelo 3",
+      descripcion:
+        "Modelo a de pocos items en donde a primera vista se vizualzan los items",
+    },
+  ];
   return (
     <div className={theme.light}>
-      <header 
-      id="home"
-      className="w-5/6 mx-auto md:h-screen flex flex-col mb-64  justify-between items-center">
+      <header
+        id="home"
+        className="w-5/6 mx-auto md:h-screen flex flex-col md:mb-64 mb-20 justify-between items-center"
+      >
         {/* menu navbar */}
-        <NavBarHome/>
+        <NavBarHome />
         {/* header cabecera */}
-        <div className="flex flex-col md:flex-row items-center md:pt-32 pt-10 justify-between w-full min-h-screen ">
+        <div className="flex flex-col md:flex-row items-center md:pt-32 my-10 md:justify-between justify-around w-full min-h-screen ">
           <div className="md:w-1/2 flex gap-5 pr-7 flex-col items-start text-left ">
             <h2 className="text-xl font-medium">
               Menu | Carta | Folleto Digital
@@ -57,24 +57,36 @@ const descipcionFolletos=[
               Tus Productos <br /> al Servicio de todos
             </h1>
             <div className="my-2 w-full">
-        <span className="inline-block w-64 h-2 bg-paleta-600 rounded-full"></span>
-        <span className="inline-block w-16 h-2 ml-1 bg-paleta-600 rounded-full"></span>
-        <span className="inline-block w-5 h-2 ml-1 bg-paleta-600 rounded-full"></span>
-        <span className="inline-block w-2 h-2 ml-1 bg-paleta-600 rounded-full"></span>
-      </div>
+              <span className="inline-block w-64 h-2 bg-paleta-600 rounded-full"></span>
+              <span className="inline-block w-16 h-2 ml-1 bg-paleta-600 rounded-full"></span>
+              <span className="inline-block w-5 h-2 ml-1 bg-paleta-600 rounded-full"></span>
+              <span className="inline-block w-2 h-2 ml-1 bg-paleta-600 rounded-full"></span>
+            </div>
             <p className="font-medium text-lg">
               Ofrece tus productos en tu Carta-Online, y recibe pedidos por
               whatsApp, la via principal de comunicación. Actualiza Productos y
               Precios en tiempo Real
             </p>
           </div>
-          <div className="md:w-1/2 w-full md:my-0 my-10 bg-color overflow-hidden relative flex flex-col bg-gradient-to-tr from-amber-300/20 to-amber-500/20 h-5/6 rounded-lg rounded-b-5xl md:rounded-r-lg md:rounded-l-5xl">
-              <img src={diseño1} alt="diseño1" className="w-8/12 absolute left-2 top-1/3 z-30 object-cover" />
-              <img src={diseño2} alt="diseño2" className="w-8/12 absolute left-1/2 top-1/2 z-20 object-cover" />
-              <img src={diseño3} alt="diseño3" className="w-8/12 absolute left-1/3 top-14 z-10 object-cover" />
+          <div className="md:w-2/3 w-full pt-14  relative flex flex-col h-full md:h-5/6 rounded-lg rounded-b-5xl md:rounded-r-lg md:rounded-l-5xl">
+            <img
+              src={diseño1}
+              alt="diseño1"
+              className="w-8/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125 shadow-lg hover:rotate-0 absolute -left-8 top-10 z-30 object-cover rounded-lg -rotate-6 hover:z-40"
+            />
+            <img
+              src={diseño2}
+              alt="diseño2"
+              className="w-4/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125  shadow-lg hover:rotate-0 absolute right-0 -top-5 z-20 object-cover rounded-lg rotate-3 hover:z-40"
+            />
+            <img
+              src={diseño3}
+              alt="diseño3"
+              className="w-4/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125  shadow-lg hover:rotate-0 absolute left-1/3 -bottom-10 z-10 object-cover rounded-lg -rotate-2 hover:z-40"
+            />
           </div>
         </div>
-        <div className="flex md:flex-row flex-col w-full gap-10 justify-around pt-16 items-center   ">
+        <div className="flex md:flex-row flex-col w-full gap-10 justify-around md:pt-8 pt-32 items-center   ">
           <div className="bg-white flex md:w-1/3 md:h-32 items-center justify-center gap-4 mx-auto md:rounded-full rounded-xl shadow-xl py-4 hover:-translate-y-1 duration-100 hover:shadow-2xl px-2 ">
             <img
               alt="diseñoFacil"
