@@ -48,7 +48,7 @@ export default function Home() {
         {/* menu navbar */}
         <NavBarHome />
         {/* header cabecera */}
-        <div className="flex flex-col md:flex-row items-center md:pt-32 my-10 md:justify-between justify-around w-full min-h-screen ">
+        <div className="flex flex-col md:flex-row items-center md:pt-14 my-10 md:justify-between justify-around w-full min-h-screen ">
           <div className="md:w-1/2 flex gap-5 pr-7 flex-col items-start text-left ">
             <h2 className="text-xl font-medium">
               Menu | Carta | Folleto Digital
@@ -68,21 +68,21 @@ export default function Home() {
               Precios en tiempo Real
             </p>
           </div>
-          <div className="md:w-2/3 w-full pt-14  relative flex flex-col h-full md:h-5/6 rounded-lg rounded-b-5xl md:rounded-r-lg md:rounded-l-5xl">
+          <div className="md:w-2/3 w-full   relative flex flex-col h-full md:h-5/6 rounded-lg rounded-b-5xl md:rounded-r-lg md:rounded-l-5xl">
             <img
               src={diseño1}
               alt="diseño1"
-              className="w-8/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125 shadow-lg hover:rotate-0 absolute -left-8 top-10 z-30 object-cover rounded-lg -rotate-6 hover:z-40"
+              className="w-6/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125 shadow-lg hover:rotate-0 absolute -left-8 top-10 z-30 object-cover rounded-lg -rotate-6 hover:z-40"
             />
             <img
               src={diseño2}
               alt="diseño2"
-              className="w-4/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125  shadow-lg hover:rotate-0 absolute right-0 -top-5 z-20 object-cover rounded-lg rotate-3 hover:z-40"
+              className="w-4/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125  shadow-lg hover:rotate-0 absolute -right-2 -top-5 z-20 object-cover rounded-lg rotate-3 hover:z-40"
             />
             <img
               src={diseño3}
               alt="diseño3"
-              className="w-4/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125  shadow-lg hover:rotate-0 absolute left-1/3 -bottom-10 z-10 object-cover rounded-lg -rotate-2 hover:z-40"
+              className="w-4/12 duration-200 cursor-grab hover:-translate-y-1 hover:scale-125  shadow-lg hover:rotate-0 absolute left-1/3 -bottom-20 z-10 object-cover rounded-lg -rotate-2 hover:z-40"
             />
           </div>
         </div>
