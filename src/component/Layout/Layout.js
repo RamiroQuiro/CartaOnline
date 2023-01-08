@@ -12,11 +12,11 @@ export default function Layout() {
   const [perfilUserLogin, setPerfilUserLogin] = useState({});
   const [listadoItems, setListadoItems] = useState([]);
 
-  const [recargar, setRecargar] = useState(false);
 
   const docRef = doc(db, `usuarios/${user?.uid}`);
   const docRefItems = doc(db, "/listado/empresas");
   const docRefCategorias = user?.uid;
+  
   // termina trayendo data user
   useEffect(() => {
     const unsub = onSnapshot(docRefItems, (listado) => {
@@ -25,6 +25,9 @@ export default function Layout() {
 
     return () => unsub();
   }, [perfilUserLogin]);
+
+
+
 
   useEffect(() => {
     let navegador = navigator.userAgent;

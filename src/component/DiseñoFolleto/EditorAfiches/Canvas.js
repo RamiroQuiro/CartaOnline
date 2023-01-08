@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
 export default function Canvas({
   logo,
@@ -10,14 +10,14 @@ export default function Canvas({
   ctx,
 }) {
   const [isDrawing, setIsDrawing] = useState(false);
-  const [prevPoint, setPrevPoint] = useState(null);
-  const [snapshot, setSnapshot] = useState(false);
+  // const [prevPoint, setPrevPoint] = useState(null);
+  // const [snapshot, setSnapshot] = useState(false);
 
 
   useEffect(() => {
     if (!canvas) return;
     if (!isDrawing) return;
-  }, []);
+  }, [canvas,isDrawing]);
 
 
   useEffect(() => {
@@ -78,13 +78,13 @@ roundedRect(ctx,0,0,width,height,50, 5,'#D9501E')
       ctx.drawImage(img, (720 - widthImg) / 2, 15, widthImg, heighthImg);
     };
   };
-  const instearQR = (ctx, imagen, size) => {
+  const instearQR = (ctx, imagen, width,height) => {
     if(!ctx)return
-    var img = new Image();
+    let img = new Image();
     img.crossOrigin="anonymous"
     img.src = imagen;
-    let widthImg = size;
-    let heighthImg = size;
+    let widthImg = width;
+    let heighthImg = height;
     img.onload = function () {
       ctx.drawImage(
         img,
@@ -97,8 +97,8 @@ roundedRect(ctx,0,0,width,height,50, 5,'#D9501E')
     roundedRect(ctx,(720 - widthImg) / 2,(960 - heighthImg)  - heighthImg/4,widthImg+2,heighthImg+2,80,)
   };
 
-  instearQR(ctx, qrCode, 500);
-  instearImg(ctx, logo, 150);
+  instearQR(ctx, qrCode, 500,500);
+  instearImg(ctx, logo, 150,150);
 
 
 //coloacar texto
